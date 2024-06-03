@@ -6,6 +6,7 @@ import Homepage from './pages/Home/Homepage';
 import ManageContent from './pages/ManageContent/ManageContent';
 import ManagePatient from './pages/ManagePatient/ManagePatient';
 import Transaction from './pages/Transaction/Transaction';
+import Register from './pages/Register/Register';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,6 +19,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={isLoggedIn ? <Navigate to="/homepage" /> : <Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/homepage" element={<Homepage />} />
       <Route path="/managecontent" element={<ManageContent />} />
       <Route path="/managepatient" element={<ManagePatient />} />
