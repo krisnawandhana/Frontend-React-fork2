@@ -10,13 +10,13 @@ export default function Register() {
     return (
     <>
         <div className="flex w-full h-screen">
-            <div className="flex flex-col items-center text-center px-[72px] pt-20">
-                <div className="mb-16">
+            <div className="flex flex-col items-center text-center w-1/2 pt-20">
+                <div className="mb-20">
                     <h1 className="text-heading1 font-medium">Selamat Datang di MindEase</h1>
                     <h3 className="text-heading3 font-normal">Dukungan Profesional untuk Kesehatan Mental Anda</h3>
                 </div>
 
-                <div className="w-2/3">
+                <div className="w-2/4">
                     <form action="">
                         <div>
                             <label htmlFor="email" className="text-body1 font-medium text-dark-1 flex text-start">Email</label>
@@ -101,7 +101,7 @@ export default function Register() {
                     </div>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-20">
                     <p className="text-sm font-normal">Sudah memiliki akun? <span className="font-bold text-primary">Login</span></p>
                 </div>
             </div>
