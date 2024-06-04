@@ -1,14 +1,25 @@
-import React from 'react'
-import NavBar from '../../components/NavBar/NavBar'
-import HeroSection from '../../components/HeroSection/HeroSection'
-import Footer from '../../components/Footer/Footer'
+// src/pages/LandingPage.js
+import React from "react";
+import Hero from "../../sections/Hero";
+import OurServices from "../../sections/OurServices";
+// import ContactUs from "../../sections/ContactUs";
+import Testimoni from "../../sections/Testimoni";
+import WhyChooseUs from "../../sections/WhyChooseUs";
+import Navbar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 
-export default function LandingPage() {
+function LandingPage() {
   return (
-    <div>
-        <NavBar />
-        <HeroSection />
-        <Footer />
+    <div className="bg-white">
+      <Navbar />
+      <Hero />
+      <OurServices />
+      <WhyChooseUs />
+      <Testimoni />
+      {/* <ContactUs /> */}
+      <Footer />
     </div>
-  )
+  );
 }
+
+export default LandingPage;
