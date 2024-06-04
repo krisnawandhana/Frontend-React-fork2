@@ -8,6 +8,7 @@ import ManagePatient from './pages/ManagePatient/ManagePatient';
 import Transaction from './pages/Transaction/Transaction';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Register from './pages/Register/Register';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,6 +27,7 @@ function App() {
       <Route path="/managepatient" element={<ManagePatient />} />
       <Route path="/transaction" element={<Transaction />} />
       <Route path="/landingpage" element={<LandingPage />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }
