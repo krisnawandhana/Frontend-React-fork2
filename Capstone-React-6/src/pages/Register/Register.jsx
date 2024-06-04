@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom' 
 
 export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
@@ -9,8 +10,8 @@ export default function Register() {
 
     return (
     <>
-        <div className="flex w-full h-screen">
-            <div className="flex flex-col items-center text-center w-1/2 pt-20">
+        <div className="flex lg:flex-row w-full h-screen md:flex-col">
+            <div className="flex flex-col md:w-full md:mb-6 items-center text-center lg:w-1/2 pt-20">
                 <div className="mb-20">
                     <h1 className="text-heading1 font-medium">Selamat Datang di MindEase</h1>
                     <h3 className="text-heading3 font-normal">Dukungan Profesional untuk Kesehatan Mental Anda</h3>
@@ -102,12 +103,12 @@ export default function Register() {
                 </div>
 
                 <div className="mt-20">
-                    <p className="text-sm font-normal">Sudah memiliki akun? <span className="font-bold text-primary">Login</span></p>
+                    <p className="text-sm font-normal">Sudah memiliki akun? <Link to="/" className="font-bold text-primary">Login</Link></p>
                 </div>
             </div>
 
-            <div>
-                <img src="../../../public/Register/image.png" alt="" className="bg-primary h-screen" />
+            <div className="bg-primary">
+                <img src="../../../public/Register/image.png" alt="" className="h-screen" />
             </div>
         </div>
     </>
