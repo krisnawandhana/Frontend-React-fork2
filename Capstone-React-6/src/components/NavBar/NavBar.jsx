@@ -4,7 +4,14 @@ export default function NavBar() {
   return (
     <div>
       <nav className="bg-[#F1F3F6] border-gray-200">
-        <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+        <div className="w-11/12 flex items-center justify-between mx-auto p-4">
+          {/* Logo Mindease */}
+          <div className="flex items-center justify-end">
+            <a href="#" className="flex items-center space-x-3 ">
+              <img src="logo/mindease-logo.svg" className="h-8" alt="Mindease Logo" />
+            </a>
+          </div>
+
           {/* Daftar Menu dan Tombol Menu Responsive */}
           <div className="flex items-center space-x-3 md:justify-start w-full md:w-auto">
             <button
@@ -40,13 +47,6 @@ export default function NavBar() {
                 </li>
               </ul>
             </div>
-          </div>
-
-          {/* Logo Mindease */}
-          <div className="flex items-center justify-end">
-            <a href="#" className="flex items-center space-x-3 ">
-              <img src="logo/mindease-logo.svg" className="h-8" alt="Mindease Logo" />
-            </a>
           </div>
         </div>
       </nav>
