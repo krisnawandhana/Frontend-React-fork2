@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function HeroSection() {
   return (
-    <div>HeroSection</div>
+    <div>Krisna pernah belanja disini 🥶🥶🥶</div>
   )
 }

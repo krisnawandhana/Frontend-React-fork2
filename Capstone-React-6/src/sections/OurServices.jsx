@@ -1,6 +1,6 @@
 // src/pages/OurServices.js
 import React from "react";
-import image from "../img/landingpage-ourservices-img.png";
+import image from "../assets/img/landingpage-ourservices-img.png";
 
 function OurServices() {
   return (

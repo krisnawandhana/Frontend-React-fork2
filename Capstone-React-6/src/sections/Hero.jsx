@@ -1,6 +1,6 @@
 // src/pages/Hero.js
 import React from "react";
-import image from "../img/landingpage-hero-img.png";
+import image from "../assets/img/landingpage-hero-img.png";
 function Hero() {
   return (
     <div className="grid gap-4 grid-cols-2 items-center m-10">

@@ -1,10 +1,10 @@
 // src/pages/WhyChooseUs.js
 import React from "react";
-import image from "../img/landingpage-whychooseus-img.png";
-import icon_1 from "../img/landingpage-whychooseus-icon-stethoscope.png";
-import icon_2 from "../img/landingpage-whychooseus-icon-warning.png";
-import icon_3 from "../img/landingpage-whychooseus-icon-cloud.png";
-import icon_4 from "../img/landingpage-whychooseus-icon-usercircle.png";
+import image from "../assets/img/landingpage-whychooseus-img.png";
+import icon_1 from "../assets/img/landingpage-whychooseus-icon-stethoscope.png";
+import icon_2 from "../assets/img/landingpage-whychooseus-icon-warning.png";
+import icon_3 from "../assets/img/landingpage-whychooseus-icon-cloud.png";
+import icon_4 from "../assets/img/landingpage-whychooseus-icon-usercircle.png";
 
 function WhyChooseUs() {
   return (

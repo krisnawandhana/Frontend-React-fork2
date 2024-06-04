@@ -1,11 +1,11 @@
 // src/pages/ContactUs.js
 import React from "react";
-import logo from "../img/Logo-img.png";
-import iconMobile from "../img/landingpage-contactus-icon-mobile.png";
-import iconEmail from "../img/landingpage-contactus-icon-forwardemail.png";
-import iconTwitter from "../img/landingpage-contactus-icon-twitter.png";
-import iconInstagram from "../img/landingpage-contactus-icon-instagram.png";
-import iconDiscord from "../img/landingpage-contactus-icon-discord.png";
+import logo from "../assets/img/Logo-img.png";
+import iconMobile from "../assets/img/landingpage-contactus-icon-mobile.png";
+import iconEmail from "../assets/img/landingpage-contactus-icon-forwardemail.png";
+import iconTwitter from "../assets/img/landingpage-contactus-icon-twitter.png";
+import iconInstagram from "../assets/img/landingpage-contactus-icon-instagram.png";
+import iconDiscord from "../assets/img/landingpage-contactus-icon-discord.png";
 
 function ContactUs() {
   return (
