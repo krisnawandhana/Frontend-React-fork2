@@ -19,6 +19,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={isLoggedIn ? <Navigate to="/homepage" /> : <Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/homepage" element={<Homepage />} />
       <Route path="/managecontent" element={<ManageContent />} />
       <Route path="/managepatient" element={<ManagePatient />} />
