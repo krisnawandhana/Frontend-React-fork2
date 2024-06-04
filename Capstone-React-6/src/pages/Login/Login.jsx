@@ -36,18 +36,18 @@ export default function Login() {
 
   return (
     <div className="flex h-screen">
-      <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
+      <div className="w-full bg-white lg:w-1/2 flex items-center justify-center">
         <div className="max-w-md w-full p-6">
           <h1 className="text-heading1 font-normal mb-6 text-dark-1 text-center">Selamat Datang di MindEase</h1>
           <h1 className="text-normal font-lighter mb-6 text-dark-1 text-center">Dukungan Profesional untuk Kesehatan Mental Anda</h1>
 
           {/* form login */}
-          <form action="#" method="POST" className="space-y-4" onSubmit={handleLogin}>
+          <form action="#" method="POST" className="space-y-4 mt-12" onSubmit={handleLogin}>
 
             {/* username */}
             <div>
               <label htmlFor="username" className="block text-sm font-light text-dark-1">Username</label>
-              <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)} className="bg-white mt-1 p-2 w-full border rounded-md focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"/>
+              <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)} className="text-sm bg-white mt-1 p-2 w-full border rounded-md ring-1 ring-primary focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300" placeholder="Masukan Username"/>
             </div>
 
             <div>
@@ -56,8 +56,7 @@ export default function Login() {
                 Password
               </label>
               <div className="relative">
-                <input type={showPassword ? 'text' : 'password'} id="password" name="password" onChange={(e) => setPassword(e.target.value)} className="bg-white mt-1 p-2 w-full border rounded-md focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"
-                />
+                <input type={showPassword ? 'text' : 'password'} id="password" name="password" onChange={(e) => setPassword(e.target.value)} className="text-sm bg-white mt-1 p-2 w-full border rounded-md ring-1 ring-primary focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300" placeholder="Masukan Password"/>
                 <svg
                   className="h-6 text-gray-700 cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2"
                   onClick={togglePasswordVisibility}
@@ -83,14 +82,14 @@ export default function Login() {
               </div>
               {/* forget password input */}
               <div className="my-2 text-sm text-gray-600 text-right">
-                <p>Lupa password? <a href="#" className="text-primary hover:text-primary-darker">Klik disini</a></p>
+                <a href=""><p>Lupa password?</p></a>
               </div>
             </div>
             
             {error && <p className="text-red-500 text-center mt-4">{error}</p>}
             
             <div>
-              <button type="submit" className="btn btn-outline w-full bg-white text-primary p-2 rounded-md hover:bg-primary hover:text-white focus:outline-none focus:bg-primary-darker focus:text-white focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300">Login</button>
+              <button type="submit" className="btn btn-outline w-full mt-16 bg-white text-primary p-2 rounded-md hover:bg-primary hover:text-white focus:outline-none focus:bg-primary-darker focus:text-white focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300">Login</button>
             </div>
           </form>
 
@@ -99,6 +98,7 @@ export default function Login() {
           <div className="mt-4 text-sm text-gray-600 text-center">
             <p>Or</p>
           </div>
+          
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
               <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
@@ -131,6 +131,9 @@ export default function Login() {
                 </defs>
               </svg>Facebook</button>
             </div>
+          </div>
+          <div className="my-8 text-body1 text-gray-600 text-center">
+            <p>Tidak punya akun?<a href="" className="text-primary text-body1 font-semibold mx-4">Daftar</a></p>
           </div>
         </div>
       </div>
