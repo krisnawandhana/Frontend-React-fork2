@@ -1,8 +1,35 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
+import register from '../../utils/register';
 
 export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [formData, setFormData] = useState({
+        email: '',
+        username: '',
+        password: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await register(formData);
+        setMessage(response.message);
+
+        if (response.success) {
+            // Handle successful registration (e.g., redirect to login)
+            console.log('Registration successful:', response.data);
+            window.location.reload();
+        } else {
+            // Handle registration failure
+            console.error('Registration failed:', response.message);
+        }
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -18,15 +45,15 @@ export default function Register() {
                 </div>
 
                 <div className="w-2/4">
-                    <form action="">
+                    <form onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="email" className="text-body1 font-medium text-dark-1 flex text-start">Email</label>
-                            <input type="text" id="email" name="email" 
+                            <input type="text" id="email" name="email" onChange={handleChange} value={formData.email}
                             placeholder='Masukkan Email' className="bg-white mt-1 mb-3 py-2 px-4 w-full border border-primary-subtle rounded-md font-normal text-body1 focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"/>
                         </div>
                         <div>
                             <label htmlFor="username" className="text-body1 font-medium text-dark-1 flex text-start">Username</label>
-                            <input type="text" id="username" name="username" 
+                            <input type="text" id="username" name="username" onChange={handleChange} value={formData.username}
                             placeholder='Masukkan Username' className="bg-white mt-1 mb-3 py-2 px-4 w-full border border-primary-subtle rounded-md font-normal text-body1 focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"/>
                         </div>
                         <div>
@@ -34,7 +61,7 @@ export default function Register() {
                                 Password
                             </label>
                             <div className="relative">
-                                <input type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder='Ketikkan Password' className="bg-white mt-1 mb-3 py-2 px-4 w-full border border-primary-subtle rounded-md font-normal text-body1 focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"/>
+                                <input type={showPassword ? 'text' : 'password'} onChange={handleChange} value={formData.password} id="password" name="password" placeholder='Ketikkan Password' className="bg-white mt-1 mb-3 py-2 px-4 w-full border border-primary-subtle rounded-md font-normal text-body1 focus:border-primary-lighter focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"/>
                                 <svg
                                 className="h-6 text-gray-700 cursor-pointer absolute right-3 top-6 transform -translate-y-1/2"
                                 onClick={togglePasswordVisibility}
@@ -63,7 +90,11 @@ export default function Register() {
                             <button type="submit" className="btn btn-outline w-full bg-white text-primary p-2 text-body1 rounded-md hover:bg-primary hover:text-white focus:outline-none focus:bg-primary-darker focus:text-white focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300">Daftar</button>
                         </div>
                     </form>
-
+                    {message && (
+                            <div className={`mt-4 ${response.success ? 'text-green-500' : 'text-red-500'}`}>
+                                {message}
+                            </div>
+                        )}
                     <div className="my-6 text-sm text-gray-600 text-center">
                         <p>Or</p>
                     </div>
