@@ -7,6 +7,7 @@ import ManageContent from './pages/ManageContent/ManageContent';
 import ManagePatient from './pages/ManagePatient/ManagePatient';
 import Transaction from './pages/Transaction/Transaction';
 import LandingPage from './pages/LandingPage/LandingPage';
+import Register from './pages/Register/Register';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
