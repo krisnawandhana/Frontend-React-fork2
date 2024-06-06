@@ -2,7 +2,6 @@
 import React from "react";
 import Hero from "../../sections/Hero";
 import OurServices from "../../sections/OurServices";
-// import ContactUs from "../../sections/ContactUs";
 import Testimoni from "../../sections/Testimoni";
 import WhyChooseUs from "../../sections/WhyChooseUs";
 import Navbar from "../../components/NavBar/NavBar";
@@ -12,12 +11,21 @@ function LandingPage() {
   return (
     <div className="bg-white">
       <Navbar />
-      <Hero />
-      <OurServices />
-      <WhyChooseUs />
-      <Testimoni />
-      {/* <ContactUs /> */}
-      <Footer />
+      <section id="home">
+        <Hero />
+      </section>
+      <section id="services">
+        <OurServices />
+      </section>
+      <section id="about">
+        <WhyChooseUs />
+      </section>
+      <section id="community">
+        <Testimoni />
+      </section>
+      <section id="contact">
+        <Footer />
+      </section>
     </div>
   );
 }
