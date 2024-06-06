@@ -27,7 +27,7 @@ const PermintaanJanjiTemuCard = ({
 				</div>
 				<div className="col-span-1 flex justify-center items-center px-4">
 					{status === "" ? (
-						<div className="flex flex-row justify-between gap-x-2 w-full">
+						<div className="flex flex-row justify-center gap-x-2 w-full">
 							<button
 								onClick={() => onStatusChange("accepted")}
 								className="rounded-md aspect-square min-w-fit"
