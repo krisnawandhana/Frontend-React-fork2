@@ -1,14 +1,14 @@
 // src/pages/WhyChooseUs.js
 import React from "react";
 import image from "../assets/img/landingpage-whychooseus-img.png";
-import icon_1 from "../assets/img/landingpage-whychooseus-icon-stethoscope.png";
-import icon_2 from "../assets/img/landingpage-whychooseus-icon-warning.png";
-import icon_3 from "../assets/img/landingpage-whychooseus-icon-cloud.png";
-import icon_4 from "../assets/img/landingpage-whychooseus-icon-usercircle.png";
+import icon_1 from "../assets/img/landingpage-whychooseus-icon-stethoscope.svg";
+import icon_2 from "../assets/img/landingpage-whychooseus-icon-warning.svg";
+import icon_3 from "../assets/img/landingpage-whychooseus-icon-cloud.svg";
+import icon_4 from "../assets/img/landingpage-whychooseus-icon-usercircle.svg";
 
 function WhyChooseUs() {
   return (
-    <div className="w-full grid bg-primary-lighter">
+    <div className="w-full grid">
       <div className=" col-start-2 col-span-4 rounded pt-16">
         <h1 className="font-bold text-dark-1 font-sans text-4xl text-center">
           Kenapa Memilih Kami?
@@ -30,7 +30,7 @@ function WhyChooseUs() {
             <div className="grid gap-4 grid-cols-2">
               <div className="max-w-sm mx-auto mr-10">
                 <div className="flex content-start justify-start">
-                  <div className="px-5 py-6 bg-ourservices-bg2 rounded-lg text-left ">
+                  <div className="py-6 text-left ">
                     <img src={icon_1} alt="" />
                   </div>
                 </div>
@@ -48,7 +48,7 @@ function WhyChooseUs() {
               </div>
               <div className="max-w-sm mx-auto mr-10">
                 <div className="flex content-start justify-start">
-                  <div className="px-5 py-6 bg-ourservices-bg3 rounded-lg text-left ">
+                  <div className="py-6 text-left ">
                     <img src={icon_2} alt="" />
                   </div>
                 </div>
@@ -66,7 +66,7 @@ function WhyChooseUs() {
               </div>
               <div className="mt-5 max-w-sm mx-auto mr-10">
                 <div className="flex content-start justify-start">
-                  <div className="px-5 py-6 bg-ourservices-bg4 rounded-lg text-left ">
+                  <div className="py-6 text-left ">
                     <img src={icon_3} alt="" />
                   </div>
                 </div>
@@ -85,7 +85,7 @@ function WhyChooseUs() {
               </div>
               <div className="mt-5 max-w-sm mx-auto mr-10">
                 <div className="flex content-start justify-start">
-                  <div className="px-5 py-6 bg-ourservices-bg1 rounded-lg text-left ">
+                  <div className="py-6 text-left ">
                     <img src={icon_4} alt="" />
                   </div>
                 </div>

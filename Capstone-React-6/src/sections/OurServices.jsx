@@ -25,8 +25,8 @@ function OurServices() {
             <div className="grid gap-4 grid-cols-1">
               <div className=" p-5  rounded">
                 <div className="flex content-end justify-end">
-                  <div className="px-5 py-6 bg-ourservices-bg1 rounded-2xl text-right ">
-                    <h1 className="text-ourservices-font1 text-4xl font-base">
+                  <div className="px-5 py-6 bg-primary rounded-2xl text-right ">
+                    <h1 className="text-white text-4xl font-base">
                       1
                     </h1>
                   </div>
@@ -46,8 +46,8 @@ function OurServices() {
               </div>
               <div className="p-5   rounded">
                 <div className="flex content-end justify-end">
-                  <div className="px-5 py-6 bg-ourservices-bg3 rounded-2xl text-right ">
-                    <h1 className="text-ourservices-font3 text-4xl font-base">
+                  <div className="px-5 py-6 bg-primary rounded-2xl text-right ">
+                    <h1 className="text-white text-4xl font-base">
                       3
                     </h1>
                   </div>
@@ -73,8 +73,8 @@ function OurServices() {
             <div className="grid gap-4 grid-cols-1">
               <div className="p-5   rounded">
                 <div className="flex content-star justify-start">
-                  <div className="px-5 py-6 bg-ourservices-bg2 rounded-2xl text-left ">
-                    <h1 className="text-ourservices-font2 text-4xl font-base">
+                  <div className="px-5 py-6 bg-primary rounded-2xl text-left ">
+                    <h1 className="text-white text-4xl font-base">
                       2
                     </h1>
                   </div>
@@ -93,8 +93,8 @@ function OurServices() {
               </div>
               <div className="p-5   rounded">
                 <div className="flex content-star justify-start">
-                  <div className="px-5 py-6 bg-ourservices-bg4 rounded-2xl text-left ">
-                    <h1 className="text-ourservices-font4 text-4xl font-base">
+                  <div className="px-5 py-6 bg-primary rounded-2xl text-left ">
+                    <h1 className="text-white text-4xl font-base">
                       4
                     </h1>
                   </div>
