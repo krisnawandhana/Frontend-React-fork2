@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link as ScrollLink } from 'react-scroll';
 
 export default function NavBar() {
+  const [activeSection, setActiveSection] = useState('');
+
+  const handleSetActive = (section) => {
+    setActiveSection(section);
+  };
+
   return (
     <div>
-      <nav className="bg-[#F1F3F6] border-gray-200">
+      <nav className="bg-[#F1F3F6] border-gray-200 fixed top-0 w-full z-10">
         <div className="w-11/12 flex items-center justify-between mx-auto p-4">
           {/* Logo Mindease */}
           <div className="flex items-center justify-end">
-            <a href="#" className="flex items-center space-x-3 ">
+            <a href="#" className="flex items-center space-x-3">
               <img src="logo/mindease-logo.svg" className="h-8" alt="Mindease Logo" />
             </a>
           </div>
@@ -45,6 +52,22 @@ export default function NavBar() {
                 <li>
                   <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Contact</a>
                 </li>
+                {['home', 'services', 'about', 'community', 'contact'].map(section => (
+                  <li key={section}>
+                    <ScrollLink
+                      to={section}
+                      spy={true}
+                      smooth={true}
+                      offset={-70}
+                      duration={500}
+                      onClick={() => handleSetActive(section)}
+                      className={`block py-2 px-3 border-b-2 border-transparent cursor-pointer 
+                      ${activeSection === section ? 'text-primary border-primary' : 'text-dark-3 hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary'}`}
+                    >
+                      {section.charAt(0).toUpperCase() + section.slice(1)}
+                    </ScrollLink>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
