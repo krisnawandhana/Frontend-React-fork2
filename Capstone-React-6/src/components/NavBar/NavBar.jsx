@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 
-export default function NavBar() {
-  const [activeSection, setActiveSection] = useState('');
-
-  const handleSetActive = (section) => {
-    setActiveSection(section);
-  };
-
+export default function NavBar({ activeSection, handleSetActive }) {
   return (
     <div>
       <nav className="bg-[#F1F3F6] border-gray-200 fixed top-0 w-full z-10">
@@ -38,19 +32,19 @@ export default function NavBar() {
             <div className="hidden w-full md:flex md:w-auto" id="navbar-default">
               <ul className="text-body1 font-regular flex flex-col md:flex-row mt-4 md:mt-0">
                 <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Home</a>
+                  <a href="" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary"></a>
                 </li>
                 <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Our Services</a>
+                  <a href="" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary"></a>
                 </li>
                 <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">About Us</a>
+                  <a href="" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary"></a>
                 </li>
                 <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Community</a>
+                  <a href="" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary"></a>
                 </li>
                 <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Contact</a>
+                  <a href="" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary"></a>
                 </li>
                 {['home', 'services', 'about', 'community', 'contact'].map(section => (
                   <li key={section}>

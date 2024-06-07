@@ -1,5 +1,5 @@
 // src/pages/LandingPage.js
-import React from "react";
+import React, { useState } from "react";
 import Hero from "../../sections/Hero";
 import OurServices from "../../sections/OurServices";
 import Testimoni from "../../sections/Testimoni";
@@ -8,9 +8,15 @@ import Navbar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 
 function LandingPage() {
+  const [activeSection, setActiveSection] = useState('');
+
+  const handleSetActive = (section) => {
+    setActiveSection(section);
+  };
+
   return (
     <div className="bg-white">
-      <Navbar />
+      <Navbar activeSection={activeSection} handleSetActive={handleSetActive} />
       <section id="home">
         <Hero />
       </section>
