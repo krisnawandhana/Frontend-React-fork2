@@ -9,16 +9,18 @@ import DashboardLayout from './layouts/DashboardLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ManageContent from './pages/ManageContent/ManageContent';
 import ManagePatient from './pages/ManagePatient/ManagePatient';
+import Detail from "./pages/ManagePatient/Detail"
+import Layout from "./components/Layout"
 import Transaction from './pages/Transaction/Transaction';
 import ManageForum from './pages/ManageForum/ManageForum';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true)
 
-  useEffect(() => {
-    // Check if the user is logged in by checking the token
-    setIsLoggedIn(isAuthenticated());
-  }, []);
+	useEffect(() => {
+		// Check if the user is logged in by checking the token
+		// setIsLoggedIn(isAuthenticated())
+	}, [])
 
   return (
     <Routes>
@@ -30,6 +32,7 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="managecontent" element={<ManageContent />} />
         <Route path="managepatient" element={<ManagePatient />} />
+          <Route path="managepatient/detail" element={<Detail />} />
         <Route path="transaction" element={<Transaction />} />
         <Route path="manageforum" element={<ManageForum />} />
       </Route>
@@ -37,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
