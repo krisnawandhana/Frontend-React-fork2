@@ -37,21 +37,6 @@ export default function NavBar() {
             {/* Daftar Menu */}
             <div className="hidden w-full md:flex md:w-auto" id="navbar-default">
               <ul className="text-body1 font-regular flex flex-col md:flex-row mt-4 md:mt-0">
-                <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Home</a>
-                </li>
-                <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Our Services</a>
-                </li>
-                <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">About Us</a>
-                </li>
-                <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Community</a>
-                </li>
-                <li>
-                  <a href="#" className="block py-2 px-3 text-dark-3 border-b-2 border-transparent hover:bg-transparent hover:text-primary hover:border-b-2 hover:border-primary">Contact</a>
-                </li>
                 {['home', 'services', 'about', 'community', 'contact'].map(section => (
                   <li key={section}>
                     <ScrollLink
