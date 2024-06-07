@@ -17,13 +17,13 @@ function LandingPage() {
   return (
     <div className="bg-white">
       <Navbar activeSection={activeSection} handleSetActive={handleSetActive} />
-      <section id="home">
+      <section id="home" className="bg-[#F2F9FF]">
         <Hero />
       </section>
       <section id="services">
         <OurServices />
       </section>
-      <section id="about">
+      <section id="about" className="bg-[#F2F9FF]">
         <WhyChooseUs />
       </section>
       <section id="community">
