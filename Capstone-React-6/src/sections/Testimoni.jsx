@@ -19,7 +19,7 @@ function Testimoni() {
         </div>
       </div>
       <div className="columns-3 md:mx-20">
-        <div className="relative p-5 bg-white rounded-2xl shadow-2xl z-10">
+        <div className="relative p-5 bg-white rounded-2xl shadow-2xl">
           <div className="absolute top-0 left-0">
             <div className="p-5 bg-primary rounded-tl-2xl rounded-br-3xl">
               <img src={vector} alt="Quote Icon" />
@@ -35,7 +35,7 @@ function Testimoni() {
             benar-benar mengubah hidup saya.
           </p>
         </div>
-        <div className="relative p-5 bg-white rounded-2xl shadow-2xl z-20">
+        <div className="relative p-5 bg-white rounded-2xl shadow-2xl">
           <div className="absolute top-0 left-0">
             <div className="p-5 bg-primary rounded-tl-2xl rounded-br-3xl">
               <img src={vector} alt="Quote Icon" />
@@ -51,7 +51,7 @@ function Testimoni() {
             layanan yang luar biasa ini! Lorem ipsum dolor sit amet consectetur, adipisicing elit.
           </p>
         </div>
-        <div className="relative p-5 bg-white rounded-2xl shadow-2xl z-30">
+        <div className="relative p-5 bg-white rounded-2xl shadow-2xl">
           <div className="absolute top-0 left-0">
             <div className="p-5 bg-primary rounded-tl-2xl rounded-br-3xl">
               <img src={vector} alt="Quote Icon" />

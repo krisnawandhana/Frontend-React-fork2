@@ -4,7 +4,7 @@ import image from "../assets/img/landingpage-ourservices-img.png";
 
 function OurServices() {
   return (
-    <div id="ourservices" className="grid grid-cols-6 gap-4 m-10">
+    <div id="ourservices" className="grid grid-cols-6 gap-4 m-10 pt-5">
       <div className="col-start-2 col-span-4 rounded">
         <div className="rounded text-center">
           <h1 className="font-bold text-dark-1 font-sans text-4xl">
