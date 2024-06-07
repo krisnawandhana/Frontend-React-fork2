@@ -3,7 +3,7 @@ import React from "react";
 import image from "../assets/img/landingpage-hero-img.png";
 function Hero() {
   return (
-    <div className="grid gap-4 grid-cols-2 items-center m-10">
+    <div className="grid gap-4 grid-cols-2 items-center m-10 h-screen">
       <div className="p-5 rounded">
         <div className="p-5 my-5 rounded">
           <h1 className="text-dark-1 font-bold font-sans text-5xl mb-8">

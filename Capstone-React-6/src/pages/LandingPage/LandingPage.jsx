@@ -1,23 +1,37 @@
 // src/pages/LandingPage.js
-import React from "react";
+import React, { useState } from "react";
 import Hero from "../../sections/Hero";
 import OurServices from "../../sections/OurServices";
-// import ContactUs from "../../sections/ContactUs";
 import Testimoni from "../../sections/Testimoni";
 import WhyChooseUs from "../../sections/WhyChooseUs";
 import Navbar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 
 function LandingPage() {
+  const [activeSection, setActiveSection] = useState('');
+
+  const handleSetActive = (section) => {
+    setActiveSection(section);
+  };
+
   return (
     <div className="bg-white">
-      <Navbar />
-      <Hero />
-      <OurServices />
-      <WhyChooseUs />
-      <Testimoni />
-      {/* <ContactUs /> */}
-      <Footer />
+      <Navbar activeSection={activeSection} handleSetActive={handleSetActive} />
+      <section id="home">
+        <Hero />
+      </section>
+      <section id="services">
+        <OurServices />
+      </section>
+      <section id="about">
+        <WhyChooseUs />
+      </section>
+      <section id="community">
+        <Testimoni />
+      </section>
+      <section id="contact">
+        <Footer />
+      </section>
     </div>
   );
 }

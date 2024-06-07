@@ -11,8 +11,8 @@ export default function SideBar() {
 
     const menuItems = [
         { name: 'Dashboard', path: '/dashboard', icon: '/Sidebar/Dashboard.svg' },
-        { name: 'Kelola Konten', path: '/managecontent', icon: '/Sidebar/Headset.svg' },
-        { name: 'Kelola Pasien', path: '/managepatient', icon: '/Sidebar/Clipboard.svg' },
+        { name: 'Kelola Konten', path: '/dashboard/managecontent', icon: '/Sidebar/Headset.svg' },
+        { name: 'Kelola Pasien', path: '/dashboard/managepatient', icon: '/Sidebar/Clipboard.svg' },
         { name: 'Transaksi', path: '/dashboard/transaction', icon: '/Sidebar/CardTransaction.svg' },
         { name: 'Kelola Forum', path: '/dashboard/manageforum', icon: '/Sidebar/AddLayer.svg' }
     ];
