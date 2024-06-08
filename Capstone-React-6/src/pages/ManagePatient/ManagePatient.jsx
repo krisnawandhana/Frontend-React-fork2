@@ -1,6 +1,6 @@
 import DaftarPasienList from "../../components/ManagePatient/DaftarPasien/DaftarPasienList"
-import DateCard from "../../components/ManagePatient/DateCard"
-import JanjiTemuCard from "../../components/ManagePatient/JanjiTemu/JanjiTemuCard"
+// import DateCard from "../../components/ManagePatient/DateCard"
+// import JanjiTemuCard from "../../components/ManagePatient/JanjiTemu/JanjiTemuCard"
 import JanjiTemuChart from "../../components/ManagePatient/JanjiTemu/JanjiTemuChart"
 import OverviewTransactionCard from "../../components/ManagePatient/OverviewTransactionCard"
 import PermintaanJanjiTemuList from "../../components/ManagePatient/PermintaanJanjiTemu/PermintaanJanjiTemuList"

@@ -3,7 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      container: {},
+      container: {
+          display: 'flex',
+          padding: '24px',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '32px',
+      },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
       },
