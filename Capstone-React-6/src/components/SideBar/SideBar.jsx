@@ -17,6 +17,14 @@ export default function SideBar() {
         { name: 'Kelola Forum', path: '/dashboard/manageforum', icon: '/Sidebar/AddLayer.svg' }
     ];
 
+    const isActive = (path) => {
+        // This function checks if the path is the active path or a subpath of the active path
+        if (path === '/dashboard' && (activePath.startsWith('/dashboard') && !activePath.startsWith('/dashboard/manage') && !activePath.startsWith('/dashboard/transaction'))) {
+            return true;
+        }
+        return activePath === path;
+    };
+
     return (
         <div>
             <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 mr-4 text-sm text-gray-500 rounded-lg lg:hidden md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -38,13 +46,13 @@ export default function SideBar() {
                                     <Link
                                         to={item.path}
                                         className={`flex mb-3 items-center p-2 text-dark-3 rounded-lg group ease-in-out duration-100
-                                            ${activePath === item.path ? 'bg-primary-lighter text-primary-darker font-semibold' : 'hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold'}`}
+                                            ${isActive(item.path) ? 'bg-primary-lighter text-primary-darker font-semibold' : 'hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold'}`}
                                         onClick={() => setActivePath(item.path)}
                                     >
                                         <img
                                             src={item.icon}
                                             alt=""
-                                            className={`mr-3 ${activePath === item.path ? 'stroke-primary-darker' : 'group-hover:stroke-primary-darker'}`}
+                                            className={`mr-3 ${isActive(item.path) ? 'stroke-primary-darker' : 'group-hover:stroke-primary-darker'}`}
                                         />
                                         <span className="ms-3">{item.name}</span>
                                     </Link>

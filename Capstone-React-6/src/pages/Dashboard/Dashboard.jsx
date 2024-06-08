@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
     // Dummy data
@@ -45,9 +46,9 @@ const Dashboard = () => {
                     <h1 className="text-md font-semibold ml-3 text-primary-darker">Overview</h1>
                 </div>
                 <div className="flex items-center">
-                    <button className="w-8 h-8 mr-3 rounded-full bg-gray-300 overflow-hidden">
+                    <Link to="/dashboard/profile" className="w-8 h-8 mr-3 rounded-full bg-gray-300 overflow-hidden">
                         <img src="../../../public/Dashboard/avatar.png" alt="Profile" className="w-full h-full object-cover" />
-                    </button>
+                    </Link>
                     <button className="w-8 h-8 rounded-full bg-white flex justify-center items-center mr-1" onClick={toggleNotification}>
                         <img src="../../../public/Dashboard/notification.svg" alt="Notification" className="w-6 h-6" />
                     </button>
