@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { logout } from '../../utils/auth';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function SideBar() {
@@ -8,6 +9,12 @@ export default function SideBar() {
     useEffect(() => {
         setActivePath(location.pathname);
     }, [location]);
+
+    const handleLogout = () => {
+        logout();
+        // Redirect to login page after logout
+        <Link to="/Login" />;
+      };
 
     const menuItems = [
         { name: 'Dashboard', path: '/dashboard', icon: '/Sidebar/Dashboard.svg' },
@@ -31,7 +38,7 @@ export default function SideBar() {
                     <a href="#" className="flex items-center justify-center mb-14">
                         <img src="/logo/mindease-logo.svg" className="h-6 sm:h-7 px-8" alt="Mindease Logo" />
                     </a>
-                    <ul className="mb-20 text-body1 font-regular justify-between px-3 py-4 gap-10">
+                    <ul className="mb-8 text-body1 font-regular justify-between px-3 py-4 gap-10">
                         {menuItems.map(item => (
                             <li key={item.path}>
                                 <Link
@@ -52,7 +59,7 @@ export default function SideBar() {
                     </ul>
                     <ul className="bottom-10 text-body1 font-regular justify-between px-3 py-2">
                         <li>
-                            <a href="#" className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
+                            <a href="#" onClick={handleLogout} className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
                                 <img src="../../../public/Sidebar/Logout.svg" alt="" className="hover:stroke-primary-darker" />
                                 <span className="ms-3 ">Log Out</span>
                             </a>

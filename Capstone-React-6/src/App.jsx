@@ -19,7 +19,7 @@ function App() {
 
 	useEffect(() => {
 		// Check if the user is logged in by checking the token
-		// setIsLoggedIn(isAuthenticated())
+		setIsLoggedIn(isAuthenticated())
 	}, [])
 
   return (
