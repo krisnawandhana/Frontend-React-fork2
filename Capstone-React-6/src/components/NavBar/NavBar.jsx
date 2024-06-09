@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 
 export default function NavBar() {
