@@ -14,7 +14,7 @@ const TransactionCard = ({ variant, title, count }) => {
         },
 	}
 	return (
-		<div className={`rounded-3xl py-[30px] px-4 w-10/12 h-full overflow-hidden flex justify-start items-center bg-white ${variants[variant].color}`} >
+		<div className={`rounded-3xl py-[30px] px-4 w-10/12 h-full overflow-hidden flex justify-start items-center ${variants[variant].color}`} >
 			<div className="flex flex-row gap-x-6 items-center justify-center">
 				<div className="rounded-xl h-14 aspect-square flex justify-center items-center bg-light-4">
 					<img src={variants[variant].icon} className="p-3" />

@@ -10,8 +10,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import ManageContent from './pages/ManageContent/ManageContent';
 import ManagePatient from './pages/ManagePatient/ManagePatient';
 import Detail from "./pages/ManagePatient/Detail"
-import Layout from "./components/Layout"
 import Transaction from './pages/Transaction/Transaction';
+import TransactionList from './pages/Transaction/TransactionList';
 import ManageForum from './pages/ManageForum/ManageForum';
 
 function App() {
@@ -34,6 +34,7 @@ function App() {
         <Route path="managepatient" element={<ManagePatient />} />
           <Route path="managepatient/detail" element={<Detail />} />
         <Route path="transaction" element={<Transaction />} />
+          <Route path="transaction/list" element={<TransactionList />} />
         <Route path="manageforum" element={<ManageForum />} />
       </Route>
     </Routes>
