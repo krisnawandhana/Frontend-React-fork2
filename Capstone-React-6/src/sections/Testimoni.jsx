@@ -11,7 +11,7 @@ function Testimoni() {
           <h1 className="font-bold text-dark-1 font-sans text-4xl text-center mb-4">
             Apa Kata Pengguna Kami?
           </h1>
-          <p className="text-dark-3 text-center">
+          <p className="text-dark-3 text-center px-48">
             Bagaimana MindEase telah mengubah hidup banyak orang menjadi lebih
             baik. Banyak pengguna yang telah menemukan ketenangan, keseimbangan,
             dan kebahagiaan melalui layanan kesehatan mental kami.
@@ -33,6 +33,7 @@ function Testimoni() {
             mental hingga saya mencoba aplikasi ini. Setiap sesi dengan terapis
             profesionalnya membuat saya merasa lebih tenang dan termotivasi. Ini
             benar-benar mengubah hidup saya.
+            <p className="text-transparent">lorem</p>
           </p>
         </div>
         <div className="relative p-5 bg-white rounded-2xl shadow-2xl">
@@ -65,6 +66,7 @@ function Testimoni() {
             Namun, sejak menggunakan aplikasi ini, saya merasa didengar dan
             dihargai. Fitur-fitur interaktifnya membuat saya bisa memantau
             perkembangan diri dan merasa lebih terarah
+            <p className="text-transparent">lorem</p>
           </p>
         </div>
       </div>

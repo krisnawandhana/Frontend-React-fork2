@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { logout } from '../../utils/auth';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function SideBar() {
@@ -8,6 +9,12 @@ export default function SideBar() {
     useEffect(() => {
         setActivePath(location.pathname);
     }, [location]);
+
+    const handleLogout = () => {
+        logout();
+        // Redirect to login page after logout
+        <Link to="/Login" />;
+      };
 
     const menuItems = [
         { name: 'Dashboard', path: '/dashboard', icon: '/Sidebar/Dashboard.svg' },
@@ -62,7 +69,7 @@ export default function SideBar() {
                     </div>
                     <ul className="text-body1 font-regular justify-between px-3 py-2">
                         <li>
-                            <a href="#" className="flex items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
+                            <a href="#" onClick={handleLogout} className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
                                 <img src="../../../public/Sidebar/Logout.svg" alt="" className="hover:stroke-primary-darker" />
                                 <span className="ms-3 ">Log Out</span>
                             </a>
@@ -73,4 +80,3 @@ export default function SideBar() {
         </div>
     );
 }
-

@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const register = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/v1/users/register`, userData);
+    const response = await axios.post(`${API_URL}/v1/doctors/register`, userData);
 
     if (response.data.status) {
       return {
