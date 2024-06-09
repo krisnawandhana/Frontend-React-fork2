@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DetailProfile = () => {
     // Dummy data 
@@ -28,10 +29,10 @@ const DetailProfile = () => {
             <div>
                 <div className="flex justify-between mb-4">
                     <p className="font-semibold text-dark-1">Profile</p>
-                    <div className="flex items-center">
+                    <Link to="/dashboard/editprofile" className="flex items-center">
                         <img src="../../../public/Profile/Edit.svg" alt="" />
                         <button className="text-primary text-sm font-medium ml-2">Edit Profile</button>
-                    </div>
+                    </Link>
                 </div>
                 <img src="../../../public/Profile/photoprofile.png" alt="Doctor" />
                 <h2 className="text-sm mt-3 text-dark-1 font-semibold text-center">{profile.name}</h2>
