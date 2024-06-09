@@ -1,4 +1,5 @@
 import PermintaanJanjiTemuTable from "./PermintaanJanjiTemuTable"
+import { Link } from "react-router-dom"
 
 const PermintaanJanjiTemuList = () => {
 	const data = [
@@ -76,7 +77,7 @@ const PermintaanJanjiTemuList = () => {
 					Permintaan Janji Temu
 				</h2>
 				<button className="text-success-darker font-medium flex flex-row gap-x-1 items-center">
-					<p className="text-start">Lihat Semua</p>
+					<Link to="/dashboard/managepatient/detail" className="text-start">Lihat Semua</Link>
 					<img src="/logo/chevron-right.svg" className="h-6 aspect-square" />
 				</button>
 			</div>
