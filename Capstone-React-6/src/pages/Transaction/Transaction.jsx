@@ -16,7 +16,6 @@ export default function Transaction() {
 
   return (
     <div>
-      <h1>Transaction</h1>
       {/* card transkasi harian */}
       <div className="grid md:grid-cols-3 grid-cols-1 gap-3">
         <div className="col-span-1">
