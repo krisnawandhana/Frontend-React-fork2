@@ -8,7 +8,7 @@ import PermintaanJanjiTemuList from "../../components/ManagePatient/PermintaanJa
 export default function ManagePatient() {
 	return (
 		<div className="flex flex-col gap-y-6">
-			<h1 className="mb-6 text-4xl text-dark-2 font-medium">Kelola Pasien</h1>
+
 			<div className="grid xl:grid-cols-10 grid-cols-1 xl:gap-6 gap-y-6">
 				{/* <div className="col-span-2 flex flex-col gap-y-3">
 					<DateCard />
