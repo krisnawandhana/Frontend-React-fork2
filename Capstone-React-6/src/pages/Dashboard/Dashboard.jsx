@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import transactionsData from '../../components/Transaction/patient.json';
 
 const Dashboard = () => {
+    const [topTransactions, setTopTransactions] = useState([]);
+
+    useState(() => {
+        setTopTransactions(transactionsData.slice(0, 4));
+      }, []);
+
+      
+
     // Dummy data
     const permintaanKonsultasi = [
         { id: 1, avatar: 'boy1.svg', name: 'Kevin Putra', date: '15 Januari 2024', time: '13:00-14:30' },
@@ -9,12 +19,11 @@ const Dashboard = () => {
         { id: 4, avatar: 'girl2.svg', name: 'Tiara Dista', date: '14 Januari 2024', time: '09:00-09:30' },
     ];
 
-    const transaksi = [
-        { id: 'ME002121', avatar: 'girl2.svg', name: 'Siti Aisyah', issue: 'Depresi', date: '11 Januari 2024', time: '23:31', total: 'Rp150.000', status: 'Sukses' },
-        { id: 'ME002120', avatar: 'girl1.svg', name: 'Lia Melinda', issue: 'Skizofrenia', date: '11 Januari 2024', time: '19:49', total: 'Rp100.000', status: 'Sukses' },
-        { id: 'ME002119', avatar: 'boy1.svg', name: 'Budi Santoso', issue: 'Gangguan Kecemasan', date: '10 Januari 2024', time: '11:35', total: 'Rp150.000', status: 'Sukses' },
-    ];
-
+    // const transaksi = [
+    //     { id: 'ME002121', avatar: 'girl2.svg', name: 'Siti Aisyah', issue: 'Depresi', date: '11 Januari 2024', time: '23:31', total: 'Rp150.000', status: 'Sukses' },
+    //     { id: 'ME002120', avatar: 'girl1.svg', name: 'Lia Melinda', issue: 'Skizofrenia', date: '11 Januari 2024', time: '19:49', total: 'Rp100.000', status: 'Sukses' },
+    //     { id: 'ME002119', avatar: 'boy1.svg', name: 'Budi Santoso', issue: 'Gangguan Kecemasan', date: '10 Januari 2024', time: '11:35', total: 'Rp150.000', status: 'Sukses' },
+    // ];
     const summaryCard = {
         permintaan: 35,
         belumKonsultasi: 5,
@@ -112,7 +121,9 @@ const Dashboard = () => {
                     </div>
                     {/* Placeholder for graph */}
                     <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                        <span>Graph Placeholder</span>
+                        <span>
+                              
+                        </span>
                     </div>
                 </div>
             </div>
@@ -122,7 +133,7 @@ const Dashboard = () => {
                 <div className="flex justify-between items-center text-center mb-4">
                     <h3 className="text-lg font-semibold">Transaksi</h3>
                     <div className="flex justify-center items-center">
-                        <a href="" className="text-success-darker font-medium text-sm">Lihat Semua</a>
+                        <Link to="/dashboard/transaction/list" className="text-success-darker font-medium text-sm">Lihat Semua</Link>
                         <img src="../../../public/Dashboard/lihatsemua.svg" alt="" />
                     </div>
                 </div>
@@ -131,7 +142,6 @@ const Dashboard = () => {
                         <thead className="border-b bg-[#D5EDF3]">
                             <tr>
                                 <th className="py-2 text-sm text-left pl-20 w-1/6">Pasien</th>
-                                <th className="py-2 text-sm text-center">Keluhan</th>
                                 <th className="py-2 text-sm text-center">Tanggal</th>
                                 <th className="py-2 text-sm text-center">Waktu</th>
                                 <th className="py-2 text-sm text-center">Total</th>
@@ -140,7 +150,7 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {transaksi.map((item) => (
+                            {topTransactions.map((item) => (
                                 <tr key={item.id} className="border-b">
                                     <td className="py-2 text-sm flex pl-7">
                                         <img src={`../../../public/Dashboard/${item.avatar}`} alt="Avatar" className="w-9 h-9 mr-4" />
@@ -149,12 +159,11 @@ const Dashboard = () => {
                                             <p className="font-normal text-xs">ID: {item.id}</p>
                                         </div>
                                     </td>
-                                    <td className="py-2 text-sm text-center">{item.issue}</td>
-                                    <td className="py-2 text-sm text-center">{item.date}</td>
-                                    <td className="py-2 text-sm text-center">{item.time}</td>
-                                    <td className="py-2 text-sm text-center">{item.total}</td>
+                                    <td className="py-2 text-sm text-center">{item.tanggal}</td>
+                                    <td className="py-2 text-sm text-center">{item.pukul}</td>
+                                    <td className="py-2 text-sm text-center">{parseFloat(item.nominal).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</td>
                                     <td className="py-2 text-sm text-center">
-                                        <span className={`px-3 py-1 rounded text-sm ${item.status === 'Sukses' ? 'bg-[#D5EDF3] text-primary-darker rounded-xl' : 'bg-red-500 text-white'}`}>{item.status}</span>
+                                        <span className={`px-3 py-1 rounded text-sm uppercase ${item.aksi === 'sukses' ? 'bg-success text-white rounded-xl' : 'bg-red-500 text-white rounded-xl'}`}>{item.aksi}</span>
                                     </td>
                                     <td className="py-2 text-center">
                                         <button>
