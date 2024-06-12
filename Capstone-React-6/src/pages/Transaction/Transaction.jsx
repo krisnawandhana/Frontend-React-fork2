@@ -16,7 +16,6 @@ export default function Transaction() {
 
   return (
     <div>
-      <h1>Transaction</h1>
       {/* card transkasi harian */}
       <div className="grid md:grid-cols-3 grid-cols-1 gap-3">
         <div className="col-span-1">
@@ -77,6 +76,7 @@ export default function Transaction() {
           {recentTransactions.map((transaction, index) => (
             <div key={index} className="col-span-1">
               <NewestCard
+                avatar={transaction.avatar}
                 variant={transaction.aksi} // variant disesuaikan dengan detail dari data
                 name={transaction.name}
                 id={transaction.id}
@@ -98,8 +98,9 @@ export default function Transaction() {
           </Link>
         </div>
       </div>
-              {/* Table of top 4 transactions */}
-              <table className="min-w-full divide-y divide-gray-200">
+      
+      {/* Table of top 4 transactions */}
+      <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
@@ -114,7 +115,7 @@ export default function Transaction() {
             {topTransactions.map((transaction, index) => (
               <tr key={index} className="">
                 <td className="flex flex-row items-center gap-x-4 text-left px-6 py-4 whitespace-nowrap text-body1 text-dark-2 font-normal">
-                  <img src="/avatar/avatar.jpg" alt="" className="h-12 aspect-square rounded-full" />
+                  <img src={`../../../public/Dashboard/${transaction.avatar}`} alt="" className="h-12 aspect-square rounded-full" />
                   {transaction.name}
                 </td>
                 <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.id}</td>

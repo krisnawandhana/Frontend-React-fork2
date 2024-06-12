@@ -1,163 +1,182 @@
 [
-    {
-      "name": "John Doe",
-      "id": "ID000001",
-      "tanggal": "2024-06-01",
-      "pukul": "09:00",
-      "nominal": "50000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "Jane Smith",
-      "id": "ID000002",
-      "tanggal": "2024-06-01",
-      "pukul": "10:30",
-      "nominal": "75000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Emily Johnson",
-      "id": "ID000003",
-      "tanggal": "2024-06-02",
-      "pukul": "11:15",
-      "nominal": "65000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "Michael Brown",
-      "id": "ID000004",
-      "tanggal": "2024-06-02",
-      "pukul": "14:00",
-      "nominal": "80000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Jessica Williams",
-      "id": "ID000005",
-      "tanggal": "2024-06-03",
-      "pukul": "08:45",
-      "nominal": "55000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "David Jones",
-      "id": "ID000006",
-      "tanggal": "2024-06-03",
-      "pukul": "13:30",
-      "nominal": "70000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Laura Garcia",
-      "id": "ID000007",
-      "tanggal": "2024-06-04",
-      "pukul": "09:20",
-      "nominal": "62000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "James Martinez",
-      "id": "ID000008",
-      "tanggal": "2024-06-04",
-      "pukul": "12:00",
-      "nominal": "48000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Linda Hernandez",
-      "id": "ID000009",
-      "tanggal": "2024-06-05",
-      "pukul": "15:45",
-      "nominal": "53000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "Robert Wilson",
-      "id": "ID000010",
-      "tanggal": "2024-06-05",
-      "pukul": "10:10",
-      "nominal": "78000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Mary Clark",
-      "id": "ID000011",
-      "tanggal": "2024-06-06",
-      "pukul": "08:30",
-      "nominal": "51000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "Patricia Lewis",
-      "id": "ID000012",
-      "tanggal": "2024-06-06",
-      "pukul": "13:50",
-      "nominal": "67000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Barbara Walker",
-      "id": "ID000013",
-      "tanggal": "2024-06-07",
-      "pukul": "09:45",
-      "nominal": "60000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "James Robinson",
-      "id": "ID000014",
-      "tanggal": "2024-06-07",
-      "pukul": "11:30",
-      "nominal": "75000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Elizabeth Hall",
-      "id": "ID000015",
-      "tanggal": "2024-06-08",
-      "pukul": "10:20",
-      "nominal": "72000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "Jennifer Allen",
-      "id": "ID000016",
-      "tanggal": "2024-06-08",
-      "pukul": "12:10",
-      "nominal": "65000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "Susan Young",
-      "id": "ID000017",
-      "tanggal": "2024-06-09",
-      "pukul": "09:50",
-      "nominal": "58000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "Margaret King",
-      "id": "ID000018",
-      "tanggal": "2024-06-09",
-      "pukul": "14:30",
-      "nominal": "71000",
-      "aksi": "gagal"
-    },
-    {
-      "name": "William Scott",
-      "id": "ID000019",
-      "tanggal": "2024-06-10",
-      "pukul": "10:00",
-      "nominal": "50000",
-      "aksi": "sukses"
-    },
-    {
-      "name": "Charles Green",
-      "id": "ID000020",
-      "tanggal": "2024-06-10",
-      "pukul": "11:00",
-      "nominal": "77000",
-      "aksi": "gagal"
-    }
-  ]
-  
+  {
+    "name": "John Doe",
+    "id": "ID000001",
+    "tanggal": "2024-06-01",
+    "pukul": "09:00",
+    "nominal": "50000",
+    "aksi": "sukses",
+    "avatar": "boy1.svg"
+  },
+  {
+    "name": "Jane Smith",
+    "id": "ID000002",
+    "tanggal": "2024-06-01",
+    "pukul": "10:30",
+    "nominal": "75000",
+    "aksi": "gagal",
+    "avatar": "boy2.svg"
+  },
+  {
+    "name": "Emily Johnson",
+    "id": "ID000003",
+    "tanggal": "2024-06-02",
+    "pukul": "11:15",
+    "nominal": "65000",
+    "aksi": "sukses",
+    "avatar": "girl1.svg"
+  },
+  {
+    "name": "Michael Brown",
+    "id": "ID000004",
+    "tanggal": "2024-06-02",
+    "pukul": "14:00",
+    "nominal": "80000",
+    "aksi": "gagal",
+    "avatar": "girl2.svg"
+  },
+  {
+    "name": "Jessica Williams",
+    "id": "ID000005",
+    "tanggal": "2024-06-03",
+    "pukul": "08:45",
+    "nominal": "55000",
+    "aksi": "sukses",
+    "avatar": "boy1.svg"
+  },
+  {
+    "name": "David Jones",
+    "id": "ID000006",
+    "tanggal": "2024-06-03",
+    "pukul": "13:30",
+    "nominal": "70000",
+    "aksi": "gagal",
+    "avatar": "boy2.svg"
+  },
+  {
+    "name": "Laura Garcia",
+    "id": "ID000007",
+    "tanggal": "2024-06-04",
+    "pukul": "09:20",
+    "nominal": "62000",
+    "aksi": "sukses",
+    "avatar": "girl1.svg"
+  },
+  {
+    "name": "James Martinez",
+    "id": "ID000008",
+    "tanggal": "2024-06-04",
+    "pukul": "12:00",
+    "nominal": "48000",
+    "aksi": "gagal",
+    "avatar": "girl2.svg"
+  },
+  {
+    "name": "Linda Hernandez",
+    "id": "ID000009",
+    "tanggal": "2024-06-05",
+    "pukul": "15:45",
+    "nominal": "53000",
+    "aksi": "sukses",
+    "avatar": "boy1.svg"
+  },
+  {
+    "name": "Robert Wilson",
+    "id": "ID000010",
+    "tanggal": "2024-06-05",
+    "pukul": "10:10",
+    "nominal": "78000",
+    "aksi": "gagal",
+    "avatar": "boy2.svg"
+  },
+  {
+    "name": "Mary Clark",
+    "id": "ID000011",
+    "tanggal": "2024-06-06",
+    "pukul": "08:30",
+    "nominal": "51000",
+    "aksi": "sukses",
+    "avatar": "girl1.svg"
+  },
+  {
+    "name": "Patricia Lewis",
+    "id": "ID000012",
+    "tanggal": "2024-06-06",
+    "pukul": "13:50",
+    "nominal": "67000",
+    "aksi": "gagal",
+    "avatar": "girl2.svg"
+  },
+  {
+    "name": "Barbara Walker",
+    "id": "ID000013",
+    "tanggal": "2024-06-07",
+    "pukul": "09:45",
+    "nominal": "60000",
+    "aksi": "sukses",
+    "avatar": "boy1.svg"
+  },
+  {
+    "name": "James Robinson",
+    "id": "ID000014",
+    "tanggal": "2024-06-07",
+    "pukul": "11:30",
+    "nominal": "75000",
+    "aksi": "gagal",
+    "avatar": "boy2.svg"
+  },
+  {
+    "name": "Elizabeth Hall",
+    "id": "ID000015",
+    "tanggal": "2024-06-08",
+    "pukul": "10:20",
+    "nominal": "72000",
+    "aksi": "sukses",
+    "avatar": "girl1.svg"
+  },
+  {
+    "name": "Jennifer Allen",
+    "id": "ID000016",
+    "tanggal": "2024-06-08",
+    "pukul": "12:10",
+    "nominal": "65000",
+    "aksi": "gagal",
+    "avatar": "girl2.svg"
+  },
+  {
+    "name": "Susan Young",
+    "id": "ID000017",
+    "tanggal": "2024-06-09",
+    "pukul": "09:50",
+    "nominal": "58000",
+    "aksi": "sukses",
+    "avatar": "boy1.svg"
+  },
+  {
+    "name": "Margaret King",
+    "id": "ID000018",
+    "tanggal": "2024-06-09",
+    "pukul": "14:30",
+    "nominal": "71000",
+    "aksi": "gagal",
+    "avatar": "boy2.svg"
+  },
+  {
+    "name": "William Scott",
+    "id": "ID000019",
+    "tanggal": "2024-06-10",
+    "pukul": "10:00",
+    "nominal": "50000",
+    "aksi": "sukses",
+    "avatar": "girl1.svg"
+  },
+  {
+    "name": "Charles Green",
+    "id": "ID000020",
+    "tanggal": "2024-06-10",
+    "pukul": "11:00",
+    "nominal": "77000",
+    "aksi": "gagal",
+    "avatar": "girl2.svg"
+  }
+]
