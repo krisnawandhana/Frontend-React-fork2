@@ -1,24 +1,23 @@
 const getPageTitle = (path) => {
-    switch (path) {
-        case '/dashboard':
+    switch (true) {
+        case path === '/dashboard':
             return 'Overview';
-        case '/dashboard/profile':
+        case path === '/dashboard/profile':
             return 'Profile dan Rating Psikiater';
-        case '/dashboard/editprofile':
+        case path === '/dashboard/editprofile':
             return 'Edit Profile';
-        case '/dashboard/managecontent':
+        case path.startsWith('/dashboard/managecontent'):
             return 'Kelola Konten Meditasi';
-        case '/dashboard/managepatient':
+        case path === '/dashboard/managepatient':
             return 'Kelola Pasien';
-        case '/dashboard/managepatient/detail':
+        case path === '/dashboard/managepatient/detail':
             return 'Daftar Permintaan Janji Temu';
-        case '/dashboard/transaction':
+        case path === '/dashboard/transaction':
             return 'Transaksi';
-        case '/dashboard/transaction/list':
+        case path === '/dashboard/transaction/list':
             return 'Daftar Transaksi';
-        case '/dashboard/manageforum':
+        case path === '/dashboard/manageforum':
             return 'Kelola Forum';
-        // Tambahkan case lain sesuai dengan rute di aplikasi Anda
         default:
             return 'Overview';
     }
