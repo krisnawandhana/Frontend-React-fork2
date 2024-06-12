@@ -82,7 +82,7 @@ export default function SideBar() {
                     <ul className="text-body1 font-regular justify-between px-3 py-2">
                         <li>
                         <button onClick={handleLogout} className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
-                                <img src="../../../public/Sidebar/Logout.svg" alt="" className="hover:stroke-primary-darker" />
+                                <img src="/Sidebar/Logout.svg" alt="" className="hover:stroke-primary-darker" />
                                 <span className="ms-3">Log Out</span>
                             </button>
                         </li>

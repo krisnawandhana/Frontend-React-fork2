@@ -8,21 +8,21 @@ const DaftarCerita = () => {
             judul: "Panduan Lengkap Untuk meditasi Harian",
             pengarang: "Rina Irawan",
             pembaca: 1.110,
-            gambar: "../../../../public/Content/cerita1.png",
+            gambar: "/Content/cerita1.png",
         },
         {
             id: 2,
             judul: "Jalan Menuju Hidup Sehat",
             pengarang: "Arif Pratama",
             pembaca: 1.099,
-            gambar: "../../../../public/Content/cerita2.png",
+            gambar: "/Content/cerita2.png",
         },
         {
             id: 3,
             judul: "Cara Efektif Meditasi Harian",
             pengarang: "Maya",
             pembaca: 900,
-            gambar: "../../../../public/Content/cerita3.png",
+            gambar: "/Content/cerita3.png",
         }
     ];
 
@@ -32,7 +32,7 @@ const DaftarCerita = () => {
                 <h3 className="text-lg font-semibold">Daftar Cerita Inspiratif</h3>
                 <div className="flex justify-center items-center">
                     <div className="relative">
-                        <img src="../../../../public/Content/Search.svg" alt="" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <img src="/Content/Search.svg" alt="" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
                         <input
                             type="text"
                             placeholder="Temukan Cerita"

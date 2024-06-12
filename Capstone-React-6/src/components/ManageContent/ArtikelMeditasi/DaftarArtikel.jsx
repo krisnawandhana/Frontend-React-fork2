@@ -8,21 +8,21 @@ const DaftarArtikel = () => {
             judul: "Panduan Lengkap Untuk meditasi Harian",
             waktu: "Bacaan 2 menit",
             pembaca: 1.110,
-            gambar: "../../../../public/Content/artikel1.png",
+            gambar: "/Content/artikel1.png",
         },
         {
             id: 2,
             judul: "Jalan Menuju Hidup Sehat",
             waktu: "Bacaan 5 menit",
             pembaca: 1.099,
-            gambar: "../../../../public/Content/artikel2.png",
+            gambar: "/Content/artikel2.png",
         },
         {
             id: 3,
             judul: "Cara Efektif Meditasi Harian",
             waktu: "Bacaan 3 menit",
             pembaca: 1.000,
-            gambar: "../../../../public/Content/artikel3.png",
+            gambar: "/Content/artikel3.png",
         }
     ];
 
@@ -32,7 +32,7 @@ const DaftarArtikel = () => {
                 <h3 className="text-lg font-semibold">Daftar Artikel Meditasi</h3>
                 <div className="flex justify-center items-center">
                     <div className="relative">
-                        <img src="../../../../public/Content/Search.svg" alt="" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <img src="/Content/Search.svg" alt="" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
                         <input
                             type="text"
                             placeholder="Temukan Artikel"
