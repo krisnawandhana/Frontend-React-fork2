@@ -34,7 +34,7 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="editprofile" element={<EditProfile />} />
-        <Route path="managecontent" element={<ManageContent />} />
+        <Route path="managecontent/*" element={<ManageContent />} />
         <Route path="managepatient" element={<ManagePatient />} />
           <Route path="managepatient/detail" element={<Detail />} />
         <Route path="transaction" element={<Transaction />} />
