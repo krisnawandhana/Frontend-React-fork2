@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function SideBar() {
     const location = useLocation();
+    const navigate = useNavigate();
     const [activePath, setActivePath] = useState('/dashboard');
     const navigate = useNavigate();
 
@@ -14,6 +15,7 @@ export default function SideBar() {
     const handleLogout = () => {
         logout();
         navigate('/');
+        window.location.reload();  // Redirect to login page after logout
     };
 
     const menuItems = [
@@ -80,10 +82,10 @@ export default function SideBar() {
                     </div>
                     <ul className="text-body1 font-regular justify-between px-3 py-2">
                         <li>
-                            <a href="" onClick={handleLogout} className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
-                                <img src="../../../public/Sidebar/logout.svg" alt="" className="hover:stroke-primary-darker" />
-                                <span className="ms-3 ">Log Out</span>
-                            </a>
+                        <button onClick={handleLogout} className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
+                                <img src="../../../public/Sidebar/Logout.svg" alt="" className="hover:stroke-primary-darker" />
+                                <span className="ms-3">Log Out</span>
+                            </button>
                         </li>
                     </ul>
                 </div>
