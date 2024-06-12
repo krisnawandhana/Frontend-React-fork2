@@ -139,7 +139,7 @@ export default function Register() {
             </div>
 
             <div className="bg-primary">
-                <img src="../../../public/Register/image.png" alt="" className="h-screen" />
+                <img src="/Register/image.png" alt="" className="h-screen" />
             </div>
         </div>
     </>

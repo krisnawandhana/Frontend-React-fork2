@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { logout } from '../../utils/auth';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function SideBar() {
     const location = useLocation();
@@ -26,7 +26,18 @@ export default function SideBar() {
     ];
 
     const isActive = (path) => {
-        // This function checks if the path is the active path or a subpath of the active path
+        if (path === '/dashboard/managecontent') {
+            return activePath.startsWith('/dashboard/managecontent');
+        }
+        if (path === '/dashboard/managepatient') {
+            return activePath.startsWith('/dashboard/managepatient');
+        }
+        if (path === '/dashboard/transaction') {
+            return activePath.startsWith('/dashboard/transaction');
+        }
+        if (path === '/dashboard/manageforum') {
+            return activePath.startsWith('/dashboard/manageforum');
+        }
         if (path === '/dashboard' && (activePath.startsWith('/dashboard') && !activePath.startsWith('/dashboard/manage') && !activePath.startsWith('/dashboard/transaction'))) {
             return true;
         }
