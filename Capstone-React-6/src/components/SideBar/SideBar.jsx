@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { logout } from '../../utils/auth';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function SideBar() {
     const location = useLocation();
     const [activePath, setActivePath] = useState('/dashboard');
+    const navigate = useNavigate();
 
     useEffect(() => {
         setActivePath(location.pathname);
@@ -12,9 +13,8 @@ export default function SideBar() {
 
     const handleLogout = () => {
         logout();
-        // Redirect to login page after logout
-        <Link to="/Login" />;
-      };
+        navigate('/');
+    };
 
     const menuItems = [
         { name: 'Dashboard', path: '/dashboard', icon: '/Sidebar/Dashboard.svg' },
@@ -25,7 +25,18 @@ export default function SideBar() {
     ];
 
     const isActive = (path) => {
-        // This function checks if the path is the active path or a subpath of the active path
+        if (path === '/dashboard/managecontent') {
+            return activePath.startsWith('/dashboard/managecontent');
+        }
+        if (path === '/dashboard/managepatient') {
+            return activePath.startsWith('/dashboard/managepatient');
+        }
+        if (path === '/dashboard/transaction') {
+            return activePath.startsWith('/dashboard/transaction');
+        }
+        if (path === '/dashboard/manageforum') {
+            return activePath.startsWith('/dashboard/manageforum');
+        }
         if (path === '/dashboard' && (activePath.startsWith('/dashboard') && !activePath.startsWith('/dashboard/manage') && !activePath.startsWith('/dashboard/transaction'))) {
             return true;
         }
@@ -69,8 +80,8 @@ export default function SideBar() {
                     </div>
                     <ul className="text-body1 font-regular justify-between px-3 py-2">
                         <li>
-                            <a href="#" onClick={handleLogout} className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
-                                <img src="../../../public/Sidebar/Logout.svg" alt="" className="hover:stroke-primary-darker" />
+                            <a href="" onClick={handleLogout} className="flex mt-40 items-center p-2 text-dark-3 rounded-lg hover:bg-primary-lighter hover:text-primary-darker hover:font-semibold group ease-in-out duration-100">
+                                <img src="../../../public/Sidebar/logout.svg" alt="" className="hover:stroke-primary-darker" />
                                 <span className="ms-3 ">Log Out</span>
                             </a>
                         </li>
