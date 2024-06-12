@@ -20,7 +20,7 @@ const DropdownMenu = ({ onMenuSelect, selectedMenu, className, buttonClassName, 
                         {selectedMenu}
                     </div>
                     <div className="bg-[#F1F5F9] opacity-50 p-1 rounded-full">
-                        <img src="../../../public/Content/dropdown.svg" alt="" />
+                        <img src="/Content/dropdown.svg" alt="" />
                     </div>
                 </button>
             </div>
