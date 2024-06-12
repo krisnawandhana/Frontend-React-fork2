@@ -115,7 +115,7 @@ export default function Transaction() {
             {topTransactions.map((transaction, index) => (
               <tr key={index} className="">
                 <td className="flex flex-row items-center gap-x-4 text-left px-6 py-4 whitespace-nowrap text-body1 text-dark-2 font-normal">
-                  <img src={`../../../public/Dashboard/${transaction.avatar}`} alt="" className="h-12 aspect-square rounded-full" />
+                  <img src={`/Dashboard/${transaction.avatar}`} alt="" className="h-12 aspect-square rounded-full" />
                   {transaction.name}
                 </td>
                 <td className="text-center px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.id}</td>

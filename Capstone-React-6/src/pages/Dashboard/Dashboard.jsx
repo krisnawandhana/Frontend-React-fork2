@@ -37,7 +37,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-4 gap-8 mb-4">
                 <div className="bg-primary-subtle text-white flex justify-center items-center py-6 px-8 rounded-3xl">
                     <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="../../../public/Dashboard/permintaan.svg" alt="Permintaan Icon" className="w-6 h-6" />
+                        <img src="/Dashboard/permintaan.svg" alt="Permintaan Icon" className="w-6 h-6" />
                     </div>
                     <div>
                         <h2 className="text-md">Permintaan</h2>
@@ -46,7 +46,7 @@ const Dashboard = () => {
                 </div>
                 <div className="bg-warning text-white flex justify-center items-center py-6 px-8 rounded-3xl">
                     <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="../../../public/Dashboard/belumkonsul.svg" alt="Belum Konsultasi Icon" className="w-6 h-6" />
+                        <img src="/Dashboard/belumkonsul.svg" alt="Belum Konsultasi Icon" className="w-6 h-6" />
                     </div>
                     <div>
                         <h2 className="text-md">Belum Konsultasi</h2>
@@ -55,7 +55,7 @@ const Dashboard = () => {
                 </div>
                 <div className="bg-error-subtle text-white flex justify-center items-center py-6 px-8 rounded-3xl">
                     <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="../../../public/Dashboard/pasien.svg" alt="Pasien Icon" className="w-6 h-6" />
+                        <img src="/Dashboard/pasien.svg" alt="Pasien Icon" className="w-6 h-6" />
                     </div>
                     <div>
                         <h2 className="text-md">Pasien Hari Ini</h2>
@@ -64,7 +64,7 @@ const Dashboard = () => {
                 </div>
                 <div className="bg-primary text-white flex justify-center items-center py-6 px-8 rounded-3xl">
                     <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="../../../public/Dashboard/totaltransaksi.svg" alt="Total Transaksi Icon" className="w-6 h-6" />
+                        <img src="/Dashboard/totaltransaksi.svg" alt="Total Transaksi Icon" className="w-6 h-6" />
                     </div>
                     <div>
                         <h2 className="text-md">Total Transaksi</h2>
@@ -81,7 +81,7 @@ const Dashboard = () => {
                         <h3 className="text-lg font-semibold">Permintaan Konsultasi</h3>
                         <div className="flex justify-center items-center">
                             <a href="" className="text-success-darker font-medium text-sm">Lihat Semua</a>
-                            <img src="../../../public/Dashboard/lihatsemua.svg" alt="" />
+                            <img src="/Dashboard/lihatsemua.svg" alt="" />
                         </div>
                     </div>
                     <table className="w-full">
@@ -89,7 +89,7 @@ const Dashboard = () => {
                         {permintaanKonsultasi.map((item) => (
                             <tr key={item.id} className="border-b">
                                 <td className="py-4 flex">
-                                    <img src={`../../../public/Dashboard/${item.avatar}`} alt="Avatar" className="w-9 h-9 mr-4" />
+                                    <img src={`/Dashboard/${item.avatar}`} alt="Avatar" className="w-9 h-9 mr-4" />
                                     <div>
                                         <p className="font-semibold text-sm">{item.name}</p>
                                         <p className="font-normal text-xs">{item.date}</p>
@@ -98,10 +98,10 @@ const Dashboard = () => {
                                 <td className="py-4 text-sm">{item.time}</td>
                                 <td className="py-4 flex justify-end mr-2">
                                     <button className="mr-4">
-                                        <img src="../../../public/Dashboard/Check.svg" alt="" className="w-5 h-5" />
+                                        <img src="/Dashboard/Check.svg" alt="" className="w-5 h-5" />
                                     </button>
                                     <button>
-                                        <img src="../../../public/Dashboard/Clear.svg" alt="" className="w-5 h-5" />
+                                        <img src="/Dashboard/Clear.svg" alt="" className="w-5 h-5" />
                                     </button>
                                 </td>
                             </tr>
@@ -116,7 +116,7 @@ const Dashboard = () => {
                         <h3 className="text-lg font-semibold">Top Konten Meditasi</h3>
                         <div className="flex justify-center items-center">
                             <a href="" className="text-success-darker font-medium text-sm">Lihat Semua</a>
-                            <img src="../../../public/Dashboard/lihatsemua.svg" alt="" />
+                            <img src="/Dashboard/lihatsemua.svg" alt="" />
                         </div>
                     </div>
                     {/* Placeholder for graph */}
@@ -134,7 +134,7 @@ const Dashboard = () => {
                     <h3 className="text-lg font-semibold">Transaksi</h3>
                     <div className="flex justify-center items-center">
                         <Link to="/dashboard/transaction/list" className="text-success-darker font-medium text-sm">Lihat Semua</Link>
-                        <img src="../../../public/Dashboard/lihatsemua.svg" alt="" />
+                        <img src="/Dashboard/lihatsemua.svg" alt="" />
                     </div>
                 </div>
                 <div className="rounded-xl border shadow">
@@ -167,7 +167,7 @@ const Dashboard = () => {
                                     </td>
                                     <td className="py-2 text-center">
                                         <button>
-                                            <img src="../../../public/Dashboard/hapus.svg" alt="" />
+                                            <img src="/Dashboard/hapus.svg" alt="" />
                                         </button>
                                     </td>
                                 </tr>

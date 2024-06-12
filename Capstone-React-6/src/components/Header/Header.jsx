@@ -28,16 +28,16 @@ export default function Header() {
         <div className="flex justify-between items-center py-2 px-4 mb-4 bg-[#D5EDF3] rounded-[30px]">
                 <div className="flex">
                     <button onClick={() => navigate(-1)} className="flex items-center">
-                        <img src="../../../public/Dashboard/back.svg" alt="Back" />
+                        <img src="/Dashboard/back.svg" alt="Back" />
                     </button>
                     <h1 className="text-md font-semibold ml-3 text-primary-darker">{pageTitle}</h1>
                 </div>
                 <div className="flex items-center">
                     <Link to="/dashboard/profile" className="w-8 h-8 mr-3 rounded-full bg-gray-300 overflow-hidden">
-                        <img src="../../../public/Dashboard/avatar.png" alt="Profile" className="w-full h-full object-cover" />
+                        <img src="/Dashboard/avatar.png" alt="Profile" className="w-full h-full object-cover" />
                     </Link>
                     <button className="w-8 h-8 rounded-full bg-white flex justify-center items-center mr-1" onClick={toggleNotification}>
-                        <img src="../../../public/Dashboard/notification.svg" alt="Notification" className="w-6 h-6" />
+                        <img src="/Dashboard/notification.svg" alt="Notification" className="w-6 h-6" />
                     </button>
 
                     {/* Notification Modal */}
@@ -58,7 +58,7 @@ export default function Header() {
                                     {notifications.map((notification) => (
                                         <div key={notification.id} className="mb-4">
                                             <div className="flex items-start mb-2">
-                                                <img src="../../../public/Dashboard/Ellipse.svg" alt="" className="w-4 mr-3"/>
+                                                <img src="/Dashboard/Ellipse.svg" alt="" className="w-4 mr-3"/>
                                                 <div className="mr-1">
                                                     <p className="text-sm">{notification.message}</p>
                                                     <a href="#" className="text-primary text-sm pt-3">{notification.time}</a>

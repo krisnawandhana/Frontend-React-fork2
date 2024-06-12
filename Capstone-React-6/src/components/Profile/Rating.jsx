@@ -43,7 +43,7 @@ const Rating = () => {
                 <div className="bg-white py-5 px-6 rounded-lg shadow mb-2">
                     <div key={rating.id}>
                         <div className="flex">
-                        <img src={`../../../public/Dashboard/${rating.avatar}`} alt="Avatar" className="w-10 h-10 mr-4" />
+                        <img src={`/Dashboard/${rating.avatar}`} alt="Avatar" className="w-10 h-10 mr-4" />
                             <div>
                                 <h3 className="text-base font-semibold">{rating.name}</h3>
                                 <p className="text-xs text-gray-500 mb-2">{rating.date} • {rating.time}</p>

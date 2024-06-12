@@ -8,21 +8,21 @@ const DaftarMusik = () => {
             judul: "Eternal Serenity",
             penyanyi: "Luna Grace",
             pendengar: 1.110,
-            gambar: "../../../../public/Content/musik1.png",
+            gambar: "/Content/musik1.png",
         },
         {
             id: 2,
             judul: "Inner Peace",
             penyanyi: "Zen Harmony",
             pendengar: 992,
-            gambar: "../../../../public/Content/musik2.png",
+            gambar: "/Content/musik2.png",
         },
         {
             id: 3,
             judul: "Ethereal Waves",
             penyanyi: "Serene Sounds C",
             pendengar: 1.172,
-            gambar: "../../../../public/Content/musik3.png",
+            gambar: "/Content/musik3.png",
         }
     ];
 
@@ -32,7 +32,7 @@ const DaftarMusik = () => {
                 <h3 className="text-lg font-semibold">Daftar Musik Meditasi</h3>
                 <div className="flex justify-center items-center">
                     <div className="relative">
-                        <img src="../../../../public/Content/Search.svg" alt="" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <img src="/Content/Search.svg" alt="" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
                         <input
                             type="text"
                             placeholder="Temukan Musik"

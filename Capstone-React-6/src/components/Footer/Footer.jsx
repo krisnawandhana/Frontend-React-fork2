@@ -29,13 +29,13 @@ export default function Footer() {
             <div className="w-1/3">
               <h3 className="text-lg font-semibold mb-5">Contact us</h3>
               <p className="text-sm mb-3 flex items-center font-light">
-                <img src="../../../public/Footer/mobile.svg" alt="Phone" className="mr-2 w-5 h-5" /> +1234 - 5679
+                <img src="/Footer/mobile.svg" alt="Phone" className="mr-2 w-5 h-5" /> +1234 - 5679
               </p>
               <p className="text-sm mb-7 flex items-center font-light">
-                <img src="../../../public/Footer/forwardEmail.svg" alt="Email" className="mr-2 w-5 h-5" /> mindease@gmail.com
+                <img src="/Footer/forwardEmail.svg" alt="Email" className="mr-2 w-5 h-5" /> mindease@gmail.com
               </p>
               <div>
-                <a href="#"><img src="../../../public/Footer/socialMedia.svg" alt="SosialMedia" className="" /></a>
+                <a href="#"><img src="/Footer/socialMedia.svg" alt="SosialMedia" className="" /></a>
               </div>
             </div>
           </div>
