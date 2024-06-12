@@ -6,7 +6,6 @@ export default function SideBar() {
     const location = useLocation();
     const navigate = useNavigate();
     const [activePath, setActivePath] = useState('/dashboard');
-    const navigate = useNavigate();
 
     useEffect(() => {
         setActivePath(location.pathname);
