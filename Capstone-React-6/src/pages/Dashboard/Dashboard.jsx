@@ -153,7 +153,7 @@ const Dashboard = () => {
                             {topTransactions.map((item) => (
                                 <tr key={item.id} className="border-b">
                                     <td className="py-2 text-sm flex pl-7">
-                                        <img src={`../../../public/Dashboard/${item.avatar}`} alt="Avatar" className="w-9 h-9 mr-4" />
+                                        <img src={`/Dashboard/${item.avatar}`} alt="Avatar" className="w-9 h-9 mr-4" />
                                         <div>
                                             <p className="font-semibold">{item.name}</p>
                                             <p className="font-normal text-xs">ID: {item.id}</p>

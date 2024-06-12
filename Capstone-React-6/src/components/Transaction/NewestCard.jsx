@@ -14,7 +14,7 @@ const NewestCard = ({ variant, detail, count, date, name, id, avatar }) => {
 		<div className="rounded-full w-full h-full overflow-hidden flex justify-start items-center bg-white outline outline-2 outline-dark-4" >
 			<div className="flex flex-row gap-x-2 items-center justify-center">
 				<div className="h-16 aspect-square flex justify-center items-center">
-					<img src={`../../../public/Dashboard/${avatar}`} alt={avatar} className="p-2 rounded-full" />
+					<img src={`/Dashboard/${avatar}`} alt={avatar} className="p-2 rounded-full" />
 				</div>
 				<div className="gap-y-2 text-dark-2 font-semibold text-center text-base">
 					<p className="text-start">{name}</p>
