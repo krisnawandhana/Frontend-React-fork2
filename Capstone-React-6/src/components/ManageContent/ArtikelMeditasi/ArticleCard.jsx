@@ -1,4 +1,5 @@
 import React from 'react'
+import AddArticleForm from './AddArticleForm';
 
 const ArticleCard = () => {
     // Dummy data
@@ -44,12 +45,25 @@ const ArticleCard = () => {
 
 
             {/* Tambah Musik */}
-            <div className="bg-[#FF8080] rounded-2xl flex flex-col justify-center w-40 h-40 cursor-pointer">
+            <div className="bg-[#FF8080] rounded-2xl flex flex-col justify-center w-40 h-40 cursor-pointer" onClick={() => document.getElementById('addMusicModal').showModal()}>
                 <h1 className="text-white font-semibold text-xl px-8">Tambah Artikel Baru</h1>
                 <div className="bg-[#F1F5F9] opacity-40 p-1 rounded-full w-10 h-10 ml-7 mt-2">
                     <img src="/Content/Add.svg" alt="" className="w-8 h-8"  />
                 </div>
             </div>
+
+            {/* DaisyUI Modal */}
+            <dialog id="addMusicModal" className="modal">
+                <div className="modal-box bg-[#F66] w-full max-w-2xl h-3/7">
+                <form method="dialog">
+                    {/* Close button */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white text-lg">✕</button>
+                </form>
+                <h3 className="font-semibold text-heading1 text-white mx-4">Tambah Artikel</h3>
+                {/* Your form content here */}
+                <AddArticleForm />
+                </div>
+            </dialog>
         </div>
     )
 }
