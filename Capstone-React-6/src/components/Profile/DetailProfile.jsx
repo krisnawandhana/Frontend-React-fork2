@@ -30,11 +30,11 @@ const DetailProfile = () => {
                 <div className="flex justify-between mb-4">
                     <p className="font-semibold text-dark-1">Profile</p>
                     <Link to="/dashboard/editprofile" className="flex items-center">
-                        <img src="../../../public/Profile/Edit.svg" alt="" />
+                        <img src="/Profile/Edit.svg" alt="" />
                         <button className="text-primary text-sm font-medium ml-2">Edit Profile</button>
                     </Link>
                 </div>
-                <img src="../../../public/Profile/photoprofile.png" alt="Doctor" />
+                <img src="/Profile/photoprofile.png" alt="Doctor" />
                 <h2 className="text-sm mt-3 text-dark-1 font-semibold text-center">{profile.name}</h2>
                 <p className="text-sm text-dark-2 text-center">{profile.specialization}</p>
             </div>
@@ -43,7 +43,7 @@ const DetailProfile = () => {
                     const bgColor = index === 0 ? 'bg-[#EE96B5] rounded ' : 'bg-[#D796EE] rounded';
                     return (
                         <div key={index} className="flex items-center mb-2 p-2 rounded-lg">
-                            <img src="../../../public/Profile/Education.svg" alt="University Icon" className={`w-10 h-10 p-2 mr-2 ${bgColor}`} />
+                            <img src="/Profile/Education.svg" alt="University Icon" className={`w-10 h-10 p-2 mr-2 ${bgColor}`} />
                             <div>
                                 <p className="text-xs font-semibold">{edu.level}</p>
                                 <p className="text-xs">{edu.university}</p>

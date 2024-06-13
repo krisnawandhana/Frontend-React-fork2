@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { login } from '../../utils/auth';
 
 export default function Login() {
@@ -133,7 +133,7 @@ export default function Login() {
             </div>
           </div>
           <div className="my-8 text-body1 text-gray-600 text-center">
-            <p>Tidak punya akun?<a href="" className="text-primary text-body1 font-semibold mx-4">Daftar</a></p>
+            <p>Tidak punya akun?<Link to="/register" className="text-primary text-body1 font-semibold mx-4">Daftar</Link></p>
           </div>
         </div>
       </div>

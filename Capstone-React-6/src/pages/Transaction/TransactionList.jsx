@@ -12,7 +12,6 @@ const TransactionList = () => {
 
   return (
     <div>
-        <h1>Daftar Transaksi</h1>
         <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
         <TransactionTable searchTerm={searchTerm} />
     </div>

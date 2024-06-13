@@ -17,7 +17,7 @@ import TransactionList from './pages/Transaction/TransactionList';
 import ManageForum from './pages/ManageForum/ManageForum';
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(true)
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	useEffect(() => {
 		// Check if the user is logged in by checking the token
@@ -26,15 +26,15 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={isLoggedIn ? <Navigate to="/homepage" /> : <Login />} />
+      <Route path="/" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/homepage" element={<Homepage />} />
       <Route path="/landingpage" element={<LandingPage />} />
-      <Route path="/dashboard" element={<DashboardLayout />} >
+      <Route path="/dashboard" element={isLoggedIn ? <DashboardLayout /> : <Navigate to="/" />}>
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="editprofile" element={<EditProfile />} />
-        <Route path="managecontent" element={<ManageContent />} />
+        <Route path="managecontent/*" element={<ManageContent />} />
         <Route path="managepatient" element={<ManagePatient />} />
           <Route path="managepatient/detail" element={<Detail />} />
         <Route path="transaction" element={<Transaction />} />
