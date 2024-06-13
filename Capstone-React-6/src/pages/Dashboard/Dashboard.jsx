@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import FloatingChatButton from '../../components/Dashboard/FloatingChatButton';
 
 const Dashboard = () => {
     // Dummy data
@@ -230,6 +231,9 @@ const Dashboard = () => {
                     </table>
                 </div>
             </div>
+            
+            {/* Tombol Chat Melayang */}
+            <FloatingChatButton />
         </div>
     );
 };
