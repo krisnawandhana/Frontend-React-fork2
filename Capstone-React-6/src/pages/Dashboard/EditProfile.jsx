@@ -21,8 +21,6 @@ const EditProfile = () => {
     specialization: 'Psikiater Dewasa',
     edu1: 'S1 Psikologi - Universitas Indonesia',
     edu2: 'S2 Psikologi - Universitas Gajah Mada',
-    day: 'Senin - Jumat',
-    time: '09.00 - 17.00',
     address: 'Jl. Kebahagiaan No. 123, Kecamatan Senen, Jakarta Pusat'
   };
 
@@ -65,13 +63,6 @@ const EditProfile = () => {
               <div className="grid grid-cols-2 gap-3">
                 <input type="text" placeholder={profile.edu1} className="border border-dark-4 text-sm py-2 px-4 rounded-3xl" />
                 <input type="text" placeholder={profile.edu2} className="border border-dark-4 text-sm py-2 px-4 rounded-3xl" />
-              </div>
-            </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="bukaPraktik" className="mb-2 text-dark-1 text-sm font-medium">Buka Praktik</label>
-              <div className="grid grid-cols-2 gap-3">
-                <input type="text" placeholder={profile.day} className="border border-dark-4 text-sm py-2 px-4 rounded-3xl" />
-                <input type="text" placeholder={profile.time} className="border border-dark-4 text-sm py-2 px-4 rounded-3xl" />
               </div>
             </div>
             <div className="flex flex-col mb-4">
