@@ -24,7 +24,7 @@ const JanjiTemuChart = ({ accepted, waiting, rejected }) => {
 	]
 
 	return (
-		<div className="flex flex-col gap-y-3">
+		<div className="flex flex-col gap-y-3 mt-2">
 			<div className="flex flex-row justify-between font-semibold text-dark-2">
 				<p>Grafik Janji Temu</p>
 				<select className="bg-[#FAFAFA] focus:outline-0">
@@ -33,7 +33,7 @@ const JanjiTemuChart = ({ accepted, waiting, rejected }) => {
 			</div>
 			<div className="w-full p-8 flex flex-row gap-x-16 items-center bg-white rounded-[32px]">
 				<div
-					className="rounded-full w-1/2 aspect-square flex justify-center items-center"
+					className="rounded-full w-1/3 aspect-square flex justify-center items-center"
 					style={chart}
 				>
 					<div className="rounded-full w-1/2 aspect-square bg-white" />
