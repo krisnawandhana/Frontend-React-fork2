@@ -1,12 +1,19 @@
+import React, { useState } from 'react';
 import PermintaanJanjiTemuTable from "../../components/ManagePatient/PermintaanJanjiTemu/PermintaanJanjiTemuTable"
+import PatientDetailPopup from '../../components/ManagePatient/PermintaanJanjiTemu/PatientDetailPopup';
 
 export default function Detail() {
+	const [selectedPatient, setSelectedPatient] = useState(null);
+
+	//dummy data
 	const data = [
 		{
+			id: 1,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -14,25 +21,33 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
-			name: "Tiara Dista",
+			id: 2,
+			name: "Caca Marica",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
-			date: "Senin, 15 Januari 2024",
+			date: "Senin, 15 Februari 2024",
 			time: {
 				start: "13:00",
 				end: "14:30",
 			},
 			status: "rejected",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 3,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -40,12 +55,16 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 4,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -53,12 +72,16 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "accepted",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 5,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -66,12 +89,16 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 6,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -79,12 +106,16 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 1,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -92,12 +123,16 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "rejected",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 7,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -105,12 +140,16 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 8,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -118,12 +157,16 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "accepted",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 		{
+			id: 9,
 			name: "Tiara Dista",
 			age: 22,
 			img: "/avatar/foto-pasien.png",
-			gender: "P",
+			gender: "Perempuan",
+			address: "Jakarta, Indonesia",
 			disease: "Gangguan Stres Pascatrauma (PTSD)",
 			date: "Senin, 15 Januari 2024",
 			time: {
@@ -131,8 +174,20 @@ export default function Detail() {
 				end: "14:30",
 			},
 			status: "",
+			complaintDetail: "Mengalami mimpi buruk berulang...",
+            diseaseHistory: "Tidak ada riwayat penyakit serius...",
 		},
 	]
+
+	const handleRowClick = (patientId) => {
+        const patient = data.find(p => p.id === patientId);
+        setSelectedPatient(patient);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedPatient(null);
+    };
+
 	return (
 		<div className="flex flex-col gap-y-6">
 			<div className="flex flex-row flex-wrap justify-between">
@@ -145,8 +200,14 @@ export default function Detail() {
 				</div>
 			</div>
 			<div className="rounded-[32px] bg-white pt-4 overflow-hidden">
-				<PermintaanJanjiTemuTable withHeader data={data} />
+				<PermintaanJanjiTemuTable withHeader data={data} onRowClick={handleRowClick} />
 			</div>
+			{selectedPatient && 
+				<PatientDetailPopup 
+					patient={selectedPatient} 
+					onClose={handleClosePopup} 
+				/>
+			}
 		</div>
 	)
 }

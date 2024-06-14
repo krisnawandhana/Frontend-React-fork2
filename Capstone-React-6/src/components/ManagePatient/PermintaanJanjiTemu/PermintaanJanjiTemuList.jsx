@@ -71,7 +71,7 @@ const PermintaanJanjiTemuList = () => {
 	]
 
 	return (
-		<div className="rounded-[32px] flex flex-col gap-y-6 px-4 py-5 bg-white">
+		<div className="rounded-[32px] flex flex-col gap-y-6 px-4 bg-white">
 			<div className="flex flex-row justify-between">
 				<h2 className="text-base font-semibold text-dark-2">
 					Permintaan Janji Temu
