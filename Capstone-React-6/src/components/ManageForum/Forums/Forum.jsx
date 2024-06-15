@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ForumData from './ForumData';
+import AddForum from '../PopUp/AddForum';
 
 const Forum = ({ setSelectedForumId }) => {
+    const [showPopup, setShowPopup] = useState(false);
+
+    const openPopup = () => {
+        setShowPopup(true);
+    };
+
+    const closePopup = () => {
+        setShowPopup(false);
+    };
+
+    const handleAddForum = (forumData) => {
+        // Implement logic to add forum here
+        console.log('Adding forum with data:', forumData);
+        // You can add further logic to update state or perform API calls here
+        // For now, just log the forumData to console
+    };
 
     return (
         <div>
@@ -12,13 +29,23 @@ const Forum = ({ setSelectedForumId }) => {
                     placeholder="Temukan forum"
                     className="py-2 px-4 text-sm border border-gray-300 rounded-lg w-full mr-4"
                 />
-                <button className="bg-primary text-sm flex justify-center items-center gap-3 text-white p-2 rounded-lg w-[50%]"><span className="text-xl">+</span> Tambah Forum</button>
+                <button onClick={openPopup} className="bg-primary text-sm flex justify-center items-center gap-3 text-white p-2 rounded-lg w-[50%]">
+                    <span className="text-xl">+</span> Tambah Forum
+                </button>
             </div>
 
             {/* Kumpulan Forum */}
             <div>
                 <ForumData setSelectedForumId={setSelectedForumId} />
             </div>
+
+            {/* Tampilkan popup jika showPopup true */}
+            {showPopup && 
+                <AddForum 
+                    onClose={closePopup} 
+                    onAddForum={handleAddForum} 
+                />
+            }
         </div>
     );
 };

@@ -1,13 +1,18 @@
-import React from 'react';
-import BalasForum from './BalasForum';
+import React, { useState } from 'react';
+import ForumItem from './ForumItem';
+import ForumDetails from './ForumDetails';
 
 const DetailForum = ({ selectedForumId }) => {
+    const [showDetails, setShowDetails] = useState(false);
+
     const forums = [
         {
             id: 1,
             image: 'talklife.png',
             name: 'Talk Life',
+            description: 'Komunitas yang membantu pengguna dari seluruh Indonesia berbagi pengalaman, mendukung satu sama lain, dan mengatasi tantangan kesehatan mental bersama',
             members: 109,
+            memberList: ['Asari', 'Bintang', 'Wildan Imanika', 'Yuyun', 'Vera'],
             originalPost: {
                 avatar: 'man1.svg',
                 name: 'Kevin Putra Bima',
@@ -32,7 +37,9 @@ const DetailForum = ({ selectedForumId }) => {
             id: 2,
             image: 'loveyourself.png',
             name: 'Love Yourself',
+            description: 'Komunitas yang mendukung penerimaan diri dan cinta terhadap diri sendiri.',
             members: 42,
+            memberList: ['Budi Santoso', 'Sinta Dewi', 'Rani Andini'],
             originalPost: {
                 avatar: 'woman3.svg',
                 name: 'Dewi Anggraeni',
@@ -57,7 +64,9 @@ const DetailForum = ({ selectedForumId }) => {
             id: 3,
             image: 'moodspace.png',
             name: 'Mood Space',
+            description: 'Tempat berbagi suasana hati dan mendukung satu sama lain.',
             members: 42,
+            memberList: ['Bagus Pratama', 'Diana Putri', 'Rina Andriani'],
             originalPost: {
                 avatar: 'woman2.svg',
                 name: 'Citra Lestari',
@@ -82,7 +91,9 @@ const DetailForum = ({ selectedForumId }) => {
             id: 4,
             image: 'mentalhealth.png',
             name: 'Mental Health Forum',
+            description: 'Forum untuk berbagi dan mendiskusikan kesehatan mental.',
             members: 88,
+            memberList: ['Siti Nurhaliza', 'Budi Hartono', 'Joko Widodo'],
             originalPost: {
                 avatar: 'man2.svg',
                 name: 'Andi Putra',
@@ -107,7 +118,9 @@ const DetailForum = ({ selectedForumId }) => {
             id: 5,
             image: 'inspire.png',
             name: 'Inspire',
+            description: 'Tempat berbagi inspirasi dan motivasi setiap hari.',
             members: 32,
+            memberList: ['Agus Pratama', 'Maria Bella', 'Yusuf Anwar'],
             originalPost: {
                 avatar: 'woman2.svg',
                 name: 'Nina Sari',
@@ -129,7 +142,7 @@ const DetailForum = ({ selectedForumId }) => {
             ],
         },
     ];
-    
+
     const forum = forums.find(f => f.id === selectedForumId);
 
     if (!forum) {
@@ -138,28 +151,13 @@ const DetailForum = ({ selectedForumId }) => {
 
     return (
         <div className="bg-white p-2 border rounded-lg">
-            {/* Judul Forum */}
-            <div className="mb-5 flex items-center pb-2 border-b-2">
-                <img src={`/Forum/${forum.image}`} alt={forum.name} className="h-16 w-16 mr-4" />
-                <div>
-                    <h2 className="text-lg font-semibold">{forum.name}</h2>
-                    <p className="text-sm text-gray-500">{forum.members} anggota</p>
-                </div>
-            </div>
-
-            {/* Konten Asli */}
-            <div className="flex items-start mb-4">
-                <img src={`/Forum/${forum.originalPost.avatar}`} alt={forum.originalPost.name} className="h-10 w-10 rounded-full mr-4" />
-                <div>
-                    <span className="font-semibold text-primary">{forum.originalPost.name}</span>
-                    <p className="text-sm mt-2">{forum.originalPost.content}</p>
-                </div>
-            </div>
-
-            {/* Balasan Forum */}
-            <BalasForum replies={forum.replies} />
+            {showDetails ? (
+                <ForumDetails forum={forum} setShowDetails={setShowDetails} />
+            ) : (
+                <ForumItem forum={forum} setShowDetails={setShowDetails} />
+            )}
         </div>
     );
-}
+};
 
 export default DetailForum;

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const BalasForum = ({ replies }) => {
+    
     return (
         <div className="px-14">
             <div className="flex items-center mb-5">
@@ -11,9 +12,9 @@ const BalasForum = ({ replies }) => {
             <ul>
                 {replies.map(reply => (
                     <li key={reply.id} className="mb-4">
-                        <div className="flex items-start mb-5">
+                        <div className="flex items-start mb-3">
                             <img src={`/Forum/${reply.avatar}`} alt={reply.name} className="h-9 w-9 rounded-full mr-4" />
-                            <div className="flex flex-col">
+                            <div className="flex flex-col bg-light-2 py-3 px-4 rounded-lg">
                                 <span className="font-semibold text-sm mb-1">{reply.name}</span>
                                 <p className="text-xs">{reply.content}</p>
                             </div>
