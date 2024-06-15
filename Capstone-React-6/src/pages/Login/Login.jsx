@@ -15,10 +15,10 @@ export default function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+  
     try {
       const { success, token, message } = await login(username, password);
-
+  
       if (success) {
         setIsLoggedIn(true); // Update login status
         window.location.reload();

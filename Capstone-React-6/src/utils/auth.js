@@ -6,13 +6,20 @@ const API_URL = import.meta.env.VITE_API_URL;
 const login = async (username, password) => {
   try {
     const response = await axios.post(`${API_URL}/v1/doctors/login`, { username, password });
-    const { token } = response.data;
+    console.log('API response:', response.data); // Log the response to check its structure
+
+    const { token } = response.data.data;
+
+    if (!token) {
+      throw new Error('Token not found in response');
+    }
 
     // Save the token to local storage
     localStorage.setItem('token', token);
 
     return { success: true, token };
   } catch (error) {
+    console.error('Login error:', error); // Log the error to understand what went wrong
     return { success: false, message: error.response ? error.response.data.message : error.message };
   }
 };

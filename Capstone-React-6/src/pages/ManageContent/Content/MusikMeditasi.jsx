@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DropdownMenu from '../../../components/ManageContent/DropdownMenu';
 import TopContent from '../../../components/ManageContent/MusikMeditasi/TopContent';
 import DaftarMusik from '../../../components/ManageContent/MusikMeditasi/DaftarMusik';
 import NewMusicList from '../../../components/ManageContent/MusikMeditasi/NewMusicList';
+import { getMusicCount, getLikedMusicCount, getViewedMusicCount } from '../../../utils/musics.js';
 
 const MusikMeditasi = () => {
     const [selectedMenu, setSelectedMenu] = useState('Musik Meditasi');
+    const [musicCard, setMusicCard] = useState({
+        postingan: '',
+        pendengar: '',
+        suka: ''
+    });
     const navigate = useNavigate();
 
     const handleMenuSelect = (menu) => {
@@ -26,13 +32,59 @@ const MusikMeditasi = () => {
         setSelectedMenu(menu);
     };
 
-    // dummy data
-    const musicCard = {
-        postingan: 787,
-        pendengar: 1189,
-        suka: 320
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('Token tidak ditemukan');
+                return;
+            }
 
+            try {
+                // Fetch music count
+                const musicCountResponse = await getMusicCount(token);
+
+                if (musicCountResponse.success) {
+                    setMusicCard(prevState => ({
+                        ...prevState,
+                        postingan: musicCountResponse.data.count
+                    }));
+                } else {
+                    console.error('Gagal mengambil jumlah postingan musik:', musicCountResponse.message);
+                }
+
+                // Fetch liked music count
+                const likedMusicCountResponse = await getLikedMusicCount(token);
+
+                if (likedMusicCountResponse.success) {
+                    setMusicCard(prevState => ({
+                        ...prevState,
+                        suka: likedMusicCountResponse.data.count
+                    }));
+                } else {
+                    console.error('Gagal mengambil jumlah suka musik:', likedMusicCountResponse.message);
+                }
+
+                // Fetch viewed music count
+                const viewedMusicCountResponse = await getViewedMusicCount(token);
+
+                if (viewedMusicCountResponse.success) {
+                    setMusicCard(prevState => ({
+                        ...prevState,
+                        pendengar: viewedMusicCountResponse.data.count
+                    }));
+                } else {
+                    console.error('Gagal mengambil jumlah pendengar musik:', viewedMusicCountResponse.message);
+                }
+            } catch (error) {
+                console.error('Gagal melakukan request:', error.message);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    
     return (
         <>
             {/* Card  */}
