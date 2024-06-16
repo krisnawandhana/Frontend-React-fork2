@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const AddForum = ({ onClose, onAddForum }) => {
 
     const [image, setImage] = useState('');
-    const [title, setTitle] = useState('');
+    const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [filePreview, setFilePreview] = useState(null);
 
@@ -20,11 +20,11 @@ const AddForum = ({ onClose, onAddForum }) => {
     };
 
     const handleAddForum = () => {
-        onAddForum({ image, title, description });
+        onAddForum({ image, name, description });
 
         // Clear inputs after adding forum
         setImage('');
-        setTitle('');
+        setName('');
         setDescription('');
         setFilePreview(null);
 
@@ -60,12 +60,12 @@ const AddForum = ({ onClose, onAddForum }) => {
                     </div>
                 </div>
                 <div className="mb-4 px-4">
-                    <label htmlFor="titleInput" className="block text-sm font-semibold text-dark-1 mb-1">Nama Forum:</label>
+                    <label htmlFor="nameInput" className="block text-sm font-semibold text-dark-1 mb-1">Nama Forum:</label>
                     <input
                         type="text"
-                        id="titleInput"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        id="nameInput"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         placeholder="Masukkan Nama Forum"
                         className="py-2 px-3 text-sm border border-dark-3 rounded-lg w-full"
                     />
