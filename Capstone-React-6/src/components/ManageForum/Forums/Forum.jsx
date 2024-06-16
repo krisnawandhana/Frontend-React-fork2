@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 import ForumData from './ForumData';
 import AddForum from '../PopUp/AddForum';
 
@@ -13,11 +14,11 @@ const Forum = ({ setSelectedForumId }) => {
         setShowPopup(false);
     };
 
-    const handleAddForum = (forumData) => {
-        // Implement logic to add forum here
+    const handleAddForum = async (forumData) => {
+        // Implement logic to add forum
+        const response = await axios.post(`https://dev-capstone.practiceproject.tech/v1/doctors/forums/${forumData}`)
         console.log('Adding forum with data:', forumData);
-        // You can add further logic to update state or perform API calls here
-        // For now, just log the forumData to console
+        console.log(response);
     };
 
     return (

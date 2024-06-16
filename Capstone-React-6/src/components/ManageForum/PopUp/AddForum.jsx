@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const AddForum = ({ onClose, onAddForum }) => {
+
     const [image, setImage] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
