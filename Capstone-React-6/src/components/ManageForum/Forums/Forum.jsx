@@ -15,7 +15,7 @@ const Forum = ({ setSelectedForumId }) => {
     };
 
     const handleAddForum = async (forumData) => {
-        // Implement logic to add forum
+        // logic to add forum
         const response = await axios.post(`https://dev-capstone.practiceproject.tech/v1/doctors/forums/${forumData}`)
         console.log('Adding forum with data:', forumData);
         console.log(response);

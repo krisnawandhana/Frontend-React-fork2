@@ -49,7 +49,7 @@ const ForumData = ({ setSelectedForumId }) => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                setForums(response.data.data); // Sesuaikan dengan struktur data dari API
+                setForums(response.data.data); 
             } catch (error) {
                 console.error('Error fetching forum data:', error);
             }
@@ -70,7 +70,7 @@ const ForumData = ({ setSelectedForumId }) => {
         <div>
             <ul>
                 {forums.map((forum) => {
-                    console.log('Forum ID:', forum.id); // Tambahkan log untuk memastikan ID tersedia dan unik
+                    console.log('Forum ID:', forum.id); 
                     return (
                         <li key={forum.id} className="mb-2">
                             <button
