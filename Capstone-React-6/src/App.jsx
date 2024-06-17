@@ -15,6 +15,7 @@ import Detail from "./pages/ManagePatient/Detail"
 import Transaction from './pages/Transaction/Transaction';
 import TransactionList from './pages/Transaction/TransactionList';
 import ManageForum from './pages/ManageForum/ManageForum';
+import DetailForum from './components/ManageForum/DetailForum/DetailForum';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -40,6 +41,7 @@ function App() {
         <Route path="transaction" element={<Transaction />} />
           <Route path="transaction/list" element={<TransactionList />} />
         <Route path="manageforum" element={<ManageForum />} />
+          <Route path="manageforum/detail/:id" element={<DetailForum />} />
       </Route>
     </Routes>
   );

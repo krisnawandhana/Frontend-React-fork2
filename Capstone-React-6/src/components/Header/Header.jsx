@@ -43,8 +43,8 @@ export default function Header() {
                     {/* Notification Modal */}
                     {isNotificationOpen && (
                         <div className="text-dark-2">
-                            <div className="fixed inset-0 bg-black opacity-30 z-10" onClick={toggleNotification}></div>
-                            <div className="absolute top-20 right-10 w-1/4 bg-white shadow-lg rounded-lg p-4 z-20">
+                            <div className="fixed inset-0 bg-black opacity-30 z-40" onClick={toggleNotification}></div>
+                            <div className="absolute top-20 right-10 w-1/4 bg-white shadow-lg rounded-lg p-4 z-50">
                                 <div className="flex justify-between items-center">
                                     <div className="mb-4">
                                         <h3 className="text-md font-semibold ml-2">Notifikasi</h3>
