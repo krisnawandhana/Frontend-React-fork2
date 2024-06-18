@@ -1,71 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getFeedbacks } from '../../utils/feedback.js';
 
 const Rating = () => {
-    // Dummy data
-    const ratings = [
-        {
-            id: 1,
-            name: 'Alvina Anggreka',
-            date: '10 Januari 2024',
-            time: '19:30',
-            avatar: 'girl1.svg',
-            comment: 'Saya telah menjalani beberapa sesi konsultasi dengan Dr. Andre selama tiga bulan terakhir dan sangat terkesan dengan profesionalisme beliau.'
-        },
-        {
-            id: 2,
-            name: 'Aryo Budianto',
-            date: '10 Januari 2024',
-            time: '19:30',
-            avatar: 'boy1.svg',
-            comment: 'Pendekatan beliau yang ramah dan penuh empati membuat saya merasa nyaman dan dihargai. Saya sangat bersyukur telah menemukan psikiater sebaik beliau.'
-        },
-        {
-            id: 3,
-            name: 'Clara Maya',
-            date: '10 Januari 2024',
-            time: '19:30',
-            avatar: 'girl2.svg',
-            comment: 'Bagus sekali'
-        },
-        {
-            id: 4,
-            name: 'Dimas Saputra',
-            date: '9 Januari 2024',
-            time: '14:00',
-            avatar: 'boy2.svg',
-            comment: 'Sesi konsultasi yang sangat membantu. Dr. Andre memberikan banyak wawasan dan strategi yang berguna.'
-        }
-    ];
+    const [ratings, setRatings] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchFeedbacks = async () => {
+            const token = localStorage.getItem('token'); // Replace with actual token
+            try {
+                const response = await getFeedbacks(1, 10, token);
+                if (response.success) {
+                    setRatings(response.data);
+                } else {
+                    setError(response.message);
+                }
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFeedbacks();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <div>
-            {ratings.map((rating) => (
-                <div key={rating.id} className="bg-white py-5 px-6 rounded-lg shadow mb-2">
-                    <div>
-                        <div className="flex">
-                        <img src={`/Dashboard/${rating.avatar}`} alt="Avatar" className="w-10 h-10 mr-4" />
-                            <div>
-                                <h3 className="text-base font-semibold">{rating.name}</h3>
-                                <p className="text-xs text-gray-500 mb-2">{rating.date} • {rating.time}</p>
-                                <div className="flex items-center mb-2">
-                                    <div className="rating">
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-2 bg-orange-300" checked />
+            {ratings.length === 0 ? (
+                <div className="text-center text-gray-500 py-5 uppercase font-semibold">belum ada komentar/rating dari pengguna</div>
+            ) : (
+                ratings.map((rating) => (
+                    <div key={rating.id} className="bg-white py-5 px-6 rounded-lg shadow mb-2">
+                        <div>
+                            <div className="flex">
+                                <img src={rating.user.image_url || '/default-avatar.png'} alt="Avatar" className="w-10 h-10 mr-4" />
+                                <div>
+                                    <h3 className="text-base font-semibold">{rating.user.name || rating.user.username}</h3>
+                                    <p className="text-xs text-gray-500 mb-2">{rating.date}</p>
+                                    <div className="flex items-center mb-2">
+                                        <div className="rating">
+                                            {[...Array(rating.rate)].map((_, index) => (
+                                                <input key={index} type="radio" name={`rating-${rating.id}`} className="mask mask-star-2 w-4 mr-1 bg-orange-300" checked readOnly />
+                                            ))}
+                                            {[...Array(5 - rating.rate)].map((_, index) => (
+                                                <input key={index} type="radio" name={`rating-${rating.id}`} className="mask mask-star-2 w-4 mr-1 bg-gray-300" readOnly />
+                                            ))}
+                                        </div>
+                                        <p className="text-xs text-gray-500">{rating.rate}/5</p>
                                     </div>
-                                    <p className="text-xs text-gray-500">5/5</p>
+                                    <p className="text-sm">{rating.message}</p>
                                 </div>
-                                <p className="text-sm">{rating.comment}</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))
+            )}
         </div>
     );
 }
-
 
 export default Rating;
