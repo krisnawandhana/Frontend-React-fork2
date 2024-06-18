@@ -40,8 +40,8 @@ const Rating = () => {
     return (
         <div>
             {ratings.map((rating) => (
-                <div className="bg-white py-5 px-6 rounded-lg shadow mb-2">
-                    <div key={rating.id}>
+                <div key={rating.id} className="bg-white py-5 px-6 rounded-lg shadow mb-2">
+                    <div>
                         <div className="flex">
                         <img src={`/Dashboard/${rating.avatar}`} alt="Avatar" className="w-10 h-10 mr-4" />
                             <div>
