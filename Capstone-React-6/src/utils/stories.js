@@ -53,19 +53,29 @@ const getStoryById = async (storyId, token) => {
 };
 
 // Update story by ID
-const updateStoryById = async (storyId, storyData) => {
+const updateStoryById = async (storyId, storyData, token) => {
   try {
-    const response = await axios.put(`${API_URL}/v1/doctors/stories/${storyId}`, storyData);
+    const response = await axios.put(`${API_URL}/v1/doctors/stories/${storyId}`, storyData, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return { success: true, data: response.data };
   } catch (error) {
     return { success: false, message: error.response ? error.response.data.message : error.message };
   }
 };
 
+
+
 // Delete story by ID
-const deleteStoryById = async (storyId) => {
+const deleteStoryById = async (storyId, token) => {
   try {
-    const response = await axios.delete(`${API_URL}/v1/doctors/stories/${storyId}`);
+    const response = await axios.delete(`${API_URL}/v1/doctors/stories/${storyId}`,{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return { success: true, data: response.data };
   } catch (error) {
     return { success: false, message: error.response ? error.response.data.message : error.message };
@@ -73,30 +83,42 @@ const deleteStoryById = async (storyId) => {
 };
 
 // Get count of all stories
-const getStoryCount = async () => {
+const getStoryCount = async (token) => {
   try {
-    const response = await axios.get(`${API_URL}/v1/doctors/stories/count`);
-    return { success: true, data: response.data };
+    const response = await axios.get(`${API_URL}/v1/doctors/stories/count`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return { success: true, data: response.data.data };
   } catch (error) {
     return { success: false, message: error.response ? error.response.data.message : error.message };
   }
 };
 
 // Get count of liked stories
-const getLikedStoryCount = async () => {
+const getLikedStoryCount = async (token) => {
   try {
-    const response = await axios.get(`${API_URL}/v1/doctors/stories/like/count`);
-    return { success: true, data: response.data };
+    const response = await axios.get(`${API_URL}/v1/doctors/stories/like/count`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return { success: true, data: response.data.data };
   } catch (error) {
     return { success: false, message: error.response ? error.response.data.message : error.message };
   }
 };
 
 // Get count of viewed stories
-const getViewedStoryCount = async () => {
+const getViewedStoryCount = async (token) => {
   try {
-    const response = await axios.get(`${API_URL}/v1/doctors/stories/view/count`);
-    return { success: true, data: response.data };
+    const response = await axios.get(`${API_URL}/v1/doctors/stories/view/count`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return { success: true, data: response.data.data };
   } catch (error) {
     return { success: false, message: error.response ? error.response.data.message : error.message };
   }
