@@ -1,13 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DropdownMenu from '../../../components/ManageContent/DropdownMenu';
 import TopContent from '../../../components/ManageContent/CeritaInspiratif/TopContent';
 import DaftarCerita from '../../../components/ManageContent/CeritaInspiratif/DaftarCerita';
 import NewStoryList from '../../../components/ManageContent/CeritaInspiratif/NewStoryList';
+import { getStoryCount, getLikedStoryCount, getViewedStoryCount } from '../../../utils/stories.js';
 
 const CeritaInspiratif = () => {
     const [selectedMenu, setSelectedMenu] = useState('Cerita Inspiratif');
+    const [storyCard, setStoryCard] = useState({ unggahan: 0, pembaca: 0, suka: 0 });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchCounts();
+    }, []);
+
+    const fetchCounts = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('No token found');
+            return;
+        }
+        const storyCountResponse = await getStoryCount(token);
+        const likedStoryCountResponse = await getLikedStoryCount(token);
+        const viewedStoryCountResponse = await getViewedStoryCount(token);
+
+        if (storyCountResponse.success && likedStoryCountResponse.success && viewedStoryCountResponse.success) {
+            setStoryCard({
+                unggahan: storyCountResponse.data.count,
+                pembaca: viewedStoryCountResponse.data.count,
+                suka: likedStoryCountResponse.data.count,
+            });   
+        } else {
+            console.log(storyCountResponse.data.count, likedStoryCountResponse.data.count, viewedStoryCountResponse.data.count);
+            console.log('Failed to fetch data');
+        }
+    };
 
     const handleMenuSelect = (menu) => {
         switch (menu) {
@@ -26,13 +54,6 @@ const CeritaInspiratif = () => {
         setSelectedMenu(menu);
     };
 
-    // dummy data
-    const artikelCard = {
-        unggahan: 787,
-        pembaca: 1189,
-        suka: 320
-    }
-
     return (
         <>
             {/* Card  */}
@@ -48,15 +69,15 @@ const CeritaInspiratif = () => {
                 </div>
                 <div className="flex flex-col justify-center border-gray border-r-2 pl-16">
                     <h2 className="text-md font-medium">Unggahan</h2>
-                    <p className="text-3xl font-semibold mt-2 ">{artikelCard.unggahan}</p>
+                    <p className="text-3xl font-semibold mt-2 ">{storyCard.unggahan}</p>
                 </div>
                 <div className="flex flex-col justify-center border-gray border-r-2 pl-16">
                     <h2 className="text-md font-medium">Pembaca</h2>
-                    <p className="text-3xl font-semibold mt-2 ">{artikelCard.pembaca}</p>
+                    <p className="text-3xl font-semibold mt-2 ">{storyCard.pembaca}</p>
                 </div>
                 <div className="flex flex-col justify-center border-gray border-r-2 pl-20">
                     <h2 className="text-md font-medium">Suka</h2>
-                    <p className="text-3xl font-semibold mt-2 ">{artikelCard.suka}</p>
+                    <p className="text-3xl font-semibold mt-2 ">{storyCard.suka}</p>
                 </div>
             </div>
 
@@ -66,7 +87,7 @@ const CeritaInspiratif = () => {
                     <TopContent />
                 </div>
 
-                {/* Daftar Musik */}
+                {/* Daftar Cerita */}
                 <div className="w-[57%]">
                     <DaftarCerita />
                 </div>

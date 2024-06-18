@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getStories, getStoryById } from '../../../utils/stories';
+import { getStories, getStoryById, updateStoryById, deleteStoryById } from '../../../utils/stories';
 
 const DaftarCerita = () => {
   const [storyData, setStoryData] = useState([]);
@@ -15,21 +15,21 @@ const DaftarCerita = () => {
   const fetchStories = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('No token found');
+      console.log('No token found');
       return;
     }
-    const { success, data } = await getStories(1, 3, 'id', 'desc', '',token);
+    const { success, data } = await getStories(1, 3, 'id', 'desc', '', token);
     if (success) {
       setStoryData(data.data);
     } else {
-      alert('Failed to fetch stories');
+      console.log('Failed to fetch stories');
     }
   };
 
   const handleCardClick = async (storyId) => {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('No token found');
+      console.log('No token found');
       return;
     }
     const { success, data } = await getStoryById(storyId, token);
@@ -37,7 +37,7 @@ const DaftarCerita = () => {
       setSelectedStory(data.data);
       setShowStoryModal(true);
     } else {
-      alert('Failed to fetch story details');
+      console.log('Failed to fetch story details');
     }
   };
 
@@ -61,15 +61,36 @@ const DaftarCerita = () => {
     }));
   };
 
-  const handleSaveChanges = () => {
-    // Implement save changes logic
-    setIsEditing(false);
-    handleCloseModal();
+  const handleSaveChanges = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('No token found');
+      return;
+    }
+    const { success, data } = await updateStoryById(selectedStory.id, editData, token);
+    if (success) {
+      console.log('Story updated successfully');
+      fetchStories(); // Refresh the stories after update
+      handleCloseModal();
+    } else {
+      console.log('Failed to update story');
+    }
   };
 
-  const handleDeleteArticle = () => {
-    // Implement delete article logic
-    handleCloseModal();
+  const handleDeleteArticle = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('No token found');
+      return;
+    }
+    const { success, data } = await deleteStoryById(selectedStory.id, token);
+    if (success) {
+      console.log('Story deleted successfully');
+      fetchStories(); // Refresh the stories after deletion
+      handleCloseModal();
+    } else {
+      console.log('Failed to delete story');
+    }
   };
 
   return (
