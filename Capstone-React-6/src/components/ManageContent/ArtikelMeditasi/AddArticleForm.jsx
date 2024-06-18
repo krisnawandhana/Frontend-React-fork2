@@ -106,6 +106,7 @@ export default function AddArticleForm() {
               <div className="w-full md:w-2/3 p-2 rounded-xl">
                 <h3 className="font-bold text-lg mb-2">Konfirmasi Unggahan</h3>
                 <p className="py-2"><strong>Judul:</strong> {articleData.title}</p>
+                <p><strong>Artikel:</strong> {articleData.content}</p>
                 <p className="py-2"><strong>Penyanyi:</strong> {articleData.creator}</p>
                 {/* Optionally show audio preview if needed */}
                 <div className="modal-action mt-4">
