@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DropdownMenu from '../../../components/ManageContent/DropdownMenu';
 import TopContent from '../../../components/ManageContent/ArtikelMeditasi/TopContent';
 import DaftarArtikel from '../../../components/ManageContent/ArtikelMeditasi/DaftarArtikel';
 import NewArticleList from '../../../components/ManageContent/ArtikelMeditasi/NewArticleList';
+import { getArticleCount, getLikedArticleCount, getViewedArticleCount } from '../../../utils/articles.js';
 
 const ArtikelMeditasi = () => {
     const [selectedMenu, setSelectedMenu] = useState('Artikel Meditasi');
+    const [artikelCard, setArtikelCard] = useState({ unggahan: 0, pembaca: 0, suka: 0 });
     const navigate = useNavigate();
 
     const handleMenuSelect = (menu) => {
@@ -26,12 +28,36 @@ const ArtikelMeditasi = () => {
         setSelectedMenu(menu);
     };
 
-    // dummy data
-    const artikelCard = {
-        unggahan: 787,
-        pembaca: 1189,
-        suka: 320
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem('token'); // Replace this with your token retrieval method
+            if (!token) {
+                console.error('No token found');
+                return;
+            }
+
+            try {
+                const articleCountResponse = await getArticleCount(token);
+                const likedArticleCountResponse = await getLikedArticleCount(token);
+                const viewedArticleCountResponse = await getViewedArticleCount(token);
+
+                if (articleCountResponse.success && likedArticleCountResponse.success && viewedArticleCountResponse.success) {
+                    setArtikelCard({
+                        unggahan: articleCountResponse.data.count,
+                        pembaca: viewedArticleCountResponse.data.count,
+                        suka: likedArticleCountResponse.data.count
+                    });
+                } else {
+                    console.error('Failed to fetch data:', articleCountResponse.message, likedArticleCountResponse.message, viewedArticleCountResponse.message);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
     return (
         <>

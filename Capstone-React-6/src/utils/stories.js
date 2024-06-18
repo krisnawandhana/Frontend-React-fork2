@@ -3,20 +3,34 @@ import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Add new story
-const addStory = async (storyData) => {
-  try {
-    const response = await axios.post(`${API_URL}/v1/doctors/stories`, storyData);
-    return { success: true, data: response.data };
-  } catch (error) {
-    return { success: false, message: error.response ? error.response.data.message : error.message };
+const addStory = async (storyData, token) => {
+  const maxRetries = 3;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await axios.post(`${API_URL}/v1/doctors/stories`, storyData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error(`Attempt ${attempt} failed: ${error.response ? error.response.data.message : error.message}`);
+      if (attempt === maxRetries) {
+        return { success: false, message: error.response ? error.response.data.message : error.message };
+      }
+    }
   }
 };
 
 // Get list of stories
-const getStories = async (page = 1, limit = 10, sort = 'likes', order = 'asc', search = 'semangat') => {
+const getStories = async (page = 1, limit = 10, sort = '', order = 'asc', search = '', token) => {
   try {
     const response = await axios.get(`${API_URL}/v1/doctors/stories`, {
-      params: { page, limit, sort, order, search }
+      params: { page, limit, sort, order, search },
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     });
     return { success: true, data: response.data };
   } catch (error) {
@@ -25,9 +39,13 @@ const getStories = async (page = 1, limit = 10, sort = 'likes', order = 'asc', s
 };
 
 // Get story by ID
-const getStoryById = async (storyId) => {
+const getStoryById = async (storyId, token) => {
   try {
-    const response = await axios.get(`${API_URL}/v1/doctors/stories/${storyId}`);
+    const response = await axios.get(`${API_URL}/v1/doctors/stories/${storyId}`,{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return { success: true, data: response.data };
   } catch (error) {
     return { success: false, message: error.response ? error.response.data.message : error.message };

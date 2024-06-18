@@ -75,6 +75,6 @@ export default {
     require('daisyui')
   ],
   daisyui: {
-    themes: [false],
+    themes: [],
   },
 }
