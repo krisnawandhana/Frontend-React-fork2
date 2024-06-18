@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getRatings } from '../../utils/feedback.js';
 
 const DetailProfile = () => {
-    // Dummy data 
-    const profile = {
+    const [profile, setProfile] = useState({
         name: 'dr. Andre Wirawan Santoso, Sp.KJ',
         specialization: 'Psikiater Dewasa',
         education: [
@@ -11,18 +11,38 @@ const DetailProfile = () => {
             { level: 'S2', university: 'Universitas Gajah Mada' }
         ],
         rating: {
-            average: 4.2,
-            distribution: {
-                5: 22,
-                4: 6,
-                3: 2,
-                2: 1,
-                1: 1
-            }
+            one_star_count: 0,
+            two_star_count: 0,
+            three_star_count: 0,
+            four_star_count: 0,
+            five_star_count: 0,
+            average: 0
         }
-    };
+    });
 
-    const totalRatings = Object.values(profile.rating.distribution).reduce((sum, value) => sum + value, 0);
+    useEffect(() => {
+        const fetchRatings = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('No token found');
+                return;
+            }
+
+            const response = await getRatings(token);
+            if (response.success) {
+                setProfile((prevProfile) => ({
+                    ...prevProfile,
+                    rating: response.data
+                }));
+            } else {
+                alert('Failed to fetch ratings');
+            }
+        };
+
+        fetchRatings();
+    }, []);
+
+    const totalRatings = Object.values(profile.rating).slice(0, 5).reduce((sum, value) => sum + value, 0);
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -30,7 +50,7 @@ const DetailProfile = () => {
                 <div className="flex justify-between mb-4">
                     <p className="font-semibold text-dark-1">Profile</p>
                     <Link to="/dashboard/editprofile" className="flex items-center">
-                        <img src="/Profile/Edit.svg" alt="" />
+                        <img src="/Profile/Edit.svg" alt="Edit" />
                         <button className="text-primary text-sm font-medium ml-2">Edit Profile</button>
                     </Link>
                 </div>
@@ -40,7 +60,7 @@ const DetailProfile = () => {
             </div>
             <div className="mt-4 flex justify-between">
                 {profile.education.map((edu, index) => {
-                    const bgColor = index === 0 ? 'bg-[#EE96B5] rounded ' : 'bg-[#D796EE] rounded';
+                    const bgColor = index === 0 ? 'bg-[#EE96B5] rounded' : 'bg-[#D796EE] rounded';
                     return (
                         <div key={index} className="flex items-center mb-2 p-2 rounded-lg">
                             <img src="/Profile/Education.svg" alt="University Icon" className={`w-10 h-10 p-2 mr-2 ${bgColor}`} />
@@ -57,28 +77,33 @@ const DetailProfile = () => {
                 <div className="flex items-center">
                     <p className="text-sm mr-3 text-dark-2">Rata-rata</p>
                     <div className="rating">
-                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" />
-                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" />
-                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" />
-                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-1 bg-orange-300" checked />
-                        <input type="radio" name="rating-2" className="mask mask-star-2 w-4 mr-3 bg-orange-300" />
+                        {[...Array(5)].map((_, i) => (
+                            <input
+                                key={i}
+                                type="radio"
+                                name="rating-2"
+                                className={`mask mask-star-2 w-4 mr-1 ${i < profile.rating.average ? 'bg-orange-300' : 'bg-gray-200'}`}
+                                readOnly
+                                checked={i === Math.floor(profile.rating.average)}
+                            />
+                        ))}
                     </div>
-                    <p className="text-sm text-dark-2">{profile.rating.average}</p>
+                    <p className="text-sm text-dark-2">{profile.rating.average.toFixed(1)}</p>
                 </div>
                 <div className="mt-3">
-                    {Object.keys(profile.rating.distribution).reverse().map((key) => (
-                        <div key={key} className="flex items-center mb-3">
-                            <span className="text-sm mr-3">{key}</span>
+                    {Object.entries(profile.rating).slice(0, 5).reverse().map(([key, value], index) => (
+                        <div key={index} className="flex items-center mb-3">
+                            <span className="text-sm mr-3">{5 - index}</span>
                             <div className="w-64 bg-gray-200 rounded-full h-2.5">
-                                <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: `${(profile.rating.distribution[key] / totalRatings) * 100}%` }}></div>
+                                <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: `${(value / totalRatings) * 100}%` }}></div>
                             </div>
-                            <span className="text-sm ml-3">{profile.rating.distribution[key]}</span>
+                            <span className="text-sm ml-3">{value}</span>
                         </div>
                     ))}
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default DetailProfile;
