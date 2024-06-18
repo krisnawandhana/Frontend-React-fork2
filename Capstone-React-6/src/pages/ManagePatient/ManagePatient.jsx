@@ -7,7 +7,7 @@ import PermintaanJanjiTemuList from "../../components/ManagePatient/PermintaanJa
 
 export default function ManagePatient() {
 	return (
-		<div className="flex flex-col gap-y-6">
+		<div className="flex flex-col gap-y-6 mt-6">
 
 			<div className="grid xl:grid-cols-10 grid-cols-1 xl:gap-6 gap-y-6">
 				{/* <div className="col-span-2 flex flex-col gap-y-3">

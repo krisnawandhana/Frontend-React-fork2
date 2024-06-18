@@ -1,4 +1,5 @@
 const PermintaanJanjiTemuCard = ({
+	id,
 	name,
 	age,
 	img,
@@ -9,11 +10,12 @@ const PermintaanJanjiTemuCard = ({
 	gender,
 	onStatusChange,
 	openDetail,
+	onRowClick,
 }) => {
 	if (!openDetail)
 		return (
 			<div className="grid grid-cols-10 text-dark-2 font-medium border-b border-b-light-2 py-2 px-3 ">
-				<div className="col-span-2 flex flex-row gap-x-2 px-2">
+				<div onClick={() => onRowClick(id)} className="col-span-2 flex items-center flex-row gap-x-2 px-2">
 					<img src={img} className="h-9 aspect-square rounded-full" />
 					<p>{name}</p>
 				</div>

@@ -11,7 +11,7 @@ const OverviewTransactionCard = ({ variant, title, count }) => {
 	}
 	return (
 		<div
-			className={`rounded-3xl py-[30px] px-4 w-full h-full overflow-hidden flex justify-start items-center ${variants[variant].color}`}
+			className={`rounded-3xl py-[30px] px-4 w-full h-full overflow-hidden items-center ${variants[variant].color}`}
 		>
 			<div className="flex flex-row gap-x-6 items-center justify-center">
 				<div className="rounded-full h-14 aspect-square flex justify-center items-center bg-white/50">

@@ -1,30 +1,91 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { getMusics, getMusicById, deleteMusicById, updateMusicById } from '../../../utils/musics.js';
 
 const DaftarMusik = () => {
-    // Dummy data
-    const musicData = [
-        {
-            id: 1,
-            judul: "Eternal Serenity",
-            penyanyi: "Luna Grace",
-            pendengar: 1.110,
-            gambar: "/Content/musik1.png",
-        },
-        {
-            id: 2,
-            judul: "Inner Peace",
-            penyanyi: "Zen Harmony",
-            pendengar: 992,
-            gambar: "/Content/musik2.png",
-        },
-        {
-            id: 3,
-            judul: "Ethereal Waves",
-            penyanyi: "Serene Sounds C",
-            pendengar: 1.172,
-            gambar: "/Content/musik3.png",
+    const [musicData, setMusicData] = useState([]);
+    const [selectedMusic, setSelectedMusic] = useState(null);
+    const [audioPreview, setAudioPreview] = useState(null);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [newImageFile, setNewImageFile] = useState(null);
+
+    useEffect(() => {
+        const fetchMusicData = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('Token tidak ditemukan');
+                return;
+            }
+
+            const result = await getMusics(1, 3, 'id', 'desc', '', token);
+            if (result.success) {
+                setMusicData(result.data);
+            } else {
+                console.error('Gagal mengambil data musik:', result.message);
+            }
+        };
+
+        fetchMusicData();
+    }, []);
+
+    const showModal = async (music) => {
+        setSelectedMusic(music);
+        const token = localStorage.getItem('token');
+        const result = await getMusicById(music.id, token);
+        if (result.success) {
+            setAudioPreview(result.data.music_url);
+            setShowConfirmModal(true);
+        } else {
+            console.error('Gagal mengambil data musik:', result.message);
         }
-    ];
+    };
+
+    const handleCloseModal = () => {
+        setShowConfirmModal(false);
+        setAudioPreview(null);
+        setIsEditMode(false);
+        setNewImageFile(null);
+    };
+
+    const handleDeleteMusic = async () => {
+        const token = localStorage.getItem('token');
+        const result = await deleteMusicById(selectedMusic.id, token);
+        if (result.success) {
+            setMusicData(musicData.filter((music) => music.id !== selectedMusic.id));
+            handleCloseModal();
+        } else {
+            console.error('Gagal menghapus musik:', result.message);
+        }
+    };
+
+    const handleEditMusic = () => {
+        setIsEditMode(true);
+    };
+
+    const handleUpdateMusic = async (event) => {
+        event.preventDefault();
+        const token = localStorage.getItem('token');
+        const updatedMusic = {
+            title: event.target.title.value,
+            singer: event.target.singer.value,
+        };
+
+        if (newImageFile) {
+            updatedMusic.image_file = newImageFile;
+        }
+
+        console.log('Data yang dikirim:', updatedMusic); // Menampilkan data yang dikirim ke server
+
+        const result = await updateMusicById(selectedMusic.id, updatedMusic, token);
+        console.log('Respons dari server:', result); // Menampilkan respons dari server
+
+        if (result.success) {
+            setMusicData(musicData.map((music) => (music.id === selectedMusic.id ? result.data.data : music)));
+            handleCloseModal();
+        } else {
+            console.error('Gagal mengupdate musik:', result.message);
+        }
+    };
 
     return (
         <div className="text-dark-2">
@@ -37,7 +98,7 @@ const DaftarMusik = () => {
                             type="text"
                             placeholder="Temukan Musik"
                             className="py-3 px-4 pl-10 text-sm rounded-lg border-2 border-gray-200 focus:outline-none focus:ring focus:border-primary"
-                        />                        
+                        />
                     </div>
                 </div>
             </div>
@@ -45,18 +106,78 @@ const DaftarMusik = () => {
             {/* Card */}
             <div className="grid grid-cols-3 gap-5">
                 {musicData.map((music) => (
-                    <div key={music.id} className="border border-gray-200 rounded-lg overflow-hidden shadow-md">
-                        <img src={music.gambar} alt={music.judul} className="w-[90%] mt-3 mx-3 h-40" />
+                    <div key={music.id} className="border border-gray-200 rounded-lg overflow-hidden shadow-md" onClick={() => showModal(music)}>
+                        <img src={music.image_url} alt={music.title} className="w-[90%] mt-3 mx-3 h-40" />
                         <div className="p-4">
-                            <h4 className="text-lg font-semibold mb-2">{music.judul}</h4>
-                            <p className="text-sm text-gray-500 mb-1">{music.penyanyi}</p>
-                            <p className="text-sm text-gray-500">{music.pendengar} Pendengar</p>
+                            <h4 className="text-lg font-semibold mb-2">{music.title}</h4>
+                            <p className="text-sm text-gray-500 mb-1">{music.singer}</p>
+                            <p className="text-sm text-gray-500">{music.view_count} Pendengar</p>
                         </div>
                     </div>
                 ))}
             </div>
+            
+            {/* Modal */}
+            {showConfirmModal && (
+                <dialog open className="modal">
+                    <div className="modal-box bg-white">
+                        <form method="dialog">
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={handleCloseModal}>✕</button>
+                        </form>
+                        {selectedMusic && (
+                            <>
+                                <img src={selectedMusic.image_url} alt={selectedMusic.title} className="w-full h-auto mb-4 rounded" />
+                                <div className="p-4">
+                                    {isEditMode ? (
+                                        <form onSubmit={handleUpdateMusic}>
+                                            <div className="form-control mb-4">
+                                                <label className="label">
+                                                    <span className="label-text">Judul</span>
+                                                </label>
+                                                <input type="text" name="title" defaultValue={selectedMusic.title} className="input input-bordered w-full" required />
+                                            </div>
+                                            <div className="form-control mb-4">
+                                                <label className="label">
+                                                    <span className="label-text">Penyanyi</span>
+                                                </label>
+                                                <input type="text" name="singer" defaultValue={selectedMusic.singer} className="input input-bordered w-full" required />
+                                            </div>
+                                            <div className="form-control mb-4">
+                                                <label className="label">
+                                                    <span className="label-text">Gambar</span>
+                                                </label>
+                                                <input type="file" name="image_file" accept="image/*" onChange={(e) => setNewImageFile(e.target.files[0])} className="file-input w-full" />
+                                            </div>
+                                            <div className="form-control mt-4">
+                                                <button type="submit" className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]">Simpan</button>
+                                                <button type="button" className="btn" onClick={() => setIsEditMode(false)}>Batal</button>
+                                            </div>
+                                        </form>
+                                    ) : (
+                                        <>
+                                            <h3 className="font-bold text-lg">Detail Musik</h3>
+                                            <p className="py-2"><strong>Judul:</strong> {selectedMusic.title}</p>
+                                            <p className="py-2"><strong>Penyanyi:</strong> {selectedMusic.singer}</p>
+                                            {audioPreview && (
+                                                <audio controls className="w-full mt-4">
+                                                    <source src={audioPreview} type="audio/mpeg" />
+                                                    Browser Anda tidak mendukung elemen audio.
+                                                </audio>
+                                            )}
+                                            <div className="modal-action mt-4">
+                                                <button className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleEditMusic}>Edit</button>
+                                                <button className="btn bg-red-500 hover:bg-red-600 text-white" onClick={handleDeleteMusic}>Delete</button>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </dialog>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default DaftarMusik;

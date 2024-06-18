@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom' 
+import { Link, useNavigate } from 'react-router-dom' 
 import register from '../../utils/register';
 
 export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
     const [message, setMessage] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -20,10 +22,12 @@ export default function Register() {
         e.preventDefault();
         const response = await register(formData);
         setMessage(response.message);
+        setSuccess(response.success);
 
         if (response.success) {
             // Handle successful registration (e.g., redirect to login)
             console.log('Registration successful:', response.data);
+            navigate('/');
             window.location.reload();
         } else {
             // Handle registration failure
@@ -91,9 +95,9 @@ export default function Register() {
                         </div>
                     </form>
                     {message && (
-                            <div className={`mt-4 ${response.success ? 'text-green-500' : 'text-red-500'}`}>
-                                {message}
-                            </div>
+                        <div className={`alert ${success ? 'alert-success' : 'alert-error'} mt-4`}>
+                            {message}
+                        </div>
                         )}
                     <div className="my-6 text-sm text-gray-600 text-center">
                         <p>Or</p>

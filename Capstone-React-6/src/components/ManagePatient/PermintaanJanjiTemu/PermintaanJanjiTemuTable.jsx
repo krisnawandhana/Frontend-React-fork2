@@ -1,6 +1,6 @@
 import PermintaanJanjiTemuCard from "./PermintaanJanjiTemuCard"
 
-const PermintaanJanjiTemuTable = ({ data, withHeader = false }) => {
+const PermintaanJanjiTemuTable = ({ data, withHeader = false, onRowClick }) => {
 	const changeStatus = (status, id) => {
 		console.log(status)
 		console.log(id)
@@ -20,7 +20,8 @@ const PermintaanJanjiTemuTable = ({ data, withHeader = false }) => {
 				) : null}
 				{data.map((item, idx) => (
 					<PermintaanJanjiTemuCard
-						key={idx}
+						key={item.id}
+						id={item.id}
 						age={item.age}
 						gender={item.gender}
 						date={item.date}
@@ -30,6 +31,7 @@ const PermintaanJanjiTemuTable = ({ data, withHeader = false }) => {
 						status={item.status}
 						time={item.time}
 						onStatusChange={(status) => changeStatus(status, idx)}
+						onRowClick={onRowClick}
 					/>
 				))}
 			</div>
