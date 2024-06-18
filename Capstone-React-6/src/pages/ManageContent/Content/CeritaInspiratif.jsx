@@ -32,7 +32,6 @@ const CeritaInspiratif = () => {
                 suka: likedStoryCountResponse.data.count,
             });   
         } else {
-            console.log(storyCountResponse.data.count, likedStoryCountResponse.data.count, viewedStoryCountResponse.data.count);
             console.log('Failed to fetch data');
         }
     };

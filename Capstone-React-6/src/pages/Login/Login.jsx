@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { login } from '../../utils/auth';
+import { login, loginWithGoogle, loginWithFacebook } from '../../utils/auth';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,6 +8,8 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [loadingGoogle, setLoadingGoogle] = useState(false); // State to track loading state of Google login
+  const [loadingFacebook, setLoadingFacebook] = useState(false); // State to track loading state of Facebook login
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -27,6 +29,42 @@ export default function Login() {
       }
     } catch (error) {
       setError(error.message || 'Login failed');
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoadingGoogle(true);
+    try {
+      const googleToken = ''; // Retrieve Google token using Google's authentication SDK
+      const { success, token, message } = await loginWithGoogle(googleToken);
+      if (success) {
+        setIsLoggedIn(true); // Update login status
+        window.location.reload();
+      } else {
+        setError(message || 'Google login failed');
+      }
+    } catch (error) {
+      setError(error.message || 'Google login failed');
+    } finally {
+      setLoadingGoogle(false);
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    setLoadingFacebook(true);
+    try {
+      const facebookToken = ''; // Retrieve Facebook token using Facebook's authentication SDK
+      const { success, token, message } = await loginWithFacebook(facebookToken);
+      if (success) {
+        setIsLoggedIn(true); // Update login status
+        window.location.reload();
+      } else {
+        setError(message || 'Facebook login failed');
+      }
+    } catch (error) {
+      setError(error.message || 'Facebook login failed');
+    } finally {
+      setLoadingFacebook(false);
     }
   };
 
@@ -101,7 +139,7 @@ export default function Login() {
           
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
-              <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
+              <button type="button" onClick={handleGoogleLogin} className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300" >
               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1896_3002)">
                 <path d="M7.46721 0.658267C5.4689 1.3515 3.74556 2.66728 2.55032 4.41233C1.35508 6.15739 0.750946 8.23974 0.826651 10.3535C0.902355 12.4673 1.65391 14.5011 2.97092 16.1562C4.28794 17.8113 6.10099 19.0004 8.14377 19.5489C9.7999 19.9762 11.535 19.995 13.2 19.6036C14.7083 19.2648 16.1028 18.5401 17.2469 17.5005C18.4376 16.3854 19.302 14.9668 19.7469 13.3973C20.2305 11.6906 20.3166 9.89566 19.9985 8.15045H10.6985V12.0083H16.0844C15.9768 12.6236 15.7461 13.2108 15.4062 13.7349C15.0663 14.2589 14.6242 14.7091 14.1063 15.0583C13.4486 15.4933 12.7072 15.786 11.9297 15.9176C11.1499 16.0626 10.3501 16.0626 9.57033 15.9176C8.78 15.7542 8.03236 15.428 7.37502 14.9598C6.319 14.2123 5.52608 13.1503 5.1094 11.9255C4.68567 10.6776 4.68567 9.32484 5.1094 8.07702C5.406 7.20235 5.89632 6.40598 6.54377 5.74733C7.2847 4.97975 8.22273 4.43107 9.25495 4.16151C10.2872 3.89195 11.3737 3.91191 12.3953 4.2192C13.1934 4.46419 13.9232 4.89223 14.5266 5.4692C15.1339 4.86504 15.7401 4.25931 16.3453 3.65202C16.6578 3.32545 16.9985 3.01452 17.3063 2.68014C16.3853 1.82307 15.3042 1.15617 14.125 0.717642C11.9777 -0.0620611 9.62811 -0.0830149 7.46721 0.658267Z" fill="#E53535"/>
@@ -118,7 +156,7 @@ export default function Login() {
               </svg>Google</button>
             </div>
             <div className="w-full lg:w-1/2 ml-0 lg:ml-2">
-              <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
+              <button type="button" onClick={handleFacebookLogin} className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1896_5345)">
                 <path d="M20.5 10C20.5 4.47719 16.0228 0 10.5 0C4.97719 0 0.5 4.47719 0.5 10C0.5 14.9913 4.15687 19.1284 8.9375 19.8785V12.8906H6.39844V10H8.9375V7.79688C8.9375 5.29063 10.4305 3.90625 12.7147 3.90625C13.8088 3.90625 14.9531 4.10156 14.9531 4.10156V6.5625H13.6922C12.4499 6.5625 12.0625 7.33336 12.0625 8.12422V10H14.8359L14.3926 12.8906H12.0625V19.8785C16.8431 19.1284 20.5 14.9913 20.5 10Z" fill="#1877F2"/>

@@ -20,11 +20,6 @@ const Dashboard = () => {
         { id: 4, avatar: 'girl2.svg', name: 'Tiara Dista', date: '14 Januari 2024', time: '09:00-09:30' },
     ];
 
-    // const transaksi = [
-    //     { id: 'ME002121', avatar: 'girl2.svg', name: 'Siti Aisyah', issue: 'Depresi', date: '11 Januari 2024', time: '23:31', total: 'Rp150.000', status: 'Sukses' },
-    //     { id: 'ME002120', avatar: 'girl1.svg', name: 'Lia Melinda', issue: 'Skizofrenia', date: '11 Januari 2024', time: '19:49', total: 'Rp100.000', status: 'Sukses' },
-    //     { id: 'ME002119', avatar: 'boy1.svg', name: 'Budi Santoso', issue: 'Gangguan Kecemasan', date: '10 Januari 2024', time: '11:35', total: 'Rp150.000', status: 'Sukses' },
-    // ];
     const summaryCard = {
         permintaan: 35,
         belumKonsultasi: 5,
