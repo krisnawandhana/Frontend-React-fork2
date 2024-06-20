@@ -13,6 +13,7 @@ const MusikMeditasi = () => {
         pendengar: '',
         suka: ''
     });
+    const [refreshData, setRefreshData] = useState(false);
     const navigate = useNavigate();
 
     const handleMenuSelect = (menu) => {
@@ -120,14 +121,14 @@ const MusikMeditasi = () => {
 
                 {/* Daftar Musik */}
                 <div className="w-[57%]">
-                    <DaftarMusik />
+                    <DaftarMusik refreshData={refreshData} setRefreshData={setRefreshData} />
                 </div>
             </div>
 
             <div>
                 {/* Daftar Terbaru */}
                 <div>
-                    <NewMusicList />
+                    <NewMusicList refreshData={refreshData} setRefreshData={setRefreshData} />
                 </div>
             </div>
         </>

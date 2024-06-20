@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getMusics, getMusicById, deleteMusicById, updateMusicById } from '../../../utils/musics.js';
+import Swal from 'sweetalert2';
 
-const DaftarMusik = () => {
+const DaftarMusik = ({ refreshData, setRefreshData }) => {
     const [musicData, setMusicData] = useState([]);
     const [selectedMusic, setSelectedMusic] = useState(null);
     const [audioPreview, setAudioPreview] = useState(null);
@@ -26,7 +27,7 @@ const DaftarMusik = () => {
         };
 
         fetchMusicData();
-    }, []);
+    }, [refreshData]);
 
     const showModal = async (music) => {
         setSelectedMusic(music);
@@ -49,13 +50,36 @@ const DaftarMusik = () => {
 
     const handleDeleteMusic = async () => {
         const token = localStorage.getItem('token');
-        const result = await deleteMusicById(selectedMusic.id, token);
-        if (result.success) {
-            setMusicData(musicData.filter((music) => music.id !== selectedMusic.id));
-            handleCloseModal();
-        } else {
-            console.error('Gagal menghapus musik:', result.message);
-        }
+        Swal.fire({
+            title: 'Yakin ingin menghapus musik ini?',
+            text: "Musik yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const result = await deleteMusicById(selectedMusic.id, token);
+                if (result.success) {
+                    setMusicData(musicData.filter((music) => music.id !== selectedMusic.id));
+                    handleCloseModal();
+                    setRefreshData(prev => !prev);
+                    Swal.fire(
+                        'Terhapus!',
+                        'Musik telah dihapus.',
+                        'success'
+                    );
+                } else {
+                    console.error('Gagal menghapus musik:', result.message);
+                    Swal.fire(
+                        'Gagal!',
+                        'Musik gagal dihapus.',
+                        'error'
+                    );
+                }
+            }
+        });
     };
 
     const handleEditMusic = () => {
@@ -82,8 +106,23 @@ const DaftarMusik = () => {
         if (result.success) {
             setMusicData(musicData.map((music) => (music.id === selectedMusic.id ? result.data.data : music)));
             handleCloseModal();
+            setRefreshData(prev => !prev);
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: 'Musik berhasil diupdate.',
+                timer: 3000,
+                showConfirmButton: false, 
+            });
         } else {
             console.error('Gagal mengupdate musik:', result.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: 'Musik gagal diupdate.',
+                timer: 3000,
+                showConfirmButton: false,
+            });
         }
     };
 
@@ -119,59 +158,63 @@ const DaftarMusik = () => {
             
             {/* Modal */}
             {showConfirmModal && (
-                <dialog open className="modal">
-                    <div className="modal-box bg-white">
-                        <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={handleCloseModal}>✕</button>
-                        </form>
+                <dialog open className="modal bg-black bg-opacity-50 z-50">
+                    <div className="bg-[#49B08E] pt-4 rounded-3xl w-full max-w-2xl h-3/7">
+                        <div className="flex justify-between items-center px-5 pb-4">
+                            <h3 className="font-semibold text-lg text-white">Detail Musik</h3>
+                            <form method="dialog">
+                                <button className="btn btn-sm btn-circle btn-ghost text-white" onClick={handleCloseModal}>✕</button>
+                            </form>
+                        </div>
                         {selectedMusic && (
-                            <>
-                                <img src={selectedMusic.image_url} alt={selectedMusic.title} className="w-full h-auto mb-4 rounded" />
-                                <div className="p-4">
+                            <div className=" flex bg-white rounded-b-3xl p-4">
+                                <div className="flex justify-center items-center">
+                                    <img src={selectedMusic.image_url} alt={selectedMusic.title} className="w-60 h-60 rounded-lg" />
+                                </div>
+                                <div className="px-4 py-1 w-2/3">
                                     {isEditMode ? (
                                         <form onSubmit={handleUpdateMusic}>
-                                            <div className="form-control mb-4">
+                                            <div className="form-control mb-1">
                                                 <label className="label">
-                                                    <span className="label-text">Judul</span>
+                                                    <span className="text-sm font-semibold">Gambar</span>
                                                 </label>
-                                                <input type="text" name="title" defaultValue={selectedMusic.title} className="input input-bordered w-full" required />
+                                                <input type="file" name="image_file" accept="image/*" onChange={(e) => setNewImageFile(e.target.files[0])} className="file-input file-input-sm w-full" />
                                             </div>
-                                            <div className="form-control mb-4">
+                                            <div className="form-control mb-1">
                                                 <label className="label">
-                                                    <span className="label-text">Penyanyi</span>
+                                                    <span className="text-sm font-semibold">Judul</span>
                                                 </label>
-                                                <input type="text" name="singer" defaultValue={selectedMusic.singer} className="input input-bordered w-full" required />
+                                                <input type="text" name="title" defaultValue={selectedMusic.title} className="border border-gray-400 rounded-lg py-1 px-4 w-full text-sm" required />
                                             </div>
-                                            <div className="form-control mb-4">
+                                            <div className="form-control mb-1">
                                                 <label className="label">
-                                                    <span className="label-text">Gambar</span>
+                                                    <span className="text-sm font-semibold">Penyanyi</span>
                                                 </label>
-                                                <input type="file" name="image_file" accept="image/*" onChange={(e) => setNewImageFile(e.target.files[0])} className="file-input w-full" />
+                                                <input type="text" name="singer" defaultValue={selectedMusic.singer} className="border border-gray-400 rounded-lg py-1 px-4 w-full text-sm" required />
                                             </div>
-                                            <div className="form-control mt-4">
-                                                <button type="submit" className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]">Simpan</button>
-                                                <button type="button" className="btn" onClick={() => setIsEditMode(false)}>Batal</button>
+                                            <div className="mt-4 flex justify-end gap-2">
+                                                <button type="submit" className="btn btn-sm btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]">Simpan</button>
+                                                <button type="button" className="btn btn-sm" onClick={() => setIsEditMode(false)}>Batal</button>
                                             </div>
                                         </form>
                                     ) : (
-                                        <>
-                                            <h3 className="font-bold text-lg">Detail Musik</h3>
-                                            <p className="py-2"><strong>Judul:</strong> {selectedMusic.title}</p>
-                                            <p className="py-2"><strong>Penyanyi:</strong> {selectedMusic.singer}</p>
+                                        <div className="w-full">
                                             {audioPreview && (
                                                 <audio controls className="w-full mt-4">
                                                     <source src={audioPreview} type="audio/mpeg" />
                                                     Browser Anda tidak mendukung elemen audio.
                                                 </audio>
                                             )}
+                                            <p className="mt-5 mb-2 px-3 py-2 rounded-lg text-sm border border-dark-4">{selectedMusic.title}</p>
+                                            <p className="mb-2 px-3 py-2 rounded-lg text-sm border border-dark-4">{selectedMusic.singer}</p>
                                             <div className="modal-action mt-4">
-                                                <button className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleEditMusic}>Edit</button>
-                                                <button className="btn bg-red-500 hover:bg-red-600 text-white" onClick={handleDeleteMusic}>Delete</button>
+                                                <button className="btn btn-sm btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleEditMusic}>Edit</button>
+                                                <button className="btn btn-sm bg-red-500 hover:bg-red-600 text-white" onClick={handleDeleteMusic}>Delete</button>
                                             </div>
-                                        </>
+                                        </div>
                                     )}
                                 </div>
-                            </>
+                            </div>
                         )}
                     </div>
                 </dialog>
