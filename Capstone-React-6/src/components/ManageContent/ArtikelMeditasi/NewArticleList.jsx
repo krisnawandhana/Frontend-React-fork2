@@ -1,7 +1,7 @@
 import React from 'react'
 import ArticleCard from '../ArtikelMeditasi/ArticleCard'
 
-const NewMusicList = () => {
+const NewMusicList = ({ refreshData, setRefreshData }) => {
 
     return (
         <div className="flex justify-between bg-[#D5EDF3] w-[95%] py-14 px-16 pl-24 rounded-3xl text-dark-2">
@@ -12,8 +12,8 @@ const NewMusicList = () => {
             </div>
 
             {/* card */}
-            <div className="absolute right-12 bottom-14">
-                <ArticleCard />
+            <div className="absolute right-7">
+                <ArticleCard refreshData={refreshData} setRefreshData={setRefreshData} />
             </div>
         </div>
     )
