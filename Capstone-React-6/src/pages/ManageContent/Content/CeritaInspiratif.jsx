@@ -8,7 +8,12 @@ import { getStoryCount, getLikedStoryCount, getViewedStoryCount } from '../../..
 
 const CeritaInspiratif = () => {
     const [selectedMenu, setSelectedMenu] = useState('Cerita Inspiratif');
-    const [storyCard, setStoryCard] = useState({ unggahan: 0, pembaca: 0, suka: 0 });
+    const [storyCard, setStoryCard] = useState({ 
+        unggahan: 0, 
+        pembaca: 0, 
+        suka: 0 
+    });
+    const [refreshData, setRefreshData] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -88,14 +93,14 @@ const CeritaInspiratif = () => {
 
                 {/* Daftar Cerita */}
                 <div className="w-[57%]">
-                    <DaftarCerita />
+                    <DaftarCerita refreshData={refreshData} setRefreshData={setRefreshData} />
                 </div>
             </div>
 
             <div>
                 {/* Daftar Terbaru */}
                 <div>
-                    <NewStoryList />
+                    <NewStoryList refreshData={refreshData} setRefreshData={setRefreshData} />
                 </div>
             </div>
         </>
