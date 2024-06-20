@@ -2,20 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const EditProfile = () => {
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
-
-  const toggleNotification = () => {
-    setIsNotificationOpen(!isNotificationOpen);
-  };
-
-  const notifications = [
-    { id: 1, message: 'Janji temu baru dengan pasien Pramita pada 27 Mei 2024 pukul 09.00', time: 'Baru Saja' },
-    { id: 2, message: 'Janji temu baru dengan pasien Budi pada 27 Mei 2024 pukul 10.00', time: 'Baru Saja' },
-    { id: 3, message: 'Janji temu baru dengan pasien Siti pada 27 Mei 2024 pukul 11.00', time: 'Baru Saja' },
-    { id: 4, message: 'Janji temu baru dengan pasien Dedi pada 27 Mei 2024 pukul 12.00', time: 'Baru Saja' },
-    { id: 5, message: 'Janji temu baru dengan pasien Lina pada 27 Mei 2024 pukul 13.00', time: 'Baru Saja' },
-  ];
-
+  
   const profile = {
     name: 'dr. Andre Wirawan Santoso, Sp.KJ',
     specialization: 'Psikiater Dewasa',
