@@ -1,31 +1,73 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import getPageTitle from '../../utils/getPageTitle';
+import { getNotifications, updateNotification, deleteNotification } from '../../utils/notification';
 
 export default function Header() {
     const location = useLocation();
     const pageTitle = getPageTitle(location.pathname);
     const navigate = useNavigate();
 
-    const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+    const [notifications, setNotifications] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);   
+    const [showReadNotifications, setShowReadNotifications] = useState(false);
+
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            if (!token) return;
+            const { success, data, message } = await getNotifications(token);
+            if (success) {
+                setNotifications(data || []);
+            } else {
+                setError(message);
+            }
+            setLoading(false);
+        };
+
+        fetchNotifications();
+    }, [token]);
 
     const toggleNotification = () => {
         setIsNotificationOpen(!isNotificationOpen);
     };
 
-    const notifications = [
-        { id: 1, message: 'Janji temu baru dengan pasien Pramita pada 27 Mei 2024 pukul 09.00', time: 'Baru Saja' },
-        { id: 2, message: 'Janji temu baru dengan pasien Budi pada 27 Mei 2024 pukul 10.00', time: 'Baru Saja' },
-        { id: 3, message: 'Janji temu baru dengan pasien Siti pada 27 Mei 2024 pukul 11.00', time: 'Baru Saja' },
-        { id: 4, message: 'Janji temu baru dengan pasien Dedi pada 27 Mei 2024 pukul 12.00', time: 'Baru Saja' },
-        { id: 5, message: 'Janji temu baru dengan pasien Lina pada 27 Mei 2024 pukul 13.00', time: 'Baru Saja' },
-    ];
+    const handleRead = async (notificationId) => {
+        const { success, data, message } = await updateNotification(notificationId, { is_read: true }, token);
+        if (success) {
+            setNotifications((prevNotifications) =>
+                prevNotifications.map((notification) =>
+                    notification.id === notificationId ? { ...notification, is_read: true } : notification
+                )
+            );
+        } else {
+            console.error('Error updating notification:', message);
+            setError(message);
+        }
+    };
 
+    const handleDelete = async (notificationId) => {
+        const { success, message } = await deleteNotification(notificationId, token);
+        if (success) {
+            setNotifications((prevNotifications) =>
+                prevNotifications.filter((notification) => notification.id !== notificationId)
+            );
+        } else {
+            console.error('Error deleting notification:', message);
+            setError(message);
+        }
+    };
 
-  return (
-    <div>
-        {/* Top bar */}
-        <div className="flex justify-between items-center py-2 px-4 mb-4 bg-[#D5EDF3] rounded-[30px]">
+    const unreadNotifications = notifications.filter(notification => !notification.is_read);
+    const readNotifications = notifications.filter(notification => notification.is_read);
+
+    return (
+        <div>
+            {/* Top bar */}
+            <div className="flex justify-between items-center py-2 px-4 mb-4 bg-[#D5EDF3] rounded-[30px]">
                 <div className="flex">
                     <button onClick={() => navigate(-1)} className="flex items-center">
                         <img src="/Dashboard/back.svg" alt="Back" />
@@ -50,18 +92,42 @@ export default function Header() {
                                         <h3 className="text-md font-semibold ml-2">Notifikasi</h3>
                                     </div>
                                     <div className="flex justify-between mb-7">
-                                        <button className="text-primary text-sm py-2 px-3 shadow">Belum Dibaca</button>
-                                        <button className="text-gray-600 text-sm py-2 px-3 mr-4 shadow">Semua</button>
+                                        <button 
+                                            className={`text-sm py-2 px-3 shadow ${!showReadNotifications ? 'text-primary' : 'text-gray-600'}`}
+                                            onClick={() => setShowReadNotifications(false)}
+                                        >
+                                            Belum Dibaca
+                                        </button>
+                                        <button 
+                                            className={`text-sm py-2 px-3 shadow ${showReadNotifications ? 'text-primary' : 'text-gray-600'}`}
+                                            onClick={() => setShowReadNotifications(true)}
+                                        >
+                                            Sudah Dibaca
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="overflow-y-auto max-h-96">
-                                    {notifications.map((notification) => (
+                                    {loading && <p>Loading...</p>}
+                                    {error && <p>{error}</p>}
+                                    {(!loading && !error && showReadNotifications && readNotifications.length === 0) && (
+                                        <p className="text-sm">Tidak ada notifikasi yang sudah dibaca</p>
+                                    )}
+                                    {(!loading && !error && !showReadNotifications && unreadNotifications.length === 0) && (
+                                        <p className="text-sm">Tidak ada notifikasi yang belum dibaca</p>
+                                    )}
+                                    {(showReadNotifications ? readNotifications : unreadNotifications).map((notification) => (
                                         <div key={notification.id} className="mb-4">
                                             <div className="flex items-start mb-2">
-                                                <img src="/Dashboard/Ellipse.svg" alt="" className="w-4 mr-3"/>
+                                                <img src="/Dashboard/Ellipse.svg" alt="" className="w-4 mr-3" />
                                                 <div className="mr-1">
-                                                    <p className="text-sm">{notification.message}</p>
-                                                    <a href="#" className="text-primary text-sm pt-3">{notification.time}</a>
+                                                    <p className="text-sm">{notification.content}</p>
+                                                    <span className="text-primary text-sm pt-3">{new Date(notification.created_at).toLocaleString()}</span>
+                                                </div>
+                                                <div className="flex flex-row">
+                                                    {!notification.is_read && (
+                                                        <button className="btn" onClick={() => handleRead(notification.id)}>read</button>
+                                                    )}
+                                                    <button className="btn" onClick={() => handleDelete(notification.id)}>delete</button>
                                                 </div>
                                             </div>
                                             <hr />
@@ -73,6 +139,6 @@ export default function Header() {
                     )}
                 </div>
             </div>
-    </div>
-  )
+        </div>
+    );
 }
