@@ -16,6 +16,7 @@ import Transaction from "./pages/Transaction/Transaction"
 import TransactionList from "./pages/Transaction/TransactionList"
 import ManageForum from "./pages/ManageForum/ManageForum"
 import DetailForum from "./components/ManageForum/DetailForum/DetailForum"
+import ChatRoom from "./pages/Chat/ChatRoom"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const queryClient = new QueryClient()
@@ -48,6 +49,7 @@ function App() {
 					<Route path="managecontent/*" element={<ManageContent />} />
 					<Route path="managepatient" element={<ManagePatient />} />
 					<Route path="managepatient/detail" element={<Detail />} />
+					<Route path="managepatient/chat" element={<ChatRoom />} />
 					<Route path="transaction" element={<Transaction />} />
 					<Route path="transaction/list" element={<TransactionList />} />
 					<Route path="manageforum" element={<ManageForum />} />
