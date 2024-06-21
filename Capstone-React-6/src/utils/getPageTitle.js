@@ -12,6 +12,8 @@ const getPageTitle = (path) => {
             return 'Kelola Pasien';
         case path === '/dashboard/managepatient/detail':
             return 'Daftar Permintaan Janji Temu';
+        case path === '/dashboard/managepatient/chat':
+                return 'Pesan';
         case path === '/dashboard/transaction':
             return 'Transaksi';
         case path === '/dashboard/transaction/list':
