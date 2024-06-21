@@ -16,7 +16,7 @@ const ChatModal = ({ onClose }) => {
     const reconnectTimeout = useRef(null);
 
     const connectWebSocket = () => {
-        socket.current = new WebSocket(`ws://dev-capstone.practiceproject.tech/v1/doctors/chatbots/treatment?token=${token}`);
+        socket.current = new WebSocket(`wss://dev-capstone.practiceproject.tech/v1/doctors/chatbots/treatment?token=${token}`);
 
         socket.current.onopen = () => {
             console.log("WebSocket connection established");
