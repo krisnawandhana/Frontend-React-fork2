@@ -8,7 +8,12 @@ import { getArticleCount, getLikedArticleCount, getViewedArticleCount } from '..
 
 const ArtikelMeditasi = () => {
     const [selectedMenu, setSelectedMenu] = useState('Artikel Meditasi');
-    const [artikelCard, setArtikelCard] = useState({ unggahan: 0, pembaca: 0, suka: 0 });
+    const [artikelCard, setArtikelCard] = useState({ 
+        unggahan: 0, 
+        pembaca: 0, 
+        suka: 0 
+    });
+    const [refreshData, setRefreshData] = useState(false);
     const navigate = useNavigate();
 
     const handleMenuSelect = (menu) => {
@@ -94,14 +99,14 @@ const ArtikelMeditasi = () => {
 
                 {/* Daftar Musik */}
                 <div className="w-[57%]">
-                    <DaftarArtikel />
+                    <DaftarArtikel refreshData={refreshData} setRefreshData={setRefreshData} />
                 </div>
             </div>
 
             <div>
                 {/* Daftar Terbaru */}
                 <div>
-                    <NewArticleList />
+                    <NewArticleList refreshData={refreshData} setRefreshData={setRefreshData} />
                 </div>
             </div>
         </>

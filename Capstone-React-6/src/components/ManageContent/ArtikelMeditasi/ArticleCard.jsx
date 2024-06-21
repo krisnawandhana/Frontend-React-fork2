@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import AddArticleForm from './AddArticleForm';
 import { getArticles } from '../../../utils/articles.js';
 
-const ArticleCard = () => {
+const ArticleCard = ({ refreshData, setRefreshData }) => {
     const [articleData, setArticleData] = useState([]);
 
     useEffect(() => {
@@ -28,15 +28,22 @@ const ArticleCard = () => {
         };
 
         fetchArticles();
-    }, []);
+    }, [refreshData]);
+
+    const closeModal = () => {
+        const modal = document.getElementById('addArticleModal');
+        if (modal) {
+          modal.close();
+        }
+    };
  
     return (
         <div className="grid grid-cols-5 gap-5 text-dark-2">
             {articleData.map((article) => (
                 <div key={article.id} className="relative border border-gray-200 rounded-2xl overflow-hidden shadow-md">
-                    <img src="/Content/card-artikel.png" alt={article.title} className="object-cover w-40 h-40 " />
-                    <div className="absolute top-0 left-0 w-full h-full flex flex-col p-4">
-                        <h4 className="text-base font-semibold mb-1 truncate">{article.title}</h4>
+                    <img src="/Content/card-artikel.png" alt={article.title} className="object-cover w-36 h-36 " />
+                    <div className="absolute top-0 left-0 w-full h-full flex flex-col p-3">
+                        <h4 className="text-base font-semibold mb-3 truncate">{article.title}</h4>
                         <br />
                         <p className="text-xs w-1/2"><span className="font-semibold">{article.reading_time}</span> Pembaca</p>
                     </div>
@@ -44,24 +51,26 @@ const ArticleCard = () => {
             ))}
 
 
-            {/* Tambah Musik */}
-            <div className="bg-[#FF8080] rounded-2xl flex flex-col justify-center w-40 h-40 cursor-pointer" onClick={() => document.getElementById('addMusicModal').showModal()}>
+            {/* Tambah Artikel */}
+            <div className="bg-[#FF8080] rounded-2xl flex flex-col justify-center w-36 h-36 cursor-pointer" onClick={() => document.getElementById('addArticleModal').showModal()}>
                 <h1 className="text-white font-semibold text-xl px-8">Tambah Artikel Baru</h1>
-                <div className="bg-[#F1F5F9] opacity-40 p-1 rounded-full w-10 h-10 ml-7 mt-2">
-                    <img src="/Content/Add.svg" alt="" className="w-8 h-8"  />
+                <div className="bg-[#F1F5F9] opacity-40 p-1 rounded-full w-8 h-8 ml-7 mt-2">
+                    <img src="/Content/Add.svg" alt="" className="w-6 h-6"  />
                 </div>
             </div>
 
             {/* DaisyUI Modal */}
-            <dialog id="addMusicModal" className="modal">
-                <div className="modal-box bg-[#F66] w-full max-w-2xl h-3/7">
-                <form method="dialog">
-                    {/* Close button */}
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white text-lg">✕</button>
-                </form>
-                <h3 className="font-semibold text-heading1 text-white mx-4">Tambah Artikel</h3>
-                {/* Your form content here */}
-                <AddArticleForm />
+            <dialog id="addArticleModal" className="modal">
+                <div className="bg-[#FF6666] pt-4 rounded-3xl w-full max-w-2xl h-3/7">
+                    <div className="flex justify-between items-center px-5 pb-4">
+                        <h3 className="font-semibold text-xl text-white mx-4">Tambah Artikel</h3>
+                        <form method="dialog">
+                            {/* Close button */}
+                            <button className="btn btn-sm btn-circle btn-ghost text-white">✕</button>
+                        </form>
+                    </div>
+                    {/* Your form content here */}
+                    <AddArticleForm closeModal={closeModal} setRefreshData={setRefreshData} />
                 </div>
             </dialog>
         </div>

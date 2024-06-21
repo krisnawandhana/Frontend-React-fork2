@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getArticles, getArticleById, deleteArticleById, updateArticleById } from '../../../utils/articles'; // Sesuaikan path sesuai struktur proyek Anda
+import Swal from 'sweetalert2';
 
-const DaftarArtikel = () => {
+const DaftarArtikel = ({ refreshData, setRefreshData }) => {
     const [articles, setArticles] = useState([]);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -31,7 +32,7 @@ const DaftarArtikel = () => {
         };
 
         fetchArticles();
-    }, []);
+    }, [refreshData]);
 
     const handleShowModal = async (articleId) => {
         try {
@@ -56,23 +57,38 @@ const DaftarArtikel = () => {
     };
 
     const handleDeleteArticle = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (!selectedArticle || !selectedArticle.data.id) {
-                console.error('Article ID not found');
-                return;
-            }
+        const token = localStorage.getItem('token');
+        Swal.fire({
+          title: 'Yakin ingin menghapus artikel ini?',
+          text: "Artikel yang dihapus tidak dapat dikembalikan!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, hapus!'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
             const { success, message } = await deleteArticleById(selectedArticle.data.id, token);
             if (success) {
-                setArticles(articles.filter(article => article.id !== selectedArticle.data.id));
-                handleCloseModal(); // Tutup modal setelah penghapusan berhasil
+              setArticles(articles.filter(article => article.id !== selectedArticle.data.id));
+              handleCloseModal();
+              setRefreshData(prev => !prev);
+              Swal.fire(
+                'Terhapus!',
+                'Artikel telah dihapus.',
+                'success'
+              );
             } else {
-                console.error('Failed to delete article:', message);
+              console.error('Gagal menghapus artikel:', message);
+              Swal.fire(
+                'Gagal!',
+                'Artikel gagal dihapus.',
+                'error'
+              );
             }
-        } catch (error) {
-            console.error('Error deleting article:', error.message);
-        }
-    };
+          }
+        });
+      };
 
     const handleEditArticle = () => {
         setIsEditing(true); // Aktifkan mode edit
@@ -86,8 +102,24 @@ const DaftarArtikel = () => {
                 setArticles(articles.map(article => (article.id === selectedArticle.data.id ? data.data : article)));
                 setSelectedArticle({ data: { ...selectedArticle.data, ...editData } });
                 setIsEditing(false); // Nonaktifkan mode edit setelah berhasil menyimpan perubahan
+                handleCloseModal();
+                setRefreshData(prev => !prev);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Artikel berhasil diupdate.',
+                    timer: 3000,
+                    showConfirmButton: false, 
+                });
             } else {
                 console.error('Failed to update article:', message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Artikel gagal diupdate.',
+                    timer: 3000,
+                    showConfirmButton: false,
+                });
             }
         } catch (error) {
             console.error('Error updating article:', error.message);
@@ -117,45 +149,55 @@ const DaftarArtikel = () => {
 
             {/* Modal */}
             {showModal && selectedArticle && (
-                <dialog id="my_modal" className="modal" open>
-                    <div className="modal-box bg-white">
-                        <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={handleCloseModal}>✕</button>
-                        </form>
-                        <img src={selectedArticle.data.image_url} alt={selectedArticle.data.title} className="w-full h-auto mb-4 rounded" />
-                        <div className="p-4">
-                            {isEditing ? (
-                                <>
-                                    <input 
-                                        type="text" 
-                                        name="title" 
-                                        value={editData.title} 
-                                        onChange={handleInputChange} 
-                                        className="w-full mb-2 p-2 border rounded"
-                                    />
-                                    <textarea 
-                                        name="content" 
-                                        value={editData.content} 
-                                        onChange={handleInputChange} 
-                                        className="w-full mb-2 p-2 border rounded"
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    <h3 className="font-bold text-lg">{selectedArticle.data.title}</h3>
-                                    <p className="py-2">{selectedArticle.data.content}</p>
-                                    <p className="py-2 text-sm text-gray-500">Uploaded: {new Date(selectedArticle.data.date).toLocaleDateString()}</p>
-                                </>
-                            )}
-                            <div className="modal-action items-center justify-center">
+                <dialog id="my_modal" className="modal bg-black bg-opacity-50 z-50" open>
+                    <div className="bg-[#FF8080] pt-4 rounded-3xl w-full max-w-2xl h-3/7">
+                        <div className="flex justify-between items-center px-5 pb-4">
+                            <h3 className="font-semibold text-lg text-white">Detail Musik</h3>
+                            <form method="dialog">
+                                <button className="btn btn-sm btn-circle btn-ghost text-white" onClick={handleCloseModal}>✕</button>
+                            </form>
+                        </div>
+                        <div className=" flex bg-white rounded-b-3xl p-4">
+                            <div className="flex justify-center items-center">
+                                <img src={selectedArticle.data.image_url} alt={selectedArticle.data.title} className="w-60 h-60 rounded-lg" />
+                            </div>
+                            <div className="px-4 py-1 w-2/3">
                                 {isEditing ? (
-                                    <button className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleSaveChanges}>Save</button>
+                                    <>
+                                        <input 
+                                            type="text" 
+                                            name="title" 
+                                            value={editData.title} 
+                                            onChange={handleInputChange} 
+                                            className="w-full mb-2 p-2 border rounded"
+                                        />
+                                        <textarea 
+                                            name="content" 
+                                            value={editData.content} 
+                                            onChange={handleInputChange}
+                                            className="w-full mb-2 h-44 p-2 border rounded"
+                                        />
+                                    </>
                                 ) : (
                                     <>
-                                        <button className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleEditArticle}>Edit</button>
-                                        <button className="btn bg-red-500 hover:bg-red-600 text-white" onClick={handleDeleteArticle}>Delete</button>
+                                        <h3 className="font-bold text-lg">{selectedArticle.data.title}</h3>
+                                        <p className="my-2 h-44 overflow-y-auto">{selectedArticle.data.content}</p>
+                                        <p className="mb-2 mt-5 text-sm text-gray-500">Uploaded: {new Date(selectedArticle.data.date).toLocaleDateString()}</p>
                                     </>
                                 )}
+                                <div className="modal-action items-center justify-center">
+                                    {isEditing ? (
+                                        <>
+                                            <button className="btn btn-sm btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleSaveChanges}>Simpan</button>
+                                            <button className="btn btn-sm" onClick={() => setIsEditing(false)}>Batal</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button className="btn btn-sm btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleEditArticle}>Edit</button>
+                                            <button className="btn btn-sm bg-red-500 hover:bg-red-600 text-white" onClick={handleDeleteArticle}>Delete</button>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>

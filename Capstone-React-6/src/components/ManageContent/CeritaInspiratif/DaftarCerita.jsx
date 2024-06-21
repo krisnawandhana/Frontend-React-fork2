@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getStories, getStoryById, updateStoryById, deleteStoryById } from '../../../utils/stories';
+import Swal from 'sweetalert2';
 
-const DaftarCerita = () => {
+const DaftarCerita = ({ refreshData, setRefreshData }) => {
   const [storyData, setStoryData] = useState([]);
   const [selectedStory, setSelectedStory] = useState(null);
   const [showStoryModal, setShowStoryModal] = useState(false);
@@ -9,22 +10,23 @@ const DaftarCerita = () => {
   const [editData, setEditData] = useState({ title: '', content: '' });
 
   useEffect(() => {
-    fetchStories();
-  }, []);
+    const fetchStories = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.log('No token found');
+        return;
+      }
+      const { success, data } = await getStories(1, 3, 'id', 'desc', '', token);
+      if (success) {
+        setStoryData(data.data);
+      } else {
+        console.log('Failed to fetch stories');
+      }
+    };
 
-  const fetchStories = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.log('No token found');
-      return;
-    }
-    const { success, data } = await getStories(1, 3, 'id', 'desc', '', token);
-    if (success) {
-      setStoryData(data.data);
-    } else {
-      console.log('Failed to fetch stories');
-    }
-  };
+    fetchStories();
+  }, [refreshData]);
+
 
   const handleCardClick = async (storyId) => {
     const token = localStorage.getItem('token');
@@ -48,7 +50,7 @@ const DaftarCerita = () => {
     setEditData({ title: '', content: '' });
   };
 
-  const handleEditArticle = () => {
+  const handleEditStory = () => {
     setIsEditing(true);
     setEditData({ title: selectedStory.title, content: selectedStory.content });
   };
@@ -67,31 +69,68 @@ const DaftarCerita = () => {
       console.log('No token found');
       return;
     }
-    const { success, data } = await updateStoryById(selectedStory.id, editData, token);
+    const { success } = await updateStoryById(selectedStory.id, editData, token);
     if (success) {
       console.log('Story updated successfully');
-      fetchStories(); // Refresh the stories after update
       handleCloseModal();
+      setIsEditing(false);
+      setRefreshData(prev => !prev);
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: 'Cerita berhasil diupdate.',
+        timer: 3000,
+        showConfirmButton: false, 
+    });
     } else {
       console.log('Failed to update story');
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: 'Cerita gagal diupdate.',
+        timer: 3000,
+        showConfirmButton: false,
+      });
     }
   };
 
-  const handleDeleteArticle = async () => {
+  const handleDeleteStory = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       console.log('No token found');
       return;
     }
-    const { success, data } = await deleteStoryById(selectedStory.id, token);
-    if (success) {
-      console.log('Story deleted successfully');
-      fetchStories(); // Refresh the stories after deletion
-      handleCloseModal();
-    } else {
-      console.log('Failed to delete story');
-    }
-  };
+    Swal.fire({
+      title: 'Yakin ingin menghapus cerita ini?',
+      text: "Cerita yang dihapus tidak dapat dikembalikan!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, hapus!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { success } = await deleteStoryById(selectedStory.id, token);
+        if (success) {
+          console.log('Story deleted successfully');
+          handleCloseModal();
+          setRefreshData(prev => !prev);
+          Swal.fire(
+            'Terhapus!',
+            'Cerita telah dihapus.',
+            'success'
+          );
+        } else {
+          console.log('Failed to delete story');
+          Swal.fire(
+            'Gagal!',
+            'Cerita gagal dihapus.',
+            'error'
+          );
+        }
+      }
+    });
+};
 
   return (
     <div className="text-dark-2">
@@ -120,7 +159,7 @@ const DaftarCerita = () => {
             <img src={story.image_url} alt={story.title} className="w-[90%] mt-3 mx-3 h-40" />
             <div className="p-4">
               <h4 className="text-lg font-semibold mb-2 truncate">{story.title}</h4>
-              <p className="text-sm text-gray-500 mb-1">{story.creator}</p>
+              <br />
               <p className="text-sm text-gray-500">{story.view_count} Pembaca</p>
             </div>
           </div>
@@ -129,45 +168,55 @@ const DaftarCerita = () => {
 
       {/* Modal */}
       {showStoryModal && selectedStory && (
-        <dialog id="my_modal" className="modal" open>
-          <div className="modal-box bg-white max-w-2xl w-5/6 h-full">
-            <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={handleCloseModal}>✕</button>
-            </form>
-            <img src={selectedStory.image_url} alt={selectedStory.title} className="w-full h-auto mb-4 rounded" />
-            <div className="p-4">
-              {isEditing ? (
-                <>
-                  <input 
-                    type="text" 
-                    name="title" 
-                    value={editData.title} 
-                    onChange={handleInputChange} 
-                    className="w-full mb-2 p-2 border rounded"
-                  />
-                  <textarea 
-                    name="content" 
-                    value={editData.content} 
-                    onChange={handleInputChange} 
-                    className="w-full mb-2 p-2 border rounded"
-                  />
-                </>
-              ) : (
-                <>
-                  <h3 className="font-bold text-lg">{selectedStory.title}</h3>
-                  <p className="py-2">{selectedStory.content}</p>
-                  <p className="py-2 text-sm text-gray-500">Uploaded: {new Date(selectedStory.date).toLocaleDateString()}</p>
-                </>
-              )}
-              <div className="modal-action items-center justify-center">
+        <dialog id="my_modal" className="modal bg-black bg-opacity-50 z-50" open>
+          <div className="bg-[#08B6D5] pt-4 rounded-3xl w-full max-w-2xl h-3/7">
+            <div className="flex justify-between items-center px-5 pb-4">
+              <h3 className="font-semibold text-lg text-white">Detail Cerita</h3>
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost text-white" onClick={handleCloseModal}>✕</button>
+                </form>
+            </div>
+            <div className=" flex bg-white rounded-b-3xl p-4">
+              <div className="flex justify-center items-center">
+                <img src={selectedStory.image_url} alt={selectedStory.title} className="w-60 h-60 rounded-lg" />
+              </div>
+              <div className="px-4 py-1 w-2/3">
                 {isEditing ? (
-                  <button className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleSaveChanges}>Save</button>
-                ) : (
                   <>
-                    <button className="btn btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleEditArticle}>Edit</button>
-                    <button className="btn bg-red-500 hover:bg-red-600 text-white" onClick={handleDeleteArticle}>Delete</button>
+                    <input 
+                      type="text" 
+                      name="title" 
+                      value={editData.title} 
+                      onChange={handleInputChange} 
+                      className="w-full mb-2 p-2 border rounded"
+                    />
+                    <textarea 
+                      name="content" 
+                      value={editData.content} 
+                      onChange={handleInputChange}
+                      className="w-full mb-2 h-44 p-2 border rounded"
+                    />
+                  </>
+                 ) : (
+                  <>
+                    <h3 className="font-bold text-lg">{selectedStory.title}</h3>
+                    <p className="my-2 h-44 overflow-y-auto">{selectedStory.content}</p>
+                    <p className="mb-2 mt-5 text-sm text-gray-500">Uploaded: {new Date(selectedStory.date).toLocaleDateString()}</p>
                   </>
                 )}
+                <div className="modal-action items-center justify-center">
+                  {isEditing ? (
+                    <>
+                      <button className="btn btn-sm btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleSaveChanges}>Simpan</button>
+                      <button className="btn btn-sm" onClick={() => setIsEditing(false)}>Batal</button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="btn btn-sm btn-primary bg-[#66BFA1] text-white hover:bg-[#49B08E]" onClick={handleEditStory}>Edit</button>
+                      <button className="btn btn-sm bg-red-500 hover:bg-red-600 text-white" onClick={handleDeleteStory}>Delete</button>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
