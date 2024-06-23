@@ -7,7 +7,7 @@ import { getConsultations } from "../../utils/consultation";
 export default function Detail() {
     const [selectedPatientId, setSelectedPatientId] = useState(null);
     
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo'; // Replace 'token' with your actual storage key
+    const token = localStorage.getItem('token'); // Replace 'token' with your actual storage key
 
     const { data: consultations, isPending } = useQuery({
         queryKey: ["consultations"],

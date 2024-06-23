@@ -32,17 +32,11 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Routes>
-				<Route
-					path="/"
-					element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />}
-				/>
+				<Route path="/" element={<LandingPage />} />
+				<Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/homepage" element={<Homepage />} />
-				<Route path="/landingpage" element={<LandingPage />} />
-				<Route
-					path="/dashboard"
-					element={isLoggedIn ? <DashboardLayout /> : <Navigate to="/" />}
-				>
+				<Route path="/dashboard" element={isLoggedIn ? <DashboardLayout /> : <Navigate to="/" />} >
 					<Route index element={<Dashboard />} />
 					<Route path="profile" element={<Profile />} />
 					<Route path="editprofile" element={<EditProfile />} />
