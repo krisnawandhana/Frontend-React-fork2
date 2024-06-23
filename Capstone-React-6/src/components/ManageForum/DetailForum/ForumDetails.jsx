@@ -11,7 +11,7 @@ const ForumDetails = ({ forum, setShowDetails }) => {
     const [members, setMembers] = useState([]);
     const [loadingMembers, setLoadingMembers] = useState(true);
     const [errorMembers, setErrorMembers] = useState(null);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo'; 
+    const token = localStorage.getItem('token'); // Ganti 'token' dengan properti token yang sesuai
 
     useEffect(() => {
         const fetchMembers = async () => {

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const ForumData = ({ setSelectedForumId }) => {
     const [forums, setForums] = useState([]);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo'; // Ganti dengan token autentikasi Anda
+    const token = localStorage.getItem('token'); // Ganti dengan token autentikasi Anda
 
     useEffect(() => {
         const fetchForums = async () => {

@@ -4,7 +4,7 @@ import { getConsultationById } from '../../../utils/consultation';
 const PatientDetailPopup = ({ consultationId, onClose }) => {
     const [consultation, setConsultation] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo'; // Replace 'token' with your actual storage key
+    const token = localStorage.getItem('token'); // Replace 'token' with your actual storage key
 
     useEffect(() => {
         console.log('Consultation ID:', consultationId); // Log consultationId
