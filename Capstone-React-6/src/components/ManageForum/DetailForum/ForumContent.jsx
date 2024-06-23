@@ -7,7 +7,7 @@ const ForumContent = ({ forumId }) => {
     const [replies, setReplies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo'; 
+    const token = localStorage.getItem('token'); 
 
     useEffect(() => {
         const fetchPosts = async () => {

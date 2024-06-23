@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getConsultations } from "../../../utils/consultation";
 
 const PermintaanJanjiTemuList = () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo'; // Ensure the token is correctly retrieved from local storage
+    const token = localStorage.getItem('token'); // Ensure the token is correctly retrieved from local storage
 
     const { data: consultations, isPending, error } = useQuery({
         queryKey: ["consultations"],
