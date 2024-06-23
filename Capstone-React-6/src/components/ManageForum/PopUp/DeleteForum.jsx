@@ -2,7 +2,7 @@ import React from 'react';
 
 const DeleteForum = ({ forum, onClose, onDeleteForum }) => {
     const handleDelete = () => {
-        onDeleteForum(forum.id); // Mengirimkan id forum yang akan dihapus
+        onDeleteForum(forum.forum_id); // Mengirimkan id forum yang akan dihapus
         onClose(); // Menutup popup setelah penghapusan
     };
 

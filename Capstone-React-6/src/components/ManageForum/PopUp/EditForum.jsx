@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 
+
 const EditForum = ({ forum, onClose, onUpdateForum }) => {
     const [editedForum, setEditedForum] = useState({
         image: forum.image,
         title: forum.name,
         description: forum.description,
     });
-    const [imagePreview, setImagePreview] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(forum.image);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            setImageFile(file);
             const reader = new FileReader();
             reader.onloadend = () => {
-                setEditedForum({ ...editedForum, image: reader.result });
                 setImagePreview(reader.result);
             };
             reader.readAsDataURL(file);
@@ -26,7 +28,7 @@ const EditForum = ({ forum, onClose, onUpdateForum }) => {
     };
 
     const handleUpdate = () => {
-        onUpdateForum(editedForum);
+        onUpdateForum(editedForum, imageFile);
         onClose();
     };
 
