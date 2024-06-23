@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import getPageTitle from '../../utils/getPageTitle';
 import { getNotifications, updateNotification, deleteNotification } from '../../utils/notification';
+import { getDoctorProfile } from '../../utils/profile'; // import fungsi getDoctorProfile
 
 export default function Header() {
     const location = useLocation();
@@ -11,20 +12,52 @@ export default function Header() {
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);   
+    const [error, setError] = useState(null);
     const [showReadNotifications, setShowReadNotifications] = useState(false);
+    const [profileAvatar, setProfileAvatar] = useState('/Dashboard/avatar.png'); // Default avatar
 
     const token = localStorage.getItem('token');
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            if (!token) return;
+
+            try {
+                const { success, data, message } = await getDoctorProfile(token); // Ambil data profil dokter
+                if (success) {
+                    // Perbarui avatar profil jika tersedia
+                    if (data.profile_picture) {
+                        setProfileAvatar(data.profile_picture);
+                    }
+                } else {
+                    setError(message);
+                }
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                setError('Error fetching profile');
+            }
+
+            setLoading(false);
+        };
+
+        fetchProfile();
+    }, [token]);
+
+    useEffect(() => {
         const fetchNotifications = async () => {
             if (!token) return;
-            const { success, data, message } = await getNotifications(token);
-            if (success) {
-                setNotifications(data || []);
-            } else {
-                setError(message);
+
+            try {
+                const { success, data, message } = await getNotifications(token);
+                if (success) {
+                    setNotifications(data || []);
+                } else {
+                    setError(message);
+                }
+            } catch (error) {
+                setError('Error fetching notifications');
             }
+
             setLoading(false);
         };
 
@@ -36,28 +69,34 @@ export default function Header() {
     };
 
     const handleRead = async (notificationId) => {
-        const { success, data, message } = await updateNotification(notificationId, { is_read: true }, token);
-        if (success) {
-            setNotifications((prevNotifications) =>
-                prevNotifications.map((notification) =>
-                    notification.id === notificationId ? { ...notification, is_read: true } : notification
-                )
-            );
-        } else {
-            console.error('Error updating notification:', message);
-            setError(message);
+        try {
+            const { success, message } = await updateNotification(notificationId, { is_read: true }, token);
+            if (success) {
+                setNotifications((prevNotifications) =>
+                    prevNotifications.map((notification) =>
+                        notification.id === notificationId ? { ...notification, is_read: true } : notification
+                    )
+                );
+            } else {
+                setError(message);
+            }
+        } catch (error) {
+            setError('Error updating notification');
         }
     };
 
     const handleDelete = async (notificationId) => {
-        const { success, message } = await deleteNotification(notificationId, token);
-        if (success) {
-            setNotifications((prevNotifications) =>
-                prevNotifications.filter((notification) => notification.id !== notificationId)
-            );
-        } else {
-            console.error('Error deleting notification:', message);
-            setError(message);
+        try {
+            const { success, message } = await deleteNotification(notificationId, token);
+            if (success) {
+                setNotifications((prevNotifications) =>
+                    prevNotifications.filter((notification) => notification.id !== notificationId)
+                );
+            } else {
+                setError(message);
+            }
+        } catch (error) {
+            setError('Error deleting notification');
         }
     };
 
@@ -76,7 +115,7 @@ export default function Header() {
                 </div>
                 <div className="flex items-center">
                     <Link to="/dashboard/profile" className="w-8 h-8 mr-3 rounded-full bg-gray-300 overflow-hidden">
-                        <img src="/Dashboard/avatar.png" alt="Profile" className="w-full h-full object-cover" />
+                        <img src={profileAvatar} alt="Profile" className="w-full h-full object-cover" />
                     </Link>
                     <button className="w-8 h-8 rounded-full bg-white flex justify-center items-center mr-1" onClick={toggleNotification}>
                         <img src="/Dashboard/notification.svg" alt="Notification" className="w-6 h-6" />
