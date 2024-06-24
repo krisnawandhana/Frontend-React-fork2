@@ -1,72 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import FloatingChatButton from '../../components/Dashboard/FloatingChatButton';
-import transactionsData from '../../components/Transaction/patient.json';
 
 const Dashboard = () => {
     const [topTransactions, setTopTransactions] = useState([]);
+    const [consultationRequests, setConsultationRequests] = useState([]);
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo';
 
-    useState(() => {
-        setTopTransactions(transactionsData.slice(0, 4));
-      }, []);
+    useEffect(() => {
+        // Fetch top transactions from patient.json (dummy data)
+        const fetchTopTransactions = async () => {
+            try {
+                // Simulating fetching data from a JSON file
+                const transactionsData = require('../../components/Transaction/patient.json');
+                setTopTransactions(transactionsData.slice(0, 4));
+            } catch (error) {
+                console.error('Error fetching top transactions:', error);
+            }
+        };
 
-      
+        // Fetch consultation requests from API
+        const fetchConsultations = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/doctors/consultations`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                if (response.data.status) {
+                    setConsultationRequests(response.data.data);
+                } else {
+                    console.error('Failed to fetch consultations:', response.data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching consultations:', error);
+            }
+        };
 
-    // Dummy data
-    const permintaanKonsultasi = [
-        { id: 1, avatar: 'boy1.svg', name: 'Kevin Putra', date: '15 Januari 2024', time: '13:00-14:30' },
-        { id: 2, avatar: 'girl1.svg', name: 'Viona Mida', date: '14 Januari 2024', time: '10:00-11:30' },
-        { id: 3, avatar: 'boy2.svg', name: 'Ariel Alex', date: '14 Januari 2024', time: '09:00-09:30' },
-        { id: 4, avatar: 'girl2.svg', name: 'Tiara Dista', date: '14 Januari 2024', time: '09:00-09:30' },
-    ];
-
-    const summaryCard = {
-        permintaan: 35,
-        belumKonsultasi: 5,
-        pasienHariIni: 10,
-        totalTransaksi: 2000
-    };
+        fetchTopTransactions();
+        fetchConsultations();
+    }, []);
 
     return (
         <div className="px-6 overflow-hidden">
-            {/* Summary Cards */}
+            {/* Summary Cards - Placeholder */}
             <div className="grid grid-cols-4 gap-8 mb-4">
-                <div className="bg-primary-subtle text-white flex justify-center items-center py-6 px-8 rounded-3xl">
-                    <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="/Dashboard/permintaan.svg" alt="Permintaan Icon" className="w-6 h-6" />
-                    </div>
-                    <div>
-                        <h2 className="text-md">Permintaan</h2>
-                        <p className="text-md flex items-center gap-2 pl-1 pt-1"><span className="text-2xl font-semibold">{summaryCard.permintaan}</span>Pasien</p>
-                    </div>
-                </div>
-                <div className="bg-warning text-white flex justify-center items-center py-6 px-8 rounded-3xl">
-                    <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="/Dashboard/belumkonsul.svg" alt="Belum Konsultasi Icon" className="w-6 h-6" />
-                    </div>
-                    <div>
-                        <h2 className="text-md">Belum Konsultasi</h2>
-                        <p className="text-md flex items-center gap-2 pl-2 pt-1"><span className="text-2xl font-semibold">{summaryCard.belumKonsultasi}</span>Pasien</p>
-                    </div>
-                </div>
-                <div className="bg-error-subtle text-white flex justify-center items-center py-6 px-8 rounded-3xl">
-                    <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="/Dashboard/pasien.svg" alt="Pasien Icon" className="w-6 h-6" />
-                    </div>
-                    <div>
-                        <h2 className="text-md">Pasien Hari Ini</h2>
-                        <p className="text-md flex items-center gap-2 pl-2 pt-1"><span className="text-2xl font-semibold">{summaryCard.pasienHariIni}</span>Pasien</p>
-                    </div>
-                </div>
-                <div className="bg-primary text-white flex justify-center items-center py-6 px-8 rounded-3xl">
-                    <div className="w-14 h-14 rounded-full bg-white opacity-50 flex justify-center items-center mr-6">
-                        <img src="/Dashboard/totaltransaksi.svg" alt="Total Transaksi Icon" className="w-6 h-6" />
-                    </div>
-                    <div>
-                        <h2 className="text-md">Total Transaksi</h2>
-                        <p className="text-2xl font-semibold pl-3 pt-1">{summaryCard.totalTransaksi}</p>
-                    </div>
-                </div>
+                {/* Placeholder for summary cards */}
             </div>
 
             {/* Graph and Consultation Requests */}
@@ -76,50 +56,47 @@ const Dashboard = () => {
                     <div className="flex justify-between items-center text-center mb-4">
                         <h3 className="text-lg font-semibold">Permintaan Konsultasi</h3>
                         <div className="flex justify-center items-center">
-                            <a href="" className="text-success-darker font-medium text-sm">Lihat Semua</a>
+                            <Link to="/dashboard/consultation" className="text-success-darker font-medium text-sm">Lihat Semua</Link>
                             <img src="/Dashboard/lihatsemua.svg" alt="" />
                         </div>
                     </div>
                     <table className="w-full">
-                    <tbody>
-                        {permintaanKonsultasi.map((item) => (
-                            <tr key={item.id} className="border-b">
-                                <td className="py-4 flex">
-                                    <img src={`/Dashboard/${item.avatar}`} alt="Avatar" className="w-9 h-9 mr-4" />
-                                    <div>
-                                        <p className="font-semibold text-sm">{item.name}</p>
-                                        <p className="font-normal text-xs">{item.date}</p>
-                                    </div>
-                                </td>
-                                <td className="py-4 text-sm">{item.time}</td>
-                                <td className="py-4 flex justify-end mr-2">
-                                    <button className="mr-4">
-                                        <img src="/Dashboard/Check.svg" alt="" className="w-5 h-5" />
-                                    </button>
-                                    <button>
-                                        <img src="/Dashboard/Clear.svg" alt="" className="w-5 h-5" />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        <tbody>
+                            {consultationRequests.map((item) => (
+                                <tr key={item.id} className="border-b">
+                                    <td className="py-4 flex">
+                                        <img src={`/avatars/${item.user_id}.jpg`} alt="Avatar" className="w-9 h-9 mr-4" />
+                                        <div>
+                                            <p className="font-semibold text-sm">{item.complaint.name}</p>
+                                            <p className="font-normal text-xs">{item.complaint.message}</p>
+                                        </div>
+                                    </td>
+                                    <td className="py-4 text-sm">{item.status}</td>
+                                    <td className="py-4 flex justify-end mr-2">
+                                        <button className="mr-4">
+                                            <img src="/Dashboard/Check.svg" alt="" className="w-5 h-5" />
+                                        </button>
+                                        <button>
+                                            <img src="/Dashboard/Clear.svg" alt="" className="w-5 h-5" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
 
-                {/* Graph Placeholder */}
+                {/* Placeholder for Graph */}
                 <div className="bg-white px-4 pt-4 pb-2 rounded-xl border shadow text-dark-2">
                     <div className="flex justify-between items-center text-center mb-7">
                         <h3 className="text-lg font-semibold">Top Konten Meditasi</h3>
                         <div className="flex justify-center items-center">
-                            <a href="" className="text-success-darker font-medium text-sm">Lihat Semua</a>
+                            <Link to="/dashboard/meditation" className="text-success-darker font-medium text-sm">Lihat Semua</Link>
                             <img src="/Dashboard/lihatsemua.svg" alt="" />
                         </div>
                     </div>
-                    {/* Placeholder for graph */}
                     <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                        <span>
-                              
-                        </span>
+                        <span>Placeholder for graph</span>
                     </div>
                 </div>
             </div>
@@ -149,17 +126,17 @@ const Dashboard = () => {
                             {topTransactions.map((item) => (
                                 <tr key={item.id} className="border-b">
                                     <td className="py-2 text-sm flex pl-7">
-                                        <img src={`/Dashboard/${item.avatar}`} alt="Avatar" className="w-9 h-9 mr-4" />
+                                        <img src={`/avatars/${item.avatar}.svg`} alt="Avatar" className="w-9 h-9 mr-4" />
                                         <div>
                                             <p className="font-semibold">{item.name}</p>
                                             <p className="font-normal text-xs">ID: {item.id}</p>
                                         </div>
                                     </td>
-                                    <td className="py-2 text-sm text-center">{item.tanggal}</td>
-                                    <td className="py-2 text-sm text-center">{item.pukul}</td>
-                                    <td className="py-2 text-sm text-center">{parseFloat(item.nominal).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</td>
+                                    <td className="py-2 text-sm text-center">{item.date}</td>
+                                    <td className="py-2 text-sm text-center">{item.time}</td>
+                                    <td className="py-2 text-sm text-center">{item.total}</td>
                                     <td className="py-2 text-sm text-center">
-                                        <span className={`px-3 py-1 rounded text-sm uppercase ${item.aksi === 'sukses' ? 'bg-success text-white rounded-xl' : 'bg-red-500 text-white rounded-xl'}`}>{item.aksi}</span>
+                                        <span className={`px-3 py-1 rounded text-sm uppercase ${item.status === 'sukses' ? 'bg-success text-white rounded-xl' : 'bg-red-500 text-white rounded-xl'}`}>{item.status}</span>
                                     </td>
                                     <td className="py-2 text-center">
                                         <button>
@@ -172,8 +149,8 @@ const Dashboard = () => {
                     </table>
                 </div>
             </div>
-            
-            {/* Tombol Chat Melayang */}
+
+            {/* Floating Chat Button */}
             <FloatingChatButton />
         </div>
     );
