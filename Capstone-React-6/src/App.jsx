@@ -4,7 +4,7 @@ import { isAuthenticated } from "./utils/auth"
 import Login from "./pages/Login/Login"
 import Register from "./pages/Register/Register"
 import Homepage from "./pages/Home/Homepage"
-// import LandingPage from "./pages/LandingPage/LandingPage"
+import LandingPage from "./pages/LandingPage/LandingPage"
 import DashboardLayout from "./layouts/DashboardLayout"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import Profile from "./pages/Dashboard/Profile"
@@ -32,7 +32,7 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Routes>
-				{/* <Route path="/" element={<LandingPage />} /> */}
+				<Route path="/" element={<LandingPage />} />
 				<Route path="/" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/homepage" element={<Homepage />} />

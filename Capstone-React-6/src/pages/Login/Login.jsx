@@ -39,7 +39,7 @@ export default function Login() {
       const { success, token, message } = await loginWithGoogle(googleToken);
       if (success) {
         setIsLoggedIn(true); // Update login status
-        window.location.reload();
+        <Navigate to="/"/>;
       } else {
         setError(message || 'Google login failed');
       }
@@ -57,7 +57,7 @@ export default function Login() {
       const { success, token, message } = await loginWithFacebook(facebookToken);
       if (success) {
         setIsLoggedIn(true); // Update login status
-        window.location.reload();
+        <Navigate to="/"/>;
       } else {
         setError(message || 'Facebook login failed');
       }
