@@ -45,24 +45,25 @@ export const getChatMessages = async (chatId, lastMessageId = 0, page = 1, limit
 };
 
 // Fungsi untuk mengirim catatan konsultasi
-export const sendConsultationNote = async (token, consultationData) => {
+export const sendConsultationNote = async (token, dataToSend) => {
     try {
-        const response = await axios.post(`${API_URL}/v1/doctors/consultation-notes`, consultationData, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'
-            }
+        const response = await axios.post(`${API_URL}/v1/doctors/consultation-notes`, dataToSend, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
         });
-
+      
+        console.log('Response:', response); // Add this line
+      
         if (response.status === 200 || response.status === 201) {
-            console.log('Catatan konsultasi berhasil dikirim:', response.data);
-            return response.data; // Mengembalikan data balasan jika perlu
+          console.log('Catatan konsultasi berhasil dikirim:', response.data);
+          return response.data; // Mengembalikan data balasan jika perlu
         } else {
-            console.error('Gagal mengirim catatan konsultasi:', response.data);
-            throw new Error('Gagal mengirim catatan konsultasi');
+          console.error('Gagal mengirim catatan konsultasi:', response.data);
+          throw new Error('Gagal mengirim catatan konsultasi');
         }
-    } catch (error) {
+      } catch (error) {
         console.error('Error:', error);
         throw error;
-    }
+      }
 };

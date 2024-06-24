@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FloatingChatButton from '../Dashboard/FloatingChatButton';
+import axios from 'axios'; // Import axios for HTTP requests
 import { getChatMessages, sendConsultationNote } from '../../utils/chatAPI';
 
 const Roomchat = ({ selectedPatient }) => {
@@ -27,7 +28,7 @@ const Roomchat = ({ selectedPatient }) => {
     }, [selectedPatient]);
 
     const fetchMessages = async (chatId) => {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo';
+        const token = localStorage.getItem('token'); 
         try {
             const response = await getChatMessages(chatId, 0, 1, 10, token);
             console.log('Response:', response); // Log the entire response for debugging
@@ -66,25 +67,33 @@ const Roomchat = ({ selectedPatient }) => {
         console.log(`Konsultasi dengan ${selectedPatient.name} telah diakhiri.`);
     };
 
-    const handleConfirmSendNote = async () => {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzA0MzEsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoxMn0.YheEq_mxQGQRQKUGsxnzQ7Z0LUc0gMPEvdagQ_rDVgo';
-        setShowModal(false);
-        setShowOption2(true);
+    const handleConfirmSendNote = () => {
+        setShowNoteModal(false);
+        setShowOption2(true); // Show the form for sending the consultation note
+      };
+
+      const handleSendNote = async () => {
+        const token = localStorage.getItem('token');
+        const dataToSend = {
+          ...consultationData,
+          consultation_id: selectedPatient.id // Atau nilai yang sesuai dengan consultation_id yang diharapkan
+        };
+      
         try {
-            await sendConsultationNote(token, consultationData);
-            setShowNoteModal(false);
-            setShowOption2(true); // Show the next section or update UI as needed
+          console.log(JSON.stringify(dataToSend, null, 2)); // Log the data you're actually sending
+          await sendConsultationNote(token, dataToSend); // Send the consultation note
+          setShowOption2(false); // Hide the form
         } catch (error) {
-            console.error('Failed to send consultation note:', error);
-            // Handle error state or display an error message to the user
+          console.error('Failed to send consultation note:', error);
+          // Handle error state or display an error message to the user
         }
-    };
+      };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setConsultationData(prevData => ({
             ...prevData,
-            [name]: value
+            [name]: value.trim() // Menggunakan trim() untuk menghapus spasi kosong di awal dan akhir nilai
         }));
     };
 
@@ -97,24 +106,42 @@ const Roomchat = ({ selectedPatient }) => {
                             <h3 className="text-primary font-semibold mb-4">Rekomendasi layanan</h3>
                             <div className="flex flex-col mb-3 bg-light-2 px-4 py-6 gap-2 rounded-3xl">
                                 <div className="flex items-center">
-                                    <input type="checkbox" id="moodtracker" className="mr-2"  />
+                                    <input type="checkbox" id="moodtracker" className="mr-2" />
                                     <label htmlFor="moodtracker" className="text-sm">Mood Tracker</label>
                                 </div>
-                                <input type="text" className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm" onChange={handleInputChange}  placeholder="Lacak Suasana Hati" />
+                                <input
+                                    type="text"
+                                    className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm"
+                                    onChange={handleInputChange}
+                                    name="mood_tracker_note"
+                                    placeholder="Lacak Suasana Hati"
+                                />
                             </div>
                             <div className="flex flex-col mb-3 bg-light-2 px-4 py-6 gap-2 rounded-3xl">
                                 <div className="flex items-center">
                                     <input type="checkbox" id="musikmeditasi" className="mr-2" />
                                     <label htmlFor="musikmeditasi" className="text-sm">Meditasi Musik Meditasi</label>
                                 </div>
-                                <input type="text" className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm" onChange={handleInputChange} placeholder="Rekomendasi musik meditasi" />
+                                <input
+                                    type="text"
+                                    className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm"
+                                    onChange={handleInputChange}
+                                    name="music_id"
+                                    placeholder="Rekomendasi musik meditasi"
+                                />
                             </div>
                             <div className="flex flex-col mb-3 bg-light-2 px-4 py-6 gap-2 rounded-3xl">
                                 <div className="flex items-center">
                                     <input type="checkbox" id="forum" className="mr-2" />
                                     <label htmlFor="forum" className="text-sm">Forum</label>
                                 </div>
-                                <input type="text" className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm" onChange={handleInputChange} placeholder="Rekomendasi forum" />
+                                <input
+                                    type="text"
+                                    className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm"
+                                    onChange={handleInputChange}
+                                    name="forum_id"
+                                    placeholder="Rekomendasi forum"
+                                />
                             </div>
                         </div>
                         <div>
@@ -122,22 +149,43 @@ const Roomchat = ({ selectedPatient }) => {
                             <div className="flex flex-col mb-3 bg-light-2 px-4 py-6 gap-2 rounded-3xl">
                                 <div className="flex flex-col mb-2">
                                     <label htmlFor="poindiskusi" className="text-sm w-1/3 mb-1">Poin Diskusi</label>
-                                    <input type="text" id="poindiskusi" className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm" onChange={handleInputChange} placeholder="Ketikkan poin diskusi" />
+                                    <input
+                                        type="text"
+                                        id="poindiskusi"
+                                        className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm"
+                                        onChange={handleInputChange}
+                                        name="main_point"
+                                        placeholder="Ketikkan poin diskusi"
+                                    />
                                 </div>
                                 <div className="flex flex-col mb-2">
                                     <label htmlFor="langkah" className="text-sm w-1/3 mb-1">Langkah Selanjutnya</label>
-                                    <input type="text" id="langkah" className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm" onChange={handleInputChange} placeholder="Ketikkan langkah selanjutnya" />
+                                    <input
+                                        type="text"
+                                        id="langkah"
+                                        className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm"
+                                        onChange={handleInputChange}
+                                        name="next_step"
+                                        placeholder="Ketikkan langkah selanjutnya"
+                                    />
                                 </div>
                                 <div className="flex flex-col mb-2">
                                     <label htmlFor="tambahan" className="text-sm w-1/3 mb-1">Tambahan</label>
-                                    <input type="text" id="tambahan" className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm" onChange={handleInputChange} placeholder="Ketikkan langkah tambahan" />
+                                    <input
+                                        type="text"
+                                        id="tambahan"
+                                        className="ml-2 py-2 px-5 border border-gray-300 rounded-3xl text-sm"
+                                        onChange={handleInputChange}
+                                        name="additional_note"
+                                        placeholder="Ketikkan langkah tambahan"
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex justify-center gap-4 mt-3">
-                        <button className="bg-primary text-white px-4 py-2 rounded-3xl text-sm">
+                        <button onClick={handleSendNote} className="bg-primary text-white px-4 py-2 rounded-3xl text-sm">
                             Kirimkan Catatan
                         </button>
                         <button onClick={() => setShowOption2(false)} className="border-primary border-2 text-primary px-4 py-2 rounded-3xl text-sm">
