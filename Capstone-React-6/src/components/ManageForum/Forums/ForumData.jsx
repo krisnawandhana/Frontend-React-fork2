@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const ForumData = ({ setSelectedForumId }) => {
     const [forums, setForums] = useState([]);
-    const token = localStorage.getItem('token'); // Ganti dengan token autentikasi Anda
+    const token = localStorage.getItem('token'); // Replace with your authentication token
 
     useEffect(() => {
         const fetchForums = async () => {
@@ -13,22 +13,22 @@ const ForumData = ({ setSelectedForumId }) => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                console.log('API Response:', response.data); // Log struktur respon API
-                setForums(response.data.data); 
+                console.log('API Response:', response.data); // Log API response structure
+                setForums(response.data.data || []); // Ensure forums is an array
             } catch (error) {
                 console.error('Error fetching forum data:', error);
             }
         };
-    
+
         fetchForums();
     }, [token]);
-    
+
     const handleForumClick = (forumId) => {
         setSelectedForumId(forumId);
-        console.log('Selected Forum ID:', forumId); // Menambahkan console.log untuk ID forum yang dipilih
+        console.log('Selected Forum ID:', forumId); // Log the selected forum ID
     };
 
-    // Fungsi untuk mendapatkan waktu secara acak dalam format 12 jam
+    // Function to get a random time in 12-hour format
     const getRandomTime = () => {
         const hours = Math.floor(Math.random() * 12) + 1;
         const minutes = Math.floor(Math.random() * 60);
@@ -38,25 +38,29 @@ const ForumData = ({ setSelectedForumId }) => {
 
     return (
         <div>
-            <ul>
-                {forums.map((forum) => {
-                    return (
-                        <li key={forum.id} className="mb-2">
-                            <button
-                                onClick={() => handleForumClick(forum.id)} // Panggil handleForumClick dengan forum.id
-                                className="flex items-center p-2 shadow rounded-lg hover:bg-blue-100 w-full text-left"
-                            >
-                                <img src={forum.image_url} alt={forum.name} className="h-14 w-14 mr-4 rounded-lg" />
-                                <div>
-                                    <h3 className="font-semibold text-sm">{forum.name}</h3>
-                                    <p className="text-xs text-gray-600">{forum.number_of_members} anggota</p>
-                                </div>
-                                <span className="ml-auto text-xs text-gray-500">{getRandomTime()}</span>
-                            </button>
-                        </li>
-                    );
-                })}
-            </ul>
+            {forums.length === 0 ? (
+                <p>Belum ada forum yang dibuat</p>
+            ) : (
+                <ul>
+                    {forums.map((forum) => {
+                        return (
+                            <li key={forum.id} className="mb-2">
+                                <button
+                                    onClick={() => handleForumClick(forum.id)} // Call handleForumClick with forum.id
+                                    className="flex items-center p-2 shadow rounded-lg hover:bg-blue-100 w-full text-left"
+                                >
+                                    <img src={forum.image_url} alt={forum.name} className="h-14 w-14 mr-4 rounded-lg" />
+                                    <div>
+                                        <h3 className="font-semibold text-sm">{forum.name}</h3>
+                                        <p className="text-xs text-gray-600">{forum.number_of_members} anggota</p>
+                                    </div>
+                                    <span className="ml-auto text-xs text-gray-500">{getRandomTime()}</span>
+                                </button>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
         </div>
     );
 };
