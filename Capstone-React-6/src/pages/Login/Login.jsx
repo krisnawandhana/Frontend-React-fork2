@@ -23,7 +23,7 @@ export default function Login() {
   
       if (success) {
         setIsLoggedIn(true); // Update login status
-        window.location.reload();
+        <Navigate to="/"/>;
       } else {
         setError(message || 'Login failed');
       }
