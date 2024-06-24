@@ -33,7 +33,7 @@ function App() {
 		<QueryClientProvider client={queryClient}>
 			<Routes>
 				<Route path="/" element={<LandingPage />} />
-				<Route path="/" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
+				<Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/homepage" element={<Homepage />} />
 				<Route path="/dashboard" element={isLoggedIn ? <DashboardLayout /> : <Navigate to="/" />} >
