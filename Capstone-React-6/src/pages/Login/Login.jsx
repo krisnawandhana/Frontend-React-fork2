@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { login, loginWithGoogle, loginWithFacebook } from '../../utils/auth';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const Navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -25,6 +24,7 @@ export default function Login() {
       if (success) {
         setIsLoggedIn(true); // Update login status
         <Navigate to="/dashboard"/>;
+        window.location.reload();
       } else {
         setError(message || 'Login failed');
       }
