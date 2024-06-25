@@ -23,7 +23,7 @@ export default function Login() {
   
       if (success) {
         setIsLoggedIn(true); // Update login status
-        <Navigate to="/"/>;
+        <Navigate to="/dashboard"/>;
       } else {
         setError(message || 'Login failed');
       }
