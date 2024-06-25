@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { login, loginWithGoogle, loginWithFacebook } from '../../utils/auth';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const Navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
