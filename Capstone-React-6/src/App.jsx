@@ -36,7 +36,7 @@ function App() {
 				<Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/homepage" element={<Homepage />} />
-				<Route path="/dashboard" element={isLoggedIn ? <DashboardLayout /> : <Navigate to="/" />} >
+				<Route path="/dashboard" element={isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />} >
 					<Route index element={<Dashboard />} />
 					<Route path="profile" element={<Profile />} />
 					<Route path="editprofile" element={<EditProfile />} />
